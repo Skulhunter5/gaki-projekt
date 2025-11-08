@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://xo70u8yap5ap"]
+
+[ext_resource type="Script" uid="uid://dxwc17cp66yub" path="res://scenes/test_weapon.gd" id="1_ex0lq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5afh"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h5afh"]
+material = SubResource("StandardMaterial3D_h5afh")
+size = Vector3(0.1, 0.1, 1)
+
+[node name="BaseWeapon" type="Node3D"]
+script = ExtResource("1_ex0lq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_h5afh")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Timer" type="Timer" parent="."]

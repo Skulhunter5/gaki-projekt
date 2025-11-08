@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0wswgn5cfctu"]
+
+[ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scenes/player.gd" id="1_v6fml"]
+[ext_resource type="PackedScene" uid="uid://xo70u8yap5ap" path="res://scenes/TestWeapon.tscn" id="2_3li8b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e5uuo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA")]
+script = ExtResource("1_v6fml")
+CAMERA = NodePath("Camera")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_e5uuo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_nnsk1")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55604386, -0.2158879)
+
+[node name="WeaponMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.529529, 0.21118116, -0.33113718)
+
+[node name="Weapon" parent="WeaponMount" instance=ExtResource("2_3li8b")]
