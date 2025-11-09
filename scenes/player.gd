@@ -3,9 +3,11 @@ extends CharacterBody3D
 @export var speed = 5.0
 @export var jump_velocity = 15
 
-@export var CAMERA: Camera3D
-@export var MOUSE_SENSITIVITY: Vector2 = Vector2(0.02, 0.01)
+@export var tilt_limit = deg_to_rad(75)
+@export_range(0.0,1.0) var mouse_sensitivity = 0.01
 
+@onready var _camera_pivot := $CameraPivot as Node3D
+@onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
 func _physics_process(_delta: float) -> void:
 	var left_right := Input.get_axis("walk_left", "walk_right")
@@ -19,6 +21,7 @@ var paused: bool = true
 	
 	if Input.is_action_pressed("shoot"):
 		$WeaponMount/Weapon.shoot()
+	direction = direction.rotated(Vector3.UP, _camera_pivot.rotation.y)
 	
 	move_and_slide()
 
@@ -29,7 +32,10 @@ func _input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	elif !PAUSED and event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * MOUSE_SENSITIVITY.x)
-		CAMERA.rotate_object_local(Vector3.MODEL_LEFT, -event.relative.y * MOUSE_SENSITIVITY.y)
-		$WeaponMount.rotate_object_local(Vector3.MODEL_LEFT, -event.relative.y * MOUSE_SENSITIVITY.y)
+		
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if not paused and event is InputEventMouseMotion:
+		_camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
+		_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x, -tilt_limit, tilt_limit)
+		_camera_pivot.rotation.y += -event.relative.x * mouse_sensitivity
