@@ -1,12 +1,11 @@
 extends CharacterBody3D
 
-@export var SPEED = 5.0
-@export var JUMP_VELOCITY = 4.5
+@export var speed = 5.0
+@export var jump_velocity = 15
 
 @export var CAMERA: Camera3D
 @export var MOUSE_SENSITIVITY: Vector2 = Vector2(0.02, 0.01)
 
-var PAUSED: bool = true
 
 func _physics_process(_delta: float) -> void:
 	var left_right := Input.get_axis("walk_left", "walk_right")
@@ -16,6 +15,7 @@ func _physics_process(_delta: float) -> void:
 		movement = movement.normalized()
 	movement *= SPEED
 	velocity = movement
+var paused: bool = true
 	
 	if Input.is_action_pressed("shoot"):
 		$WeaponMount/Weapon.shoot()
@@ -24,8 +24,8 @@ func _physics_process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		PAUSED = !PAUSED
-		if PAUSED:
+		paused = !paused
+		if paused:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
