@@ -10,7 +10,7 @@ extends Weapon
 func _ready():
 	TIMER.one_shot = true
 
-var BULLET_PREFAB: PackedScene = preload("res://scenes/Bullet.tscn")
+var BULLET_PREFAB: PackedScene = preload("res://scenes/Weapons/Bullet.tscn")
 
 func shoot():
 	if TIMER.time_left == 0:

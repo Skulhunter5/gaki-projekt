@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0wswgn5cfctu"]
 
-[ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scenes/player.gd" id="1_v6fml"]
-[ext_resource type="PackedScene" uid="uid://xo70u8yap5ap" path="res://scenes/TestWeapon.tscn" id="2_3li8b"]
+[ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scenes/Player/player.gd" id="1_v6fml"]
+[ext_resource type="PackedScene" uid="uid://xo70u8yap5ap" path="res://scenes/Weapons/TestWeapon.tscn" id="2_3li8b"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_e5uuo"]
 
