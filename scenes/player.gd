@@ -9,21 +9,32 @@ extends CharacterBody3D
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
-func _physics_process(_delta: float) -> void:
-	var left_right := Input.get_axis("walk_left", "walk_right")
-	var forwards_backwards := Input.get_axis("walk_forwards", "walk_backwards")
-	var movement = Vector3.MODEL_FRONT * forwards_backwards + Vector3.MODEL_LEFT * left_right
-	if movement.length_squared() > 1.0:
-		movement = movement.normalized()
-	movement *= SPEED
-	velocity = movement
+var target_velocity: Vector3 = Vector3.ZERO
 var paused: bool = true
+func _physics_process(delta: float) -> void:
+	var direction: Vector3 = Vector3.ZERO
 	
-	if Input.is_action_pressed("shoot"):
-		$WeaponMount/Weapon.shoot()
+	if Input.is_action_pressed("shoot") and not paused:
+		weapon.shoot()
+	
+	if Input.is_action_pressed("walk_forwards"):
+		direction.z -= 1
+	if Input.is_action_pressed("walk_backwards"):
+		direction.z += 1
+	if Input.is_action_pressed("walk_left"):
+		direction.x -= 1
+	if Input.is_action_pressed("walk_right"):
+		direction.x += 1
+	if Input.is_action_pressed("jump"):
+	if direction != Vector3.ZERO:
+		direction = direction.normalized()
 	direction = direction.rotated(Vector3.UP, _camera_pivot.rotation.y)
 	
+	target_velocity.x = direction.x * speed
+	target_velocity.z = direction.z * speed
+	velocity = target_velocity
 	move_and_slide()
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
