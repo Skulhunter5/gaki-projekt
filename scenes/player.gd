@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var speed = 5.0
 @export var jump_velocity = 15
+@export var fall_acceleration = 50
 
 @export var tilt_limit = deg_to_rad(75)
 @export_range(0.0,1.0) var mouse_sensitivity = 0.01
@@ -11,6 +12,7 @@ extends CharacterBody3D
 
 var target_velocity: Vector3 = Vector3.ZERO
 var paused: bool = true
+
 func _physics_process(delta: float) -> void:
 	var direction: Vector3 = Vector3.ZERO
 	
@@ -26,12 +28,19 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("walk_right"):
 		direction.x += 1
 	if Input.is_action_pressed("jump"):
+		target_velocity.y = jump_velocity
+		
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
+		
 	direction = direction.rotated(Vector3.UP, _camera_pivot.rotation.y)
 	
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
+	
+	if not is_on_floor():
+		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
+		
 	velocity = target_velocity
 	move_and_slide()
 	
