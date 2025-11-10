@@ -1,8 +1,7 @@
 extends CharacterBody3D
 
 @export var speed = 5.0
-@export var jump_velocity = 15
-@export var fall_acceleration = 50
+@export var jump_velocity = 4.5
 
 @export var tilt_limit = deg_to_rad(75)
 @export_range(0.0,1.0) var mouse_sensitivity = 0.01
@@ -14,34 +13,26 @@ var target_velocity: Vector3 = Vector3.ZERO
 var paused: bool = true
 
 func _physics_process(delta: float) -> void:
-	var direction: Vector3 = Vector3.ZERO
-	
-	if Input.is_action_pressed("shoot") and not paused:
-		weapon.shoot()
-	
-	if Input.is_action_pressed("walk_forwards"):
-		direction.z -= 1
-	if Input.is_action_pressed("walk_backwards"):
-		direction.z += 1
-	if Input.is_action_pressed("walk_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("walk_right"):
-		direction.x += 1
-	if Input.is_action_pressed("jump"):
-		target_velocity.y = jump_velocity
-		
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		
-	direction = direction.rotated(Vector3.UP, _camera_pivot.rotation.y)
-	
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
 	
 	if not is_on_floor():
-		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
+		velocity += get_gravity() * delta
 		
-	velocity = target_velocity
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump_velocity
+		
+	if Input.is_action_pressed("shoot") and not paused:
+		weapon.shoot()
+
+	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		direction = direction.rotated(Vector3.UP, _camera_pivot.rotation.y)
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
+
 	move_and_slide()
 	
 
