@@ -34,17 +34,19 @@ func _ready():
 	_crouch_shapecast.add_exception($".")
 	
 	_speed = speed_default
-
+	
+func _process(delta: float) -> void:
+	_update_camera(delta)
 
 func _physics_process(delta: float) -> void:
-	
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not _is_crouching:
 		velocity.y = jump_velocity
 	
-	_update_camera(delta)
+
 		
 #	if Input.is_action_pressed("shoot") and not paused:
 #		weapon.shoot()
