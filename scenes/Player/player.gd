@@ -1,16 +1,16 @@
 extends CharacterBody3D
 
 @export var speed = 5.0
-@export var jump_velocity = 4.5
 
+@export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(75)
-@export_range(0.0,1.0) var mouse_sensitivity = 0.01
+@export_range(0.0,1.0) var mouse_sensitivity : float = 0.5
+var paused : bool = true
 
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
 var target_velocity: Vector3 = Vector3.ZERO
-var paused: bool = true
 
 func _physics_process(delta: float) -> void:
 	
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		paused = !paused
+		paused = not paused
 		if paused:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
