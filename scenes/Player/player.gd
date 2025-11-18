@@ -15,7 +15,7 @@ var _camera_rotation : Vector3
 var paused : bool = true
 
 @onready var _camera_pivot := $CameraPivot as Node3D
-@onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
+#@onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
 
 func _physics_process(delta: float) -> void:
@@ -27,8 +27,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_velocity
 	_update_camera(delta)
 		
-	if Input.is_action_pressed("shoot") and not paused:
-		weapon.shoot()
+#	if Input.is_action_pressed("shoot") and not paused:
+#		weapon.shoot()
 
 	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
