@@ -1,27 +1,176 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=16 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scenes/Player/player.gd" id="1_v6fml"]
 [ext_resource type="PackedScene" uid="uid://xo70u8yap5ap" path="res://scenes/Weapons/TestWeapon.tscn" id="2_3li8b"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_e5uuo"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ky53y"]
+albedo_color = Color(0.25631884, 0.6265618, 0.27918217, 1)
+roughness = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e5uuo"]
+material = SubResource("StandardMaterial3D_ky53y")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ky53y"]
+
+[sub_resource type="Animation" id="Animation_ky53y"]
+resource_name = "crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0.75, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bvqhm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ved6o"]
+_data = {
+&"RESET": SubResource("Animation_bvqhm"),
+&"crouch": SubResource("Animation_ky53y")
+}
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ky53y"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ky53y"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bvqhm"]
+animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ved6o"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_xcisb"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ky53y")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_bvqhm")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_ved6o")
+blend_point_2/pos = 0.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ky53y"]
+graph_offset = Vector2(1.3285522, -139.55511)
+nodes/output/position = Vector2(900, 120)
+nodes/_crouch_blend/node = SubResource("AnimationNodeBlendSpace1D_xcisb")
+nodes/_crouch_blend/position = Vector2(560, 100)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_ky53y")
+nodes/Blend2/position = Vector2(1300, 160)
+node_connections = [&"output", 0, &"_crouch_blend"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v6fml")
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_e5uuo")
+crouch_speed = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
 
+[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_e5uuo")
+skeleton = NodePath("../..")
+
 [node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55604386, -0.2158879)
+doppler_tracking = 2
 
-[node name="WeaponMount" type="Node3D" parent="CameraPivot"]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraPivot/Camera3D"]
+update_mode = 1
+size = Vector3(50, 50, 50)
+
+[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("SphereShape3D_ky53y")
+target_position = Vector3(0, 0.5, 0)
+debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ved6o")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_ky53y")
+anim_player = NodePath("../AnimationPlayer")
+parameters/_crouch_blend/blend_position = 0.0
+parameters/Blend2/blend_amount = 0.0
+
+[node name="WeaponMount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.529529, 0.21118116, -0.33113718)
+visible = false
 
-[node name="Weapon" parent="CameraPivot/WeaponMount" instance=ExtResource("2_3li8b")]
+[node name="Weapon" parent="WeaponMount" instance=ExtResource("2_3li8b")]
+visible = false
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
