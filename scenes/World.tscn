@@ -160,6 +160,7 @@ shape = SubResource("ConvexPolygonShape3D_1lgw5")
 debug_color = Color(0.96365756, 0, 0.5002627, 0.41960785)
 
 [node name="Player" parent="." instance=ExtResource("2_32lhk")]
+mouse_sensitivity = 1.0
 
 [node name="HighPlatform" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 6)

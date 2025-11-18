@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(75)
 #@export var toggled_crouch : bool = true
-@export_range(0.0,1.0) var mouse_sensitivity : float = 0.5
+@export_range(1,100) var mouse_sensitivity : float = 5
 @export_range(0.0,1.0) var _crouch_blend : float = 0.0
 @export_range(1,100,1) var crouch_speed : float = 7.0
 
@@ -90,14 +90,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	# handle looking around
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
-		_rotation_input = -event.relative.x * mouse_sensitivity
-		_tilt_input = -event.relative.y * mouse_sensitivity
+		_rotation_input = -event.screen_relative.x * (mouse_sensitivity / 1000)
+		_tilt_input = -event.screen_relative.y * (mouse_sensitivity / 1000)
 
 
-func _update_camera(delta):
-	_mouse_rotation.x += _tilt_input * delta
+func _update_camera(_delta):
+	_mouse_rotation.x += _tilt_input
 	_mouse_rotation.x = clampf(_mouse_rotation.x, -tilt_limit, tilt_limit)
-	_mouse_rotation.y += _rotation_input * delta
+	_mouse_rotation.y += _rotation_input
 	
 	#rotates player but only tilts camera, otherwise whole player will rotate up and down
 	_player_rotation = Vector3(0.0,_mouse_rotation.y,0.0)
