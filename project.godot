@@ -24,8 +24,8 @@ window/size/viewport_height=720
 
 folder_colors={
 "res://Assets/": "green",
-"res://Assets/3DModels/": "orange",
-"res://scenes/": "blue"
+"res://scenes/": "blue",
+"res://scripts/": "purple"
 }
 
 [global_group]
