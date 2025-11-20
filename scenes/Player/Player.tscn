@@ -1,7 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=19 format=3 uid="uid://b0wswgn5cfctu"]
 
-[ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scenes/Player/player.gd" id="1_v6fml"]
+[ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="PackedScene" uid="uid://xo70u8yap5ap" path="res://scenes/Weapons/TestWeapon.tscn" id="2_3li8b"]
+[ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
+[ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
+[ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
 
@@ -13,45 +16,6 @@ roughness = 0.5
 material = SubResource("StandardMaterial3D_ky53y")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ky53y"]
-
-[sub_resource type="Animation" id="Animation_ky53y"]
-resource_name = "crouch"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:shape:height")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.0, 1.5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1, 0), Vector3(0, 0.75, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CameraPivot:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.5, 0), Vector3(0, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_bvqhm"]
 length = 0.001
@@ -90,6 +54,45 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 1.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ky53y"]
+resource_name = "crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0.75, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ved6o"]
@@ -215,4 +218,21 @@ width = 2.0
 [node name="Left" type="Line2D" parent="UserInterface/Reticle"]
 points = PackedVector2Array(-45, 0, -60, 0)
 width = 2.0
+
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("4_ved6o")
+script = ExtResource("5_xcisb")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
+layout_mode = 2
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
