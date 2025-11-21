@@ -30,6 +30,9 @@ var paused : bool = true
 #@onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
 func _ready():
+	
+	Global.player = self
+	
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
 	
