@@ -42,6 +42,9 @@ func _process(delta: float) -> void:
 	_update_camera(delta)
 
 func _physics_process(delta: float) -> void:
+	
+	Global.debug.add_property("MovementSpeed",_speed,1)
+	Global.debug.add_property("MouseRotation",_mouse_rotation,2)
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta

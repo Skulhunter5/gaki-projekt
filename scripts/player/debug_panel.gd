@@ -2,21 +2,19 @@ extends PanelContainer
 
 @onready var  property_container = $MarginContainer/VBoxContainer as VBoxContainer
 
-var property : Label
 var frames_per_second : String
 
 
 func _ready():
-	visible = false
 	
-	add_debug_property("FPS",frames_per_second)
+	Global.debug = self
+	
+	visible = false
 
 
 func _process(delta):
 	if visible:
 		frames_per_second = "%.2f" % (1.0/delta)
-		#frames_per_second = "%.2f" % Engine.get_frames_per_second()
-		property.text = property.name + ": " + frames_per_second
 
 
 func _input(event):
@@ -24,8 +22,14 @@ func _input(event):
 		visible = not visible
 
 
-func add_debug_property(title : String, value):
-	property = Label.new()
-	property_container.add_child(property)
-	property.name = title
-	property.text = property.name + ": " + value
+func add_property(title : String, value, order):
+	var target
+	target = property_container.find_child(title,true,false)
+	if not target:
+		target = Label.new()
+		property_container.add_child(target)
+		target.name = title
+		target.text = target.name + ": " + str(value)
+	elif visible: 
+		target.text = title + ": " + str(value)
+		property_container.move_child(target, order)
