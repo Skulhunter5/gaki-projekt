@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=22 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
+[ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
 
@@ -56,6 +57,39 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 1.5, 0)]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraPivot:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CameraPivot:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CameraPivot:position:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_ky53y"]
@@ -134,6 +168,7 @@ node_connections = [&"output", 0, &"_crouch_blend"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v6fml")
+acceleration = 0.75
 crouch_speed = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -234,10 +269,14 @@ layout_mode = 2
 script = ExtResource("5_socpp")
 current_state = NodePath("IdlePlayerState")
 
-[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("6_socpp")
+animation = NodePath("../../AnimationPlayer")
 
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("7_fxc31")
+
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_puxyr")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

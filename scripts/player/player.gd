@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @export var speed_default : float = 5.0
+@export var speed_sprinting : float = 7.0
 @export var speed_crouching : float = 2.0
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(75)

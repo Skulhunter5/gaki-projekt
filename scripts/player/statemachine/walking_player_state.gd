@@ -5,3 +5,9 @@ extends State
 func update(delta):
 	if Global.player.velocity.length() == 0.0:
 		transition.emit("IdlePlayerState")
+	Global.player._speed = Global.player.speed_default
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("sprint") and Global.player.is_on_floor():
+		transition.emit("SprintingPlayerState")
