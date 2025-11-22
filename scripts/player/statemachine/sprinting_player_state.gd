@@ -1,11 +1,13 @@
-class_name SprintingPlayerState
-
-extends State
+class_name SprintingPlayerState extends PlayerMovementState
 
 func enter() -> void:
-	Global.player._speed = Global.player.speed_sprinting
+	player._speed = player.sprinting_speed
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("sprint"):
+func physics_update(delta : float) -> void:
+	if Input.is_action_just_released("sprint"):
 		transition.emit("WalkingPlayerState")
+
+	player.update_gravity(delta)
+	player.update_movement()
+	player.update_velocity()

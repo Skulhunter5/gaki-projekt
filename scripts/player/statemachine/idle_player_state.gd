@@ -1,7 +1,8 @@
-class_name IdlePlayerState
+class_name IdlePlayerState extends PlayerMovementState
 
-extends State
+func enter() -> void:
+	player.velocity = Vector3.ZERO
 
-func update(delta):
-	if Global.player.velocity.length() > 0.0 and Global.player.is_on_floor():
+func physics_update(_delta : float):
+	if Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards") != Vector2.ZERO:
 		transition.emit("WalkingPlayerState")

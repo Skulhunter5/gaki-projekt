@@ -12,7 +12,7 @@ func _ready():
 			child.transition.connect(on_child_transition)
 		else:
 			push_warning("State machine contrains incompatible child node")
-	
+	await owner.ready
 	current_state.enter()
 
 

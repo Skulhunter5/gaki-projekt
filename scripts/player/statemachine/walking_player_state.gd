@@ -1,13 +1,15 @@
-class_name WalkingPlayerState
+class_name WalkingPlayerState extends PlayerMovementState
 
-extends State
+func enter() -> void:
+	player._speed = player.walking_speed
 
-func update(delta):
-	if Global.player.velocity.length() == 0.0:
+func physics_update(delta : float):
+	if player.velocity.length() == 0.0:
 		transition.emit("IdlePlayerState")
-	Global.player._speed = Global.player.speed_default
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("sprint") and Global.player.is_on_floor():
+		
+	if Input.is_action_pressed("sprint") and player.is_on_floor():
 		transition.emit("SprintingPlayerState")
+		
+	player.update_movement()
+	player.update_gravity(delta)
+	player.update_velocity()

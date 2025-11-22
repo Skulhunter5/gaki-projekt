@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
-[ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/player/statemachine/state_machine.gd" id="5_socpp"]
+[ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
@@ -169,7 +169,6 @@ node_connections = [&"output", 0, &"_crouch_blend"]
 script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
-crouch_speed = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -277,5 +276,3 @@ script = ExtResource("7_fxc31")
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_puxyr")
-
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
