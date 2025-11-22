@@ -1,7 +1,7 @@
 class_name WalkingPlayerState extends PlayerMovementState
 
 func enter() -> void:
-	player._speed = player.walking_speed
+	player.speed = player.walking_speed
 
 func physics_update(delta : float):
 	if player.velocity.length() == 0.0:

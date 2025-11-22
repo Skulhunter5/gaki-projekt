@@ -7,7 +7,6 @@ class_name Player extends CharacterBody3D
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(75)
-#@export var toggled_crouch : bool = true
 @export_range(1,100) var mouse_sensitivity : float = 5
 
 # camera variables
@@ -18,11 +17,10 @@ var _mouse_rotation : Vector3
 var _player_rotation : Vector3
 var _camera_rotation : Vector3
 
-var _speed : float
+var speed : float
 
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
-#@onready var weapon := $CameraPivot/WeaponMount/Weapon as Node3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -30,14 +28,14 @@ func _ready():
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
 	
-	_speed = walking_speed
+	speed = walking_speed
 	
 func _process(delta: float) -> void:
 	_update_camera(delta)
 
 func _physics_process(_delta: float) -> void:
 	
-	Global.debug.add_property("MovementSpeed",_speed,1)
+	Global.debug.add_property("MovementSpeed",speed,1)
 	Global.debug.add_property("MouseRotation",_mouse_rotation,2)
 
 
@@ -76,11 +74,14 @@ func _update_camera(_delta):
 
 
 func update_movement():
+	if Input.is_action_pressed("jump") and is_on_floor():
+		velocity.y += jump_velocity
+	
 	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = lerp(velocity.x,direction.x * _speed, acceleration)
-		velocity.z = lerp(velocity.z,direction.z * _speed, acceleration)
+		velocity.x = lerp(velocity.x,direction.x * speed, acceleration)
+		velocity.z = lerp(velocity.z,direction.z * speed, acceleration)
 	else:
 		var horizontal_vel = Vector3(velocity.x, 0, velocity.z)
 		horizontal_vel = horizontal_vel.move_toward(Vector3.ZERO, deceleration)
