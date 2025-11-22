@@ -7,6 +7,7 @@ class_name Player extends CharacterBody3D
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(75)
+@export var animationplayer : AnimationPlayer
 @export_range(1,100) var mouse_sensitivity : float = 5
 
 # camera variables
