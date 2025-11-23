@@ -14,8 +14,10 @@ func physics_update(delta : float) -> void:
 	player.update_gravity(delta)
 	player.update_movement()
 	player.update_velocity()
-	
-	if Input.is_action_just_released("crouch"):
+
+
+func handle_input(event: InputEvent):
+	if event.is_action_released("crouch") or event.is_action_pressed("crouch_toggle"):
 		uncrouch()
 
 
@@ -24,5 +26,4 @@ func uncrouch():
 		animation.play("crouch", -1.0,-crouch_transition_speed * 1.5, true)
 		transition.emit("IdlePlayerState")
 	elif crouch_shapecast.is_colliding():
-		await get_tree().create_timer(0.1).timeout
-		uncrouch()
+		return

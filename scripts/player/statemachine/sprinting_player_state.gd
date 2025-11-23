@@ -11,12 +11,11 @@ func physics_update(delta : float) -> void:
 
 	if player.velocity == Vector3.ZERO:
 		transition.emit("IdlePlayerState")
+
+
+func handle_input(event: InputEvent):
+	if event.is_action_pressed("crouch") or event.is_action_pressed("crouch_toggle"):
+		transition.emit("CrouchingPlayerState")
 		
-	if Input.is_action_just_released("sprint"): 
+	if event.is_action_released("sprint"): 
 		transition.emit("WalkingPlayerState")
-
-	if Input.is_action_pressed("crouch"):
-		transition.emit("CrouchingPlayerState")
-
-	if Input.is_action_pressed("crouch"):
-		transition.emit("CrouchingPlayerState")

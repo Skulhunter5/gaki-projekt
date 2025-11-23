@@ -34,3 +34,7 @@ func on_child_transition(new_state_name: StringName) -> void:
 			current_state = new_state
 		else:
 			push_warning("State does not exist")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	current_state.handle_input(event)

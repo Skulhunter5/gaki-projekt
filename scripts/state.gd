@@ -21,3 +21,8 @@ func update(delta : float) -> void:
 @warning_ignore("unused_parameter")
 func physics_update(delta : float) -> void:
 	pass
+
+
+@warning_ignore("unused_parameter")
+func handle_input(event: InputEvent):
+	pass

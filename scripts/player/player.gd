@@ -43,7 +43,11 @@ func _physics_process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_tree().quit()
-
+	if event.is_action_pressed("toggle_mouse_mode"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	# handle looking around
