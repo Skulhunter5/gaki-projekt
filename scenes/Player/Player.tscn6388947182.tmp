@@ -20,7 +20,6 @@ roughness = 0.5
 material = SubResource("StandardMaterial3D_ky53y")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ky53y"]
-radius = 0.45
 
 [sub_resource type="Animation" id="Animation_bvqhm"]
 length = 2.0
@@ -164,7 +163,7 @@ update_mode = 1
 size = Vector3(50, 50, 50)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_ky53y")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0.20000005, 1)

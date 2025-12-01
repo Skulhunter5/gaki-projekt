@@ -1,14 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=20 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
-[ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
+[ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/player/statemachine/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
-[ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
-[ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
-[ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
 
@@ -20,74 +17,40 @@ roughness = 0.5
 material = SubResource("StandardMaterial3D_ky53y")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ky53y"]
-radius = 0.45
 
 [sub_resource type="Animation" id="Animation_bvqhm"]
-length = 2.0
-tracks/0/type = "bezier"
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CameraPivot:position:x")
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraPivot:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CameraPivot:position:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionShape3D:shape:height")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [2.0]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CollisionShape3D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 1, 0)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CameraPivot:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -100,7 +63,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("CollisionShape3D:shape:height")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
@@ -112,7 +75,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("CollisionShape3D:position")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
@@ -124,7 +87,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("CameraPivot:position")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
@@ -139,11 +102,38 @@ _data = {
 &"crouch": SubResource("Animation_ky53y")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationplayer")]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ky53y"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ky53y"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bvqhm"]
+animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ved6o"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_xcisb"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ky53y")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_bvqhm")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_ved6o")
+blend_point_2/pos = 0.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ky53y"]
+graph_offset = Vector2(1.3285522, -139.55511)
+nodes/output/position = Vector2(900, 120)
+nodes/_crouch_blend/node = SubResource("AnimationNodeBlendSpace1D_xcisb")
+nodes/_crouch_blend/position = Vector2(560, 100)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_ky53y")
+nodes/Blend2/position = Vector2(1300, 160)
+node_connections = [&"output", 0, &"_crouch_blend"]
+
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v6fml")
-acceleration = 0.3
-deceleration = 0.5
-animationplayer = NodePath("AnimationPlayer")
+crouch_speed = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -164,7 +154,7 @@ update_mode = 1
 size = Vector3(50, 50, 50)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_ky53y")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
@@ -173,6 +163,12 @@ debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_ved6o")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_ky53y")
+anim_player = NodePath("../AnimationPlayer")
+parameters/_crouch_blend/blend_position = 0.0
+parameters/Blend2/blend_amount = 0.0
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
@@ -233,18 +229,12 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="PlayerStateMachine" type="Node" parent="."]
 script = ExtResource("5_socpp")
-current_state = NodePath("IdlePlayerState")
 
 [node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("6_socpp")
 
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("7_fxc31")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("8_puxyr")
-
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("9_mmokv")
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
