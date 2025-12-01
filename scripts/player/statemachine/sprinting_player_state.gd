@@ -10,6 +10,10 @@ func physics_update(delta : float) -> void:
 	
 	if player.velocity.y < -3.0 and not player.is_on_floor():
 		transition.emit("FallingPlayerState")
+	
+	if Input.is_action_pressed("shoot"):
+		weapon.shoot()
+		transition.emit("WalkingPlayerState")
 		
 	player.update_movement()
 	player.update_gravity(delta)

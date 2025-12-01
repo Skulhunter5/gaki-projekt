@@ -13,3 +13,6 @@ transform = Transform3D(-8.742277e-10, -8.742278e-10, -0.02, -0.02, -8.7422775e-
 mesh = ExtResource("1_cndss")
 
 [node name="WeaponShadow" type="MeshInstance3D" parent="."]
+
+[node name="FireRateTimer" type="Timer" parent="."]
+one_shot = true

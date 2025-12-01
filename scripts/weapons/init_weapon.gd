@@ -1,6 +1,8 @@
 @tool
 
-extends Node3D
+class_name WeaponController extends Node3D
+
+@onready var fire_rate_timer := $FireRateTimer
 
 @export var weapon_type : Weapons:
 	set(value):
@@ -19,3 +21,9 @@ func load_weapon():
 	position = weapon_type.position
 	rotation_degrees = weapon_type.rotation
 	scale = weapon_type.scale
+
+
+func shoot():
+	if fire_rate_timer.is_stopped():
+		print("shooting")
+		fire_rate_timer.start(1.0 / weapon_type.fire_rate)

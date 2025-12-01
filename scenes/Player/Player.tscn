@@ -141,11 +141,12 @@ _data = {
 &"crouch": SubResource("Animation_ky53y")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationplayer")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationplayer", "weapon_controller")]
 script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
+weapon_controller = NodePath("CameraPivot/Camera3D/WeaponRig/Weapon")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
