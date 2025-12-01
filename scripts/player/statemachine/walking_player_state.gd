@@ -7,7 +7,11 @@ func physics_update(delta : float):
 	if player.velocity.length() == 0.0:
 		transition.emit("IdlePlayerState")
 		
+	if player.velocity.y < -3.0 and not player.is_on_floor():
+		transition.emit("FallingPlayerState")
+		
 	player.update_movement()
+	player.update_jump()
 	player.update_gravity(delta)
 	player.update_velocity()
 

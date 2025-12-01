@@ -12,8 +12,12 @@ func enter() -> void:
 
 
 func physics_update(delta : float) -> void:
-	player.update_gravity(delta)
+	if player.velocity.y < -3.0 and not player.is_on_floor():
+		transition.emit("FallingPlayerState")
+		
 	player.update_movement()
+	player.update_jump()
+	player.update_gravity(delta)
 	player.update_velocity()
 
 
