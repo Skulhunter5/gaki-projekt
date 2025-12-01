@@ -2,7 +2,7 @@ extends PanelContainer
 
 @onready var  property_container = $MarginContainer/VBoxContainer as VBoxContainer
 
-var frames_per_second : String
+var _frames_per_second : String
 
 
 func _ready():
@@ -14,7 +14,7 @@ func _ready():
 
 func _process(delta):
 	if visible:
-		frames_per_second = "%.2f" % (1.0/delta)
+		_frames_per_second = "%.2f" % (1.0/delta)
 
 
 func _input(event):
