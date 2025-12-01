@@ -169,7 +169,7 @@ size = Vector3(50, 50, 50)
 [node name="WeaponRig" type="Node3D" parent="CameraPivot/Camera3D"]
 
 [node name="Weapon" parent="CameraPivot/Camera3D/WeaponRig" instance=ExtResource("2_tl8lu")]
-transform = Transform3D(0.29630652, 0, -0.046930347, 0, 0.3, 0, 0.046930347, 0, 0.29630652, 0.065, -0.025, -0.11)
+transform = Transform3D(0.29729497, 0, -0.04019586, 0, 0.3, 0, 0.04019586, 0, 0.29729497, 0.065, -0.025, -0.11)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
