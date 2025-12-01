@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=19 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
+[ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/weapon.tscn" id="2_tl8lu"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
@@ -151,6 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
 
 [node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D"]
+visible = false
 mesh = SubResource("CapsuleMesh_e5uuo")
 skeleton = NodePath("../..")
 
@@ -163,6 +165,11 @@ doppler_tracking = 2
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraPivot/Camera3D"]
 update_mode = 1
 size = Vector3(50, 50, 50)
+
+[node name="WeaponRig" type="Node3D" parent="CameraPivot/Camera3D"]
+
+[node name="Weapon" parent="CameraPivot/Camera3D/WeaponRig" instance=ExtResource("2_tl8lu")]
+transform = Transform3D(0.29630652, 0, -0.046930347, 0, 0.3, 0, 0.046930347, 0, 0.29630652, 0.065, -0.025, -0.11)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)

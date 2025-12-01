@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dug2hcmsv88i4"]
+
+[ext_resource type="ArrayMesh" uid="uid://cwi6lwnag0v8a" path="res://Assets/3DModels/Sniper/sniper.res" id="1_cndss"]
+
+[node name="Weapon" type="Node3D"]
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-8.742277e-10, -8.742278e-10, -0.02, -0.02, -8.7422775e-10, 8.7422775e-10, -8.742278e-10, 0.02, -8.7422775e-10, 0, 0, 0)
+mesh = ExtResource("1_cndss")
+
+[node name="WeaponShadow" type="MeshInstance3D" parent="."]
