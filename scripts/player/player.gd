@@ -93,11 +93,6 @@ func update_movement():
 		velocity.z = horizontal_vel.z
 
 
-func update_jump():
-	if Input.is_action_pressed("jump") and is_on_floor():
-		velocity.y += jump_velocity
-
-
 func update_velocity():
 	move_and_slide()
 

@@ -11,7 +11,6 @@ func physics_update(delta : float):
 		transition.emit("FallingPlayerState")
 		
 	player.update_movement()
-	player.update_jump()
 	player.update_gravity(delta)
 	player.update_velocity()
 
