@@ -28,6 +28,9 @@ func handle_input(event: InputEvent):
 	if event.is_action_pressed("crouch_toggle"):
 		_want_uncrouch = not _want_uncrouch
 		uncrouch()
+	if event.is_action_pressed("sprint") and Input.is_action_pressed("walk_forwards"):
+		_want_uncrouch = not _want_uncrouch
+		uncrouch()
 
 
 func uncrouch():
