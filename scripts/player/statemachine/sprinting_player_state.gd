@@ -20,5 +20,5 @@ func handle_input(event: InputEvent):
 	if event.is_action_pressed("crouch") or event.is_action_pressed("crouch_toggle"):
 		transition.emit("CrouchingPlayerState")
 		
-	if event.is_action_released("sprint"): 
+	if event.is_action_released("sprint") or event.is_action_released("walk_forwards"): 
 		transition.emit("WalkingPlayerState")
