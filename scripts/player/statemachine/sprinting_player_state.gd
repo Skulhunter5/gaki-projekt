@@ -26,3 +26,7 @@ func handle_input(event: InputEvent):
 		
 	if event.is_action_released("sprint") or event.is_action_released("walk_forwards"): 
 		transition.emit("WalkingPlayerState")
+	
+	if event.is_action_pressed("reload"):
+		weapon.reload()
+		transition.emit("WalkingPlayerState")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d104n741w4t5d"]
+[gd_scene load_steps=20 format=3 uid="uid://d104n741w4t5d"]
 
 [ext_resource type="PackedScene" uid="uid://dqei2kjpudsgn" path="res://scenes/WE_test.tscn" id="1_kqs1s"]
 [ext_resource type="PackedScene" uid="uid://b0wswgn5cfctu" path="res://scenes/Player/Player.tscn" id="2_32lhk"]
@@ -11,6 +11,13 @@ size = Vector3(20, 0.5, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_32lhk"]
 size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d1c63"]
+material = ExtResource("2_d1c63")
+size = Vector3(100, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1lgw5"]
+size = Vector3(100, 0.5, 1)
 
 [sub_resource type="Shader" id="Shader_cwof1"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.1.dev4's StandardMaterial3D.
@@ -94,6 +101,13 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7g83o"]
 size = Vector3(2, 2, 2)
 
+[sub_resource type="BoxMesh" id="BoxMesh_hlk0d"]
+material = SubResource("ShaderMaterial_hlk0d")
+size = Vector3(2, 4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0uv0p"]
+size = Vector3(2, 4, 2)
+
 [sub_resource type="PrismMesh" id="PrismMesh_d1c63"]
 material = SubResource("ShaderMaterial_hlk0d")
 left_to_right = 0.0
@@ -129,6 +143,11 @@ size = Vector3(6, 0.5, 4)
 
 [node name="World" type="Node3D"]
 
+[node name="Player" parent="." instance=ExtResource("2_32lhk")]
+walking_speed = 5.0
+sprinting_speed = 7.0
+mouse_sensitivity = 1.0
+
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_kqs1s")]
 
 [node name="Floor" type="MeshInstance3D" parent="."]
@@ -140,6 +159,15 @@ mesh = SubResource("BoxMesh_io8um")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("BoxShape3D_32lhk")
 
+[node name="Floor2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -0.25, -5.474)
+mesh = SubResource("BoxMesh_d1c63")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2/StaticBody3D"]
+shape = SubResource("BoxShape3D_1lgw5")
+
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 0)
 mesh = SubResource("BoxMesh_kqs1s")
@@ -148,6 +176,15 @@ mesh = SubResource("BoxMesh_kqs1s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
 shape = SubResource("BoxShape3D_7g83o")
+
+[node name="Box2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 2, -5.435)
+mesh = SubResource("BoxMesh_hlk0d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/StaticBody3D"]
+shape = SubResource("BoxShape3D_0uv0p")
 
 [node name="Ramp" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0.5, -5)
@@ -158,9 +195,6 @@ mesh = SubResource("PrismMesh_d1c63")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_1lgw5")
 debug_color = Color(0.96365756, 0, 0.5002627, 0.41960785)
-
-[node name="Player" parent="." instance=ExtResource("2_32lhk")]
-mouse_sensitivity = 1.0
 
 [node name="HighPlatform" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 6)

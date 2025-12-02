@@ -13,7 +13,7 @@ func update(delta : float):
 	
 	if Input.is_action_pressed("shoot"):
 		weapon.shoot()
-
+	
 	player.update_gravity(delta)
 	player.update_velocity()	
 
@@ -21,4 +21,8 @@ func update(delta : float):
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("crouch") or event.is_action_pressed("crouch_toggle"):
 		transition.emit("CrouchingPlayerState")
+
+
+	if event.is_action_pressed("reload"):
+		weapon.reload()
 	

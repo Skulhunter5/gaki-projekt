@@ -1,11 +1,11 @@
 [gd_scene load_steps=19 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
-[ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/weapon.tscn" id="2_tl8lu"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
+[ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="6_cd157"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
@@ -143,45 +143,12 @@ _data = {
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationplayer", "weapon_controller")]
 script = ExtResource("1_v6fml")
+walking_speed = 50.0
+sprinting_speed = 70.0
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
-weapon_controller = NodePath("CameraPivot/Camera3D/WeaponRig/Weapon")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_nnsk1")
-
-[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D"]
-visible = false
-mesh = SubResource("CapsuleMesh_e5uuo")
-skeleton = NodePath("../..")
-
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-doppler_tracking = 2
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraPivot/Camera3D"]
-update_mode = 1
-size = Vector3(50, 50, 50)
-
-[node name="WeaponRig" type="Node3D" parent="CameraPivot/Camera3D"]
-
-[node name="Weapon" parent="CameraPivot/Camera3D/WeaponRig" instance=ExtResource("2_tl8lu")]
-transform = Transform3D(0.29729497, 0, -0.04019586, 0, 0.3, 0, 0.04019586, 0, 0.29729497, 0.065, -0.025, -0.11)
-
-[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
-shape = SubResource("SphereShape3D_ky53y")
-target_position = Vector3(0, 0.5, 0)
-debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ved6o")
-}
+weapon_controller = NodePath("CameraPivot/Camera3D/WeaponController")
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
@@ -241,6 +208,38 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
 layout_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_nnsk1")
+
+[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D"]
+visible = false
+mesh = SubResource("CapsuleMesh_e5uuo")
+skeleton = NodePath("../..")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+doppler_tracking = 2
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraPivot/Camera3D"]
+update_mode = 1
+size = Vector3(50, 50, 50)
+
+[node name="WeaponController" parent="CameraPivot/Camera3D" instance=ExtResource("6_cd157")]
+
+[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+shape = SubResource("SphereShape3D_ky53y")
+target_position = Vector3(0, 0.5, 0)
+debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ved6o")
+}
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_socpp")

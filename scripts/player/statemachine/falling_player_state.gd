@@ -18,3 +18,8 @@ func update(delta : float) -> void:
 	player.update_gravity(delta)
 	player.update_movement()
 	player.update_velocity()
+
+
+func handle_input(event: InputEvent):
+	if event.is_action_pressed("reload"):
+		weapon.reload()

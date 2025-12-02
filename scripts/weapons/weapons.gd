@@ -9,5 +9,7 @@ class_name Weapons extends Resource
 @export var mesh : Mesh
 @export_category("Weapon Options")
 @export var damage : float
-@export var range : int
+@export var bullet_range : int
 @export var fire_rate : int
+@export var magazine_size : int
+@export var max_ammo : int
