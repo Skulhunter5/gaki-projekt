@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://una04qr5se56"]
+[gd_scene load_steps=5 format=3 uid="uid://una04qr5se56"]
+
+[ext_resource type="Script" uid="uid://dntgxdu4jgnch" path="res://scripts/weapons/bullet.gd" id="1_flt7j"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4rm7c"]
 
@@ -15,7 +17,10 @@ rings = 4
 [node name="Bullet" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_4rm7c")
 continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
 linear_velocity = Vector3(0, 0, 10)
+script = ExtResource("1_flt7j")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
@@ -24,3 +29,5 @@ shape = SubResource("CapsuleShape3D_4rm7c")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_flt7j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
