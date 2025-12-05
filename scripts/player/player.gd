@@ -29,6 +29,7 @@ func _ready():
 	
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
+	weapon_controller.shooter = self
 	
 	speed = walking_speed
 	

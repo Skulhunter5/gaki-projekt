@@ -9,6 +9,7 @@ class_name WeaponController extends Node3D
 @onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
 
+var shooter : Node = null
 var max_ammo : int # max ammo defined by weapon
 var max_magazine : int # max ammo that fits inside a magazine
 var current_total_ammo : int # current total ammo - magazine
@@ -41,12 +42,19 @@ func load_weapon():
 func shoot():
 	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
 		current_magazine -= 1
+		
 		var bullet : RigidBody3D = bullet_scene.instantiate()
+		if shooter:
+			bullet.add_collision_exception_with(shooter)
+		else: 
+			push_warning("Shooter of weapon not set, collisions might behave wonky!")
 		bullet.position = bullet_spawn.global_position
 		bullet.rotation = owner._camera_rotation + owner._player_rotation
 		get_tree().current_scene.add_child(bullet)
+		
 		var forward : Vector3 = -bullet.global_transform.basis.z
 		bullet.linear_velocity = forward * weapon_type.bullet_range
+		
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)
 
 
