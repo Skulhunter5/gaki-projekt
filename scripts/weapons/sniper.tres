@@ -15,4 +15,5 @@ bullet_range = 100
 fire_rate = 1
 magazine_size = 8
 max_ammo = 100
+reload_time = 1.0
 metadata/_custom_type_script = "uid://de7sh1obtmej3"

@@ -13,3 +13,4 @@ class_name Weapons extends Resource
 @export var fire_rate : int
 @export var magazine_size : int
 @export var max_ammo : int
+@export var reload_time : float

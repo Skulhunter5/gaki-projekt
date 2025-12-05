@@ -10,3 +10,6 @@ mesh = ExtResource("1_cndss")
 
 [node name="FireRateTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true

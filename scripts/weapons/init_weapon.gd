@@ -6,6 +6,7 @@ class_name WeaponController extends Node3D
 
 @onready var weapon_mesh : MeshInstance3D = $Weapon/WeaponMesh
 @onready var fire_rate_timer := $Weapon/FireRateTimer
+@onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
 
 var max_ammo : int # max ammo defined by weapon
@@ -38,6 +39,7 @@ func load_weapon():
 
 
 func shoot():
+	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
 		current_magazine -= 1
 		var bullet : RigidBody3D = bullet_scene.instantiate()
 		bullet.position = bullet_spawn.global_position
@@ -49,3 +51,10 @@ func shoot():
 
 
 func reload():
+	if current_magazine < max_magazine and reload_timer.is_stopped():
+		current_total_ammo += current_magazine
+		current_magazine = 0
+		reload_timer.start(weapon_type.reload_time)
+		await reload_timer.timeout
+		current_magazine += clamp(current_total_ammo,0,max_magazine)
+		current_total_ammo -= current_magazine
