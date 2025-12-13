@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://242257bkv414"]
+
+[ext_resource type="Script" uid="uid://bp7lplgt3klwq" path="res://scripts/enemy/Enemy.gd" id="1_84vye"]
+[ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_vamnb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_84vye")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_o5uld")
+surface_material_override/0 = ExtResource("2_vamnb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_grfqg")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -15)
