@@ -26,10 +26,6 @@ var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 # reads the weapon resource and instantiates all bullets for object pooling
 func _ready() -> void:
 	load_weapon()
-	max_ammo = weapon_type.max_ammo
-	max_magazine = weapon_type.magazine_size
-	current_magazine = max_magazine
-	current_total_ammo = max_ammo - max_magazine
 
 
 func load_weapon():
@@ -37,6 +33,11 @@ func load_weapon():
 	weapon.position = weapon_type.position
 	weapon.rotation_degrees = weapon_type.rotation
 	weapon.scale = weapon_type.scale
+	
+	max_ammo = weapon_type.max_ammo
+	max_magazine = weapon_type.magazine_size
+	current_magazine = max_magazine
+	current_total_ammo = max_ammo - max_magazine
 
 
 func shoot():
