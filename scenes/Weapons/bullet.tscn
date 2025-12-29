@@ -30,4 +30,8 @@ shape = SubResource("CapsuleShape3D_4rm7c")
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_flt7j")
 
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 5.9604645e-08, -1.0000001, 0, 1.0000001, 5.9604645e-08, 0, 0, 0)
+target_position = Vector3(0, -0.05, 0)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
