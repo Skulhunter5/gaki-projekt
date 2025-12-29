@@ -102,5 +102,6 @@ func update_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+
 func add_collision(body : RigidBody3D):
 	body.add_collision_exception_with(self)
