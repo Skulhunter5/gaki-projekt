@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=21 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="6_cd157"]
 [ext_resource type="Script" uid="uid://dembjtvevabxq" path="res://scripts/weapons/bullet_spawn.gd" id="6_qt7jd"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
+[ext_resource type="Script" uid="uid://cspp8kume74q4" path="res://scripts/player/animation_player.gd" id="7_cd157"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 [ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
@@ -247,6 +248,7 @@ debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_ved6o")
 }
+script = ExtResource("7_cd157")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_socpp")
@@ -269,3 +271,14 @@ script = ExtResource("10_dqp0f")
 
 [connection signal="primary_attacked" from="CameraPivot/Camera3D/WeaponController" to="CameraPivot/Camera3D/BulletSpawn" method="_on_weapon_controller_primary_attacked"]
 [connection signal="collision_exception_signal" from="CameraPivot/Camera3D/BulletSpawn" to="." method="add_collision"]
+[connection signal="weapon_primary_attacked" from="PlayerStateMachine/IdlePlayerState" to="CameraPivot/Camera3D/WeaponController" method="attack_primary"]
+[connection signal="weapon_reloaded" from="PlayerStateMachine/IdlePlayerState" to="CameraPivot/Camera3D/WeaponController" method="reload"]
+[connection signal="weapon_primary_attacked" from="PlayerStateMachine/WalkingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="attack_primary"]
+[connection signal="weapon_reloaded" from="PlayerStateMachine/WalkingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="reload"]
+[connection signal="weapon_primary_attacked" from="PlayerStateMachine/SprintingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="attack_primary"]
+[connection signal="weapon_reloaded" from="PlayerStateMachine/SprintingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="reload"]
+[connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]
+[connection signal="weapon_primary_attacked" from="PlayerStateMachine/CrouchingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="attack_primary"]
+[connection signal="weapon_reloaded" from="PlayerStateMachine/CrouchingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="reload"]
+[connection signal="weapon_primary_attacked" from="PlayerStateMachine/FallingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="attack_primary"]
+[connection signal="weapon_reloaded" from="PlayerStateMachine/FallingPlayerState" to="CameraPivot/Camera3D/WeaponController" method="reload"]
