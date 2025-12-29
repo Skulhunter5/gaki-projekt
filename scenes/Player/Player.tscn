@@ -233,12 +233,12 @@ size = Vector3(50, 50, 50)
 [node name="WeaponController" parent="CameraPivot/Camera3D" instance=ExtResource("6_cd157")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01302433, 2.3841858e-07, 0.027932167)
 
+[node name="Weapon" parent="CameraPivot/Camera3D/WeaponController" index="0"]
+transform = Transform3D(19.987816, 0, -0.69798994, 0, 20, 0, 0.69798994, 0, 19.987816, 0.089, -0.172, -0.117)
+
 [node name="BulletSpawn" type="Node3D" parent="CameraPivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1808623)
 script = ExtResource("6_qt7jd")
-
-[node name="BulletSpawn" type="Node3D" parent="CameraPivot/Camera3D/BulletSpawn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
@@ -270,5 +270,7 @@ script = ExtResource("9_mmokv")
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("10_dqp0f")
 
-[connection signal="attack_primary_signal" from="CameraPivot/Camera3D/WeaponController" to="CameraPivot/Camera3D/BulletSpawn" method="_on_weapon_controller_attack_primary_signal"]
+[connection signal="primary_attacked" from="CameraPivot/Camera3D/WeaponController" to="CameraPivot/Camera3D/BulletSpawn" method="_on_weapon_controller_primary_attacked"]
 [connection signal="collision_exception_signal" from="CameraPivot/Camera3D/BulletSpawn" to="." method="add_collision"]
+
+[editable path="CameraPivot/Camera3D/WeaponController"]

@@ -4,7 +4,7 @@ signal collision_exception_signal(bullet : RigidBody3D)
 
 var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 
-func _on_weapon_controller_attack_primary_signal(weapon : WeaponController) -> void:
+func _on_weapon_controller_primary_attacked(weapon : WeaponController) -> void:
 	var bullet : RigidBody3D = bullet_scene.instantiate()
 	
 	collision_exception_signal.emit(bullet)

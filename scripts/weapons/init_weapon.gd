@@ -1,6 +1,6 @@
 class_name WeaponController extends Node3D
 
-signal attack_primary_signal(weapon : WeaponController)
+signal primary_attacked(weapon : WeaponController)
 
 @export var weapon_type : Weapons # Weapon Resource
 
@@ -34,7 +34,7 @@ func _ready() -> void:
 
 func attack_primary():
 	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
-		attack_primary_signal.emit(self)
+		primary_attacked.emit(self)
 		current_magazine -= 1
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)
 
