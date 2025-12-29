@@ -29,7 +29,6 @@ func _ready():
 	
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
-	weapon_controller.shooter = self
 	
 	speed = walking_speed
 	
@@ -102,3 +101,6 @@ func update_velocity():
 func update_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+func add_collision(body : RigidBody3D):
+	body.add_collision_exception_with(self)

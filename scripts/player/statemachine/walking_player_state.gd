@@ -11,7 +11,7 @@ func physics_update(delta : float):
 		transition.emit("FallingPlayerState")
 	
 	if Input.is_action_pressed("shoot"):
-		weapon.shoot()
+		weapon.attack_primary()
 		
 	player.update_movement()
 	player.update_gravity(delta)

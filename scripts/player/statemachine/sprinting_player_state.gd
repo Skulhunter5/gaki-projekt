@@ -12,7 +12,7 @@ func physics_update(delta : float) -> void:
 		transition.emit("FallingPlayerState")
 	
 	if Input.is_action_pressed("shoot"):
-		weapon.shoot()
+		weapon.attack_primary()
 		transition.emit("WalkingPlayerState")
 		
 	player.update_movement()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=20 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 [ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="6_cd157"]
+[ext_resource type="Script" uid="uid://dembjtvevabxq" path="res://scripts/weapons/bullet_spawn.gd" id="6_qt7jd"]
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
@@ -230,6 +231,14 @@ update_mode = 1
 size = Vector3(50, 50, 50)
 
 [node name="WeaponController" parent="CameraPivot/Camera3D" instance=ExtResource("6_cd157")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01302433, 2.3841858e-07, 0.027932167)
+
+[node name="BulletSpawn" type="Node3D" parent="CameraPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1808623)
+script = ExtResource("6_qt7jd")
+
+[node name="BulletSpawn" type="Node3D" parent="CameraPivot/Camera3D/BulletSpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
@@ -260,3 +269,6 @@ script = ExtResource("9_mmokv")
 
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("10_dqp0f")
+
+[connection signal="attack_primary_signal" from="CameraPivot/Camera3D/WeaponController" to="CameraPivot/Camera3D/BulletSpawn" method="_on_weapon_controller_attack_primary_signal"]
+[connection signal="collision_exception_signal" from="CameraPivot/Camera3D/BulletSpawn" to="." method="add_collision"]

@@ -12,7 +12,7 @@ func update(delta : float):
 		transition.emit("FallingPlayerState")
 	
 	if Input.is_action_pressed("shoot"):
-		weapon.shoot()
+		weapon.attack_primary()
 	
 	player.update_gravity(delta)
 	player.update_velocity()	

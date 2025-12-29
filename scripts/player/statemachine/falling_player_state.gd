@@ -10,7 +10,7 @@ func exit() -> void:
 
 func update(delta : float) -> void:
 	if Input.is_action_pressed("shoot"):
-		weapon.shoot()
+		weapon.attack_primary()
 	
 	if player.is_on_floor():
 		transition.emit("IdlePlayerState")

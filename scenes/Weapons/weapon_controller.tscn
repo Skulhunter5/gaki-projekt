@@ -4,9 +4,8 @@
 [ext_resource type="Resource" uid="uid://brcurye3knmky" path="res://scripts/weapons/sniper.tres" id="2_4otyr"]
 [ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/weapon.tscn" id="2_ifa6y"]
 
-[node name="WeaponController" type="Node3D" node_paths=PackedStringArray("bullet_spawn")]
+[node name="WeaponController" type="Node3D"]
 script = ExtResource("1_mevwd")
-bullet_spawn = NodePath("BulletSpawn")
 weapon_type = ExtResource("2_4otyr")
 
 [node name="Weapon" parent="." instance=ExtResource("2_ifa6y")]
