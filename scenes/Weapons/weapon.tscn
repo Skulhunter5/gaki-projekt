@@ -5,7 +5,7 @@
 [node name="Weapon" type="Node3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(7.54979e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, -7.54979e-08, -3.300118e-15, 0, 0, 0)
+transform = Transform3D(7.54979e-07, -10, -4.371139e-07, 0, -4.371139e-07, 10, -10, -7.54979e-07, -3.300118e-14, 0, 0, 0)
 mesh = ExtResource("1_cndss")
 
 [node name="FireRateTimer" type="Timer" parent="."]

@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_8g58j")
 name = &"Sniper"
-position = Vector3(0.079181515, -0.10208917, -0.06650828)
-rotation = Vector3(0, -0.08222248, 0)
-scale = Vector3(9, 9, 9)
+position = Vector3(0.089, -0.172, -0.117)
+rotation = Vector3(0, -2, 0)
+scale = Vector3(2, 2, 2)
 mesh = ExtResource("1_g8muw")
 damage = 75.0
 bullet_range = 100
