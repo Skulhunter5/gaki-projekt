@@ -1,6 +1,5 @@
 class_name WeaponController extends Node3D
 
-signal primary_attacked(weapon : WeaponController)
 signal bullet_spawned(bullet : RigidBody3D)
 
 @export var weapon_type : Weapons # Weapon Resource
@@ -18,6 +17,7 @@ var max_magazine : int # max ammo that fits inside a magazine
 var current_total_ammo : int # current total ammo - magazine
 var current_magazine : int
 var attack_range : int
+var reload_time : float
 
 
 # reads the weapon resource and instantiates all bullets for object pooling
@@ -34,6 +34,7 @@ func _ready() -> void:
 	current_magazine = max_magazine
 	current_total_ammo = max_ammo - max_magazine
 	attack_range = weapon_type.bullet_range
+	reload_time = weapon_type.reload_time
 
 
 func attack_primary():
@@ -47,7 +48,7 @@ func reload():
 	if current_magazine < max_magazine and reload_timer.is_stopped():
 		current_total_ammo += current_magazine
 		current_magazine = 0
-		reload_timer.start(weapon_type.reload_time)
+		reload_timer.start(reload_time)
 		await reload_timer.timeout
 		current_magazine += clamp(current_total_ammo,0,max_magazine)
 		current_total_ammo -= current_magazine
