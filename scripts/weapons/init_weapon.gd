@@ -1,6 +1,7 @@
 class_name WeaponController extends Node3D
 
 signal primary_attacked(weapon : WeaponController)
+signal bullet_spawned(bullet : RigidBody3D)
 
 @export var weapon_type : Weapons # Weapon Resource
 
@@ -8,6 +9,9 @@ signal primary_attacked(weapon : WeaponController)
 @onready var fire_rate_timer := $Weapon/FireRateTimer
 @onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
+@onready var bullet_spawn := $BulletSpawn
+
+var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 
 var max_ammo : int # max ammo defined by weapon
 var max_magazine : int # max ammo that fits inside a magazine
@@ -34,7 +38,7 @@ func _ready() -> void:
 
 func attack_primary():
 	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
-		primary_attacked.emit(self)
+		spawn_bullet()
 		current_magazine -= 1
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)
 
@@ -47,3 +51,16 @@ func reload():
 		await reload_timer.timeout
 		current_magazine += clamp(current_total_ammo,0,max_magazine)
 		current_total_ammo -= current_magazine
+
+
+func spawn_bullet() -> void:
+	var bullet : RigidBody3D = bullet_scene.instantiate()
+	
+	bullet_spawned.emit(bullet)
+	
+	bullet.position = bullet_spawn.global_position
+	bullet.rotation = owner._camera_rotation + owner._player_rotation
+	get_tree().current_scene.add_child(bullet)
+	
+	var forward : Vector3 = -bullet.global_transform.basis.z
+	bullet.linear_velocity = forward * attack_range

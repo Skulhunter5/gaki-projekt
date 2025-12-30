@@ -10,3 +10,6 @@ weapon_type = ExtResource("2_4otyr")
 
 [node name="Weapon" parent="." instance=ExtResource("2_ifa6y")]
 transform = Transform3D(1.999998, 0, -0.0028701054, 0, 2, 0, 0.0028701054, 0, 1.999998, 0.079181515, -0.10208917, -0.06650828)
+
+[node name="BulletSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1808623)
