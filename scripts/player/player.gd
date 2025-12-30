@@ -103,5 +103,5 @@ func update_gravity(delta):
 		velocity += get_gravity() * delta
 
 
-func add_collision(body : RigidBody3D):
+func add_collision_exception(body : RigidBody3D):
 	body.add_collision_exception_with(self)
