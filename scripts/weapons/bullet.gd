@@ -3,6 +3,9 @@ extends RigidBody3D
 var impact_scene := preload("res://scenes/Weapons/impact_effect.tscn")
 @onready var ray_cast = $RayCast3D
 
+func _ready() -> void:
+	self.body_entered.connect(_on_body_entered)
+
 func _physics_process(_delta: float) -> void:
 	if ray_cast.is_colliding():
 		var contact_pos = ray_cast.get_collision_point()
