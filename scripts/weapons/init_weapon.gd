@@ -5,7 +5,8 @@ signal weapon_fired
 
 @export var weapon_type : Weapons # Weapon Resource
 
-@onready var weapon_mesh : MeshInstance3D = $Weapon/WeaponMesh
+@onready var weapon_mesh := $Weapon/WeaponMesh
+@onready var weapon_muzzle_flash := $Weapon/MuzzleFlash
 @onready var fire_rate_timer := $Weapon/FireRateTimer
 @onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
@@ -26,6 +27,7 @@ var recoil_speed : float
 
 # reads the weapon resource and instantiates all bullets for object pooling
 func _ready() -> void:
+	
 	#Node based properties
 	weapon_mesh.mesh = weapon_type.mesh
 	weapon.position = weapon_type.position
@@ -47,6 +49,7 @@ func _ready() -> void:
 func attack_primary():
 	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
 		weapon_fired.emit()
+		weapon_muzzle_flash.add_muzzle_flash()
 		spawn_bullet()
 		current_magazine -= 1
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)
