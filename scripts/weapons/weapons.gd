@@ -14,3 +14,6 @@ class_name Weapons extends Resource
 @export var magazine_size : int
 @export var max_ammo : int
 @export var reload_time : float
+@export var recoil_amount : Vector3
+@export var recoil_snap_amount : float
+@export var recoil_speed : float

@@ -1,6 +1,7 @@
 class_name WeaponController extends Node3D
 
 signal bullet_spawned(bullet : RigidBody3D)
+signal weapon_fired
 
 @export var weapon_type : Weapons # Weapon Resource
 
@@ -18,6 +19,9 @@ var current_total_ammo : int # current total ammo - magazine
 var current_magazine : int
 var attack_range : int
 var reload_time : float
+var recoil_amount : Vector3
+var recoil_snap_amount : float
+var recoil_speed : float
 
 
 # reads the weapon resource and instantiates all bullets for object pooling
@@ -35,10 +39,14 @@ func _ready() -> void:
 	current_total_ammo = max_ammo - max_magazine
 	attack_range = weapon_type.bullet_range
 	reload_time = weapon_type.reload_time
+	recoil_amount = weapon_type.recoil_amount
+	recoil_snap_amount = weapon_type.recoil_snap_amount
+	recoil_speed = weapon_type.recoil_speed
 
 
 func attack_primary():
 	if fire_rate_timer.is_stopped() and current_magazine > 0 and reload_timer.is_stopped():
+		weapon_fired.emit()
 		spawn_bullet()
 		current_magazine -= 1
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)

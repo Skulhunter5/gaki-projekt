@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene load_steps=21 format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
+[ext_resource type="Script" uid="uid://cccuub17pvxrw" path="res://scripts/weapons/weapon_recoil.gd" id="5_cd157"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
 [ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="6_cd157"]
@@ -149,7 +150,7 @@ sprinting_speed = 70.0
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
-weapon_controller = NodePath("CameraPivot/Camera3D/WeaponController")
+weapon_controller = NodePath("CameraPivot/Recoil/Camera3D/WeaponController")
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
@@ -222,16 +223,18 @@ skeleton = NodePath("../..")
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Recoil" type="Node3D" parent="CameraPivot"]
+script = ExtResource("5_cd157")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil"]
 doppler_tracking = 2
 near = 0.001
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraPivot/Camera3D"]
-update_mode = 1
-size = Vector3(50, 50, 50)
-
-[node name="WeaponController" parent="CameraPivot/Camera3D" instance=ExtResource("6_cd157")]
+[node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" instance=ExtResource("6_cd157")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028)
+
+[node name="Weapon" parent="CameraPivot/Recoil/Camera3D/WeaponController" index="0"]
+transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.089, -0.172, -0.117)
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
@@ -266,4 +269,4 @@ script = ExtResource("10_dqp0f")
 
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]
 
-[editable path="CameraPivot/Camera3D/WeaponController"]
+[editable path="CameraPivot/Recoil/Camera3D/WeaponController"]
