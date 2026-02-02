@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b8liwx87ci6j3"
-path="res://.godot/imported/sniper.gltf-02351ce0583f482b68b700f788808f46.scn"
+uid="uid://qr0770y0cmni"
+path="res://.godot/imported/SniperRifle.fbx-9ccc9994956ff9c40c5a15bcc4822446.scn"
 
 [deps]
 
-source_file="res://Assets/3DModels/Sniper/sniper.gltf"
-dest_files=["res://.godot/imported/sniper.gltf-02351ce0583f482b68b700f788808f46.scn"]
+source_file="res://Assets/3DModels/Sniper/SniperRifle.fbx"
+dest_files=["res://.godot/imported/SniperRifle.fbx-9ccc9994956ff9c40c5a15bcc4822446.scn"]
 
 [params]
 
@@ -30,25 +30,27 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 materials/extract=0
 materials/extract_format=0
-materials/extract_path=""
+materials/extract_path="res://Assets/3DModels"
 _subresources={
 "meshes": {
-"sniper_Cylinder_001": {
+"Cylinder_034": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/3DModels/Sniper/sniper.res",
-"save_to_file/path": "uid://d3urmclmlc730"
+"save_to_file/fallback_path": "res://Assets/3DModels/Cylinder_034.res",
+"save_to_file/path": "uid://da5048vo04vmn"
 }
 }
 }
-gltf/naming_version=2
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
+fbx/naming_version=2

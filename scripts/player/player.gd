@@ -25,16 +25,25 @@ var speed : float
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	weapon_controller.bullet_spawned.connect(add_collision_exception)
 	
+	for child in $PlayerStateMachine.get_children():
+		if child.has_signal("weapon_reloaded"):
+			child.weapon_reloaded.connect(weapon_controller.reload)
+		if child.has_signal("weapon_primary_attacked"):
+			child.weapon_primary_attacked.connect(weapon_controller.attack_primary)
+	
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
-	weapon_controller.shooter = self
 	
 	speed = walking_speed
-	
+
+
 func _process(delta: float) -> void:
 	_update_camera(delta)
+
 
 func _physics_process(_delta: float) -> void:
 	
@@ -102,3 +111,7 @@ func update_velocity():
 func update_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+
+func add_collision_exception(body : RigidBody3D):
+	body.add_collision_exception_with(self)
