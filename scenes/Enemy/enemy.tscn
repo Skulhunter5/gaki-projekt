@@ -1,23 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://242257bkv414"]
+[gd_scene format=3 uid="uid://242257bkv414"]
 
 [ext_resource type="Script" uid="uid://bp7lplgt3klwq" path="res://scripts/enemy/Enemy.gd" id="1_84vye"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_vamnb"]
+[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_o5uld"]
+[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_grfqg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
 
-[node name="Enemy" type="CharacterBody3D"]
+[node name="Enemy" type="CharacterBody3D" unique_id=1825778259]
+collision_layer = 4
 script = ExtResource("1_84vye")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
 mesh = SubResource("CapsuleMesh_o5uld")
 surface_material_override/0 = ExtResource("2_vamnb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
 shape = SubResource("CapsuleShape3D_grfqg")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1379128080]
 target_position = Vector3(0, 0, -15)
+
+[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_o5uld")]
+
+[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_grfqg")]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
+shape = SubResource("CapsuleShape3D_grfqg")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_death"]
