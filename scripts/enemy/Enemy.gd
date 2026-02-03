@@ -229,3 +229,7 @@ func shoot_state() -> void:
 	velocity = Vector3.ZERO
 	# TODO
 	enter_new_state(States.FOLLOW)
+
+func _on_death() -> void:
+	# TODO: add score
+	queue_free()
