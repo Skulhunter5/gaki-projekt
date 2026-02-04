@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dl8ntfovnl2mx"]
+
+[ext_resource type="Script" uid="uid://n7eyp5swswey" path="res://scripts/enemy/shooting_enemy.gd" id="1_np8gw"]
+[ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_vsoyc"]
+[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_fqcl0"]
+[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_mgpbx"]
+[ext_resource type="Script" uid="uid://wy36m1jl5pdu" path="res://scripts/weapons/ai/ai_weapon_recoil.gd" id="5_mgpbx"]
+[ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="5_vsoyc"]
+[ext_resource type="Script" uid="uid://cmoy1so6rq4ee" path="res://scripts/weapons/ai/ai_weapon_init.gd" id="6_fqcl0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
+
+[node name="Shooting_Enemy" type="CharacterBody3D" unique_id=1825778259 node_paths=PackedStringArray("weapon_controller")]
+collision_layer = 4
+script = ExtResource("1_np8gw")
+weapon_controller = NodePath("Pivot/Recoil/WeaponController")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
+mesh = SubResource("CapsuleMesh_o5uld")
+surface_material_override/0 = ExtResource("2_vsoyc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
+shape = SubResource("CapsuleShape3D_grfqg")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1379128080]
+target_position = Vector3(0, 0, -15)
+
+[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_fqcl0")]
+
+[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_mgpbx")]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
+shape = SubResource("CapsuleShape3D_grfqg")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1351800680]
+
+[node name="Recoil" type="Node3D" parent="Pivot" unique_id=633538459]
+script = ExtResource("5_mgpbx")
+
+[node name="WeaponController" parent="Pivot/Recoil" unique_id=846615135 instance=ExtResource("5_vsoyc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40571344, 0.39144802, 0.028)
+script = ExtResource("6_fqcl0")
+
+[node name="Weapon" parent="Pivot/Recoil/WeaponController" index="0"]
+transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.089, -0.172, -0.117)
+
+[connection signal="died" from="HealthComponent" to="." method="_on_death"]
+
+[editable path="Pivot/Recoil/WeaponController"]
