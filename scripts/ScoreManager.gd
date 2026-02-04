@@ -6,6 +6,7 @@ var score: int = 0
 var highscore: int = 0
 
 func _ready() -> void:
+	load_highscore()
 	score_changed.emit(score, highscore)
 
 func save_highscore() -> void:
@@ -16,6 +17,12 @@ func load_highscore() -> void:
 	# TODO: load the previously saved highscore
 	highscore = 0
 	score_changed.emit(score, highscore)
+
+func start_round() -> void:
+	reset()
+
+func end_round() -> void:
+	pass
 
 func reset():
 	score = 0

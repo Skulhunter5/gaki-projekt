@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody3D
 
+signal died()
+
 @export var walking_speed : float = 5.0
 @export var sprinting_speed : float = 7.0
 @export var crouching_speed : float = 2.0
@@ -116,6 +118,5 @@ func update_gravity(delta):
 func add_collision_exception(body : RigidBody3D):
 	body.add_collision_exception_with(self)
 
-
 func _on_death() -> void:
-	ScoreManager.reset()
+	died.emit()

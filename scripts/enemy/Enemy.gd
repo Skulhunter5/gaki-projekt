@@ -1,6 +1,7 @@
+class_name Enemy
 extends CharacterBody3D
 
-@export var KILL_SCORE: int  = 10
+signal died()
 
 var player = null
 var health = 100
@@ -56,7 +57,9 @@ var state: States = States.IDLE
 
 
 func _ready() -> void:
-	player = get_node(player_path)
+	if !player_path.is_empty():
+		player = get_node(player_path)
+	
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
 
 
@@ -233,5 +236,5 @@ func shoot_state() -> void:
 	enter_new_state(States.FOLLOW)
 
 func _on_death() -> void:
-	ScoreManager.add_score(KILL_SCORE)
+	died.emit()
 	queue_free()

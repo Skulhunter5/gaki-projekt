@@ -146,8 +146,6 @@ _data = {
 
 [node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
 script = ExtResource("1_v6fml")
-walking_speed = 50.0
-sprinting_speed = 70.0
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
@@ -250,6 +248,7 @@ script = ExtResource("5_cd157")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil" unique_id=93946294]
 doppler_tracking = 2
+current = true
 near = 0.001
 
 [node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" unique_id=470942422 instance=ExtResource("6_cd157")]
