@@ -30,3 +30,6 @@ func handle_input(event: InputEvent):
 		
 	if event.is_action_pressed("primary_attack"):
 		weapon_primary_attacked.emit()
+		
+	if event.is_action_pressed("jump"):
+		transition.emit("JumpingPlayerState")	

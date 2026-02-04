@@ -1,10 +1,10 @@
-class_name FallingPlayerState extends PlayerMovementState
+class_name JumpingPlayerState extends PlayerMovementState
 
 signal weapon_reloaded
 signal weapon_primary_attacked
 
 func enter() -> void:
-	pass
+	player.velocity.y = player.jump_height
 
 
 func exit() -> void:
@@ -13,11 +13,8 @@ func exit() -> void:
 
 func update(delta : float) -> void:
 	
-	if player.is_on_floor():
-		if Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards") != Vector2.ZERO:
-			transition.emit("WalkingPlayerState")
-		else:
-			transition.emit("IdlePlayerState")
+	if player.velocity.y < 0.0:
+		transition.emit("FallingPlayerState")
 		
 	player.update_gravity(delta)
 	player.update_movement()
