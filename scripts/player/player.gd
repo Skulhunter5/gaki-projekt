@@ -115,3 +115,7 @@ func update_gravity(delta):
 
 func add_collision_exception(body : RigidBody3D):
 	body.add_collision_exception_with(self)
+
+
+func _on_death() -> void:
+	ScoreManager.reset()

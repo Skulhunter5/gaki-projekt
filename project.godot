@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/singletons/global.gd"
+ScoreManager="*uid://0hhfs66f24n7"
 
 [display]
 

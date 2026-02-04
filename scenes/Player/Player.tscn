@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0wswgn5cfctu"]
+[gd_scene format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
+[ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf2"]
 [ext_resource type="Script" uid="uid://cccuub17pvxrw" path="res://scripts/weapons/weapon_recoil.gd" id="5_cd157"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
@@ -143,7 +144,7 @@ _data = {
 &"crouch": SubResource("Animation_ky53y")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animationplayer", "weapon_controller")]
+[node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
 script = ExtResource("1_v6fml")
 walking_speed = 50.0
 sprinting_speed = 70.0
@@ -152,7 +153,7 @@ deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
 weapon_controller = NodePath("CameraPivot/Recoil/Camera3D/WeaponController")
 
-[node name="UserInterface" type="Control" parent="."]
+[node name="UserInterface" type="Control" parent="." unique_id=1286794332]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,7 +162,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("reticle_lines", "player_controller")]
+[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=1033205599 node_paths=PackedStringArray("reticle_lines", "player_controller")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -179,23 +180,23 @@ reticle_speed = 0.1
 reticle_distance = 20.0
 dot_color = Color(18.892157, 18.892157, 18.892157, 1)
 
-[node name="Top" type="Line2D" parent="UserInterface/Reticle"]
+[node name="Top" type="Line2D" parent="UserInterface/Reticle" unique_id=453118370]
 points = PackedVector2Array(0, -45, 0, -60)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="UserInterface/Reticle"]
+[node name="Right" type="Line2D" parent="UserInterface/Reticle" unique_id=617194609]
 points = PackedVector2Array(45, 0, 60, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="UserInterface/Reticle"]
+[node name="Bottom" type="Line2D" parent="UserInterface/Reticle" unique_id=585174906]
 points = PackedVector2Array(0, 45, 0, 60)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="UserInterface/Reticle"]
+[node name="Left" type="Line2D" parent="UserInterface/Reticle" unique_id=935915491]
 points = PackedVector2Array(-45, 0, -60, 0)
 width = 2.0
 
-[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface" unique_id=355046455]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
 offset_left = 10.0
@@ -205,66 +206,85 @@ offset_bottom = 50.0
 theme = ExtResource("4_ved6o")
 script = ExtResource("5_xcisb")
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel" unique_id=1088396955]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer" unique_id=1163948935]
 layout_mode = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="TopRightMargin" type="MarginContainer" parent="UserInterface" unique_id=633411788]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/TopRightMargin" unique_id=1754318096]
+layout_mode = 2
+script = ExtResource("5_8djf2")
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=370617822]
+layout_mode = 2
+
+[node name="HighscoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=333556964]
+layout_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=998064516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
 
-[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2070688466]
 visible = false
 mesh = SubResource("CapsuleMesh_e5uuo")
 skeleton = NodePath("../..")
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=749507111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Recoil" type="Node3D" parent="CameraPivot"]
+[node name="Recoil" type="Node3D" parent="CameraPivot" unique_id=1476874696]
 script = ExtResource("5_cd157")
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil" unique_id=93946294]
 doppler_tracking = 2
 near = 0.001
 
-[node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" instance=ExtResource("6_cd157")]
+[node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" unique_id=470942422 instance=ExtResource("6_cd157")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028)
 
 [node name="Weapon" parent="CameraPivot/Recoil/Camera3D/WeaponController" index="0"]
 transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.089, -0.172, -0.117)
 
-[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="."]
+[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="." unique_id=1131120994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
 shape = SubResource("SphereShape3D_ky53y")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ved6o")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2132301744]
+libraries/ = SubResource("AnimationLibrary_ved6o")
 script = ExtResource("7_cd157")
 
-[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=283588312 node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_socpp")
 current_state = NodePath("IdlePlayerState")
 
-[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1842923987]
 script = ExtResource("6_socpp")
 
-[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1337696415]
 script = ExtResource("7_fxc31")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=934484336]
 script = ExtResource("8_puxyr")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1494363088]
 script = ExtResource("9_mmokv")
 
-[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1742691778]
 script = ExtResource("10_dqp0f")
 
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]

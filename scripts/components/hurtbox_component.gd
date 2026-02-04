@@ -7,8 +7,6 @@ func _ready() -> void:
 	area_entered.connect(on_hit)
 
 func on_hit(hitbox: HitboxComponent):
-	print("on_hit")
-	
 	if hitbox == null:
 		return
 	

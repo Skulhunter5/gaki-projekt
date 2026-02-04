@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@export var KILL_SCORE: int  = 10
+
 var player = null
 var health = 100
 var fov = 100
@@ -231,5 +233,5 @@ func shoot_state() -> void:
 	enter_new_state(States.FOLLOW)
 
 func _on_death() -> void:
-	# TODO: add score
+	ScoreManager.add_score(KILL_SCORE)
 	queue_free()
