@@ -58,10 +58,6 @@ func _ready() -> void:
 	player = get_node(player_path)
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
 
-#func _process(delta: float) -> void:
-#	gun.transform.basis = Basis.from_euler(enemy_rotation)
-#	gun.rotation.z = 0.0
-
 func _physics_process(delta: float) -> void:
 
 	update_path(delta)
@@ -236,8 +232,11 @@ func search_state(delta: float) -> void:
 func shoot_state() -> void:
 	velocity = Vector3.ZERO
 	weapon_controller.attack_primary()
-	if not player_in_sight():
+	if global_transform.origin.distance_to(player.global_transform.origin) > engagement_distance:
 		enter_new_state(States.FOLLOW)
+	elif not player_in_sight():
+		search_position = player.global_transform.origin
+		enter_new_state(States.SEARCH)
 
 func _on_death() -> void:
 	# TODO: add score
