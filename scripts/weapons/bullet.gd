@@ -3,8 +3,6 @@ extends RigidBody3D
 var impact_scene := preload("res://scenes/Weapons/impact_effect.tscn")
 @onready var ray_cast = $RayCast3D
 @onready var hitbox = $HitboxComponent
-var bounce_count = 0
-var max_bounce = 3
 
 func _ready() -> void:
 	hitbox.body_entered.connect(_on_bullet_hit)
@@ -27,7 +25,4 @@ func spawn_impact(pos: Vector3, normal: Vector3):
 
 
 func _on_bullet_hit(body: Node3D) -> void:
-	bounce_count += 1
-	print_debug(body)
-	if(bounce_count >= max_bounce):
-		queue_free()
+	queue_free()
