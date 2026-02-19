@@ -2,19 +2,19 @@ extends RigidBody3D
 
 var impact_scene := preload("res://scenes/Weapons/impact_effect.tscn")
 @onready var ray_cast = $RayCast3D
+@onready var hitbox = $HitboxComponent
+var bounce_count = 0
+var max_bounce = 3
 
 func _ready() -> void:
-	self.body_entered.connect(_on_body_entered)
+	hitbox.body_entered.connect(_on_bullet_hit)
+
 
 func _physics_process(_delta: float) -> void:
 	if ray_cast.is_colliding():
 		var contact_pos = ray_cast.get_collision_point()
 		var contact_normal = ray_cast.get_collision_normal()
 		spawn_impact(contact_pos,contact_normal)
-
-
-func _on_body_entered(_body: Node) -> void:
-	queue_free()
 
 
 func spawn_impact(pos: Vector3, normal: Vector3):
@@ -24,3 +24,10 @@ func spawn_impact(pos: Vector3, normal: Vector3):
 	
 	# no idea why but it turns them right
 	impact.quaternion = Quaternion(Vector3.UP,normal)
+
+
+func _on_bullet_hit(body: Node3D) -> void:
+	bounce_count += 1
+	print_debug(body)
+	if(bounce_count >= max_bounce):
+		queue_free()
