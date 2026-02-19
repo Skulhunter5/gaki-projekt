@@ -7,6 +7,7 @@ var player = null
 var health = 100
 var fov = 100
 
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var patrol_index := 0
 
 #Timers
@@ -87,11 +88,15 @@ func _physics_process(delta: float) -> void:
 		#	velocity = (next_nav_point - global_position).normalized() * speed
 			
 		#	move_and_slide()
-
+	apply_gravity(delta)
 	looking()
 	move_and_slide()
 
-
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		velocity.y = 0.0
 func player_in_hearing_range():
 	return global_position.distance_to(player.global_position) < hearing_range
 
