@@ -2,6 +2,7 @@ class_name WeaponController extends Node3D
 
 signal bullet_spawned(bullet : RigidBody3D)
 signal weapon_fired
+signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int)
 
 @export var weapon_type : Weapons # Weapon Resource
 
@@ -44,6 +45,8 @@ func _ready() -> void:
 	recoil_amount = weapon_type.recoil_amount
 	recoil_snap_amount = weapon_type.recoil_snap_amount
 	recoil_speed = weapon_type.recoil_speed
+	
+	ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
 
 func attack_primary():
@@ -53,6 +56,7 @@ func attack_primary():
 		spawn_bullet()
 		current_magazine -= 1
 		fire_rate_timer.start(1.0 / weapon_type.fire_rate)
+		ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
 
 func reload():
@@ -63,6 +67,7 @@ func reload():
 		await reload_timer.timeout
 		current_magazine += clamp(current_total_ammo,0,max_magazine)
 		current_total_ammo -= current_magazine
+		ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
 
 func spawn_bullet() -> void:

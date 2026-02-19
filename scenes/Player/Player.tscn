@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
 [ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf2"]
+[ext_resource type="Script" uid="uid://cm3w1i7qndosi" path="res://scenes/Player/ammo_ui.gd" id="5_8djf2"]
 [ext_resource type="Script" uid="uid://cccuub17pvxrw" path="res://scripts/weapons/weapon_recoil.gd" id="5_cd157"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
@@ -17,6 +18,7 @@
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 [ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
 [ext_resource type="Script" uid="uid://d00k7lfscofia" path="res://scripts/player/statemachine/falling_player_state.gd" id="10_dqp0f"]
+[ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
 
