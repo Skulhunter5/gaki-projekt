@@ -175,10 +175,12 @@ func enter_new_state(new_state: States) -> void:
 
 
 func idle_state() -> void:
+	#print("State: IDLE")
 	if player_in_sight():# or player_in_hearing_range():
 		enter_new_state(States.FOLLOW)
 
 func follow_state(delta: float) -> void:
+	#print("State: FOLLOW")
 	if not player:
 		enter_new_state(States.RETURN)
 		return
@@ -189,9 +191,11 @@ func follow_state(delta: float) -> void:
 		enter_new_state(States.SHOOT)
 	elif not player_in_sight():
 		search_position = player.global_transform.origin
+		search_position.y = 2
 		enter_new_state(States.SEARCH)
 
 func patrol_state(delta: float) -> void:
+	#print("State: PATROL")
 	if nav_agent.is_navigation_finished():
 		if patrol_timer <= 0.0:
 			patrol_timer = patrol_wait_time
@@ -207,6 +211,7 @@ func patrol_state(delta: float) -> void:
 		enter_new_state(States.FOLLOW)
 
 func return_state(delta: float) -> void:
+	#print("State: RETURN")
 	if nav_agent.is_navigation_finished():
 		enter_new_state(States.PATROL)
 	elif player_in_sight():
@@ -215,6 +220,7 @@ func return_state(delta: float) -> void:
 		go_to(nav_agent.get_next_path_position())
 
 func search_state(delta: float) -> void:
+	#print("State: SEARCH")
 	if nav_agent.is_navigation_finished():
 		if search_timer <= 0.0:
 			search_timer = search_wait_time
@@ -230,12 +236,14 @@ func search_state(delta: float) -> void:
 		enter_new_state(States.FOLLOW)
 
 func shoot_state() -> void:
+	#print("State: SHOOT")
 	velocity = Vector3.ZERO
 	weapon_controller.attack_primary()
 	if global_transform.origin.distance_to(player.global_transform.origin) > engagement_distance:
 		enter_new_state(States.FOLLOW)
 	elif not player_in_sight():
 		search_position = player.global_transform.origin
+		search_position.y = 2
 		enter_new_state(States.SEARCH)
 
 func _on_death() -> void:
