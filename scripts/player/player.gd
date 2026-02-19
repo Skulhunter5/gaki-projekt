@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody3D
 
+signal died()
+
 @export var walking_speed : float = 5.0
 @export var sprinting_speed : float = 7.0
 @export var crouching_speed : float = 2.0
@@ -22,11 +24,19 @@ var _camera_rotation : Vector3
 
 var speed : float
 
+@onready var health_component: HealthComponent = $HealthComponent
+func is_dead() -> bool:
+	return health_component.has_died
+
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
+@onready var death_ui: DeathUI = $UserInterface/DeathUI
+
 func _ready():
 	weapon_controller.bullet_spawned.connect(add_collision_exception)
+	
+	died.connect(death_ui._on_player_death)
 	
 	for child in $PlayerStateMachine.get_children():
 		if child.has_signal("weapon_reloaded"):
@@ -43,11 +53,12 @@ func _ready():
 
 
 func _process(delta: float) -> void:
+	if is_dead():
+		return
 	_update_camera(delta)
 
 
 func _physics_process(_delta: float) -> void:
-	
 	Global.debug.add_property("MovementSpeed",speed,1)
 	Global.debug.add_property("MouseRotation",_mouse_rotation,2)
 
@@ -55,6 +66,10 @@ func _physics_process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_tree().quit()
+	
+	if is_dead():
+		return
+	
 	if event.is_action_pressed("toggle_mouse_mode"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -62,6 +77,8 @@ func _input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_dead():
+		return
 	# handle looking around
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
@@ -91,6 +108,8 @@ func _update_camera(_delta):
 
 
 func update_movement():
+	if is_dead():
+		return
 	
 	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -106,6 +125,8 @@ func update_movement():
 
 
 func update_velocity():
+	if is_dead():
+		return
 	move_and_slide()
 
 
@@ -116,3 +137,8 @@ func update_gravity(delta):
 
 func add_collision_exception(body : RigidBody3D):
 	body.add_collision_exception_with(self)
+
+func _on_death() -> void:
+	#velocity = Vector3.ZERO
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	died.emit()

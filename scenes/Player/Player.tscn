@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
+[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="2_dqefj"]
+[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="3_5gcuk"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
+[ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf2"]
 [ext_resource type="Script" uid="uid://cm3w1i7qndosi" path="res://scenes/Player/ammo_ui.gd" id="5_8djf2"]
 [ext_resource type="Script" uid="uid://cccuub17pvxrw" path="res://scripts/weapons/weapon_recoil.gd" id="5_cd157"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
@@ -11,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://cspp8kume74q4" path="res://scripts/player/animation_player.gd" id="7_cd157"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
+[ext_resource type="Script" uid="uid://bxqvwdeotf2jp" path="res://scripts/player/ui/death_ui.gd" id="8_5gcuk"]
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 [ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
 [ext_resource type="Script" uid="uid://d00k7lfscofia" path="res://scripts/player/statemachine/falling_player_state.gd" id="10_dqp0f"]
@@ -145,16 +149,22 @@ _data = {
 &"crouch": SubResource("Animation_ky53y")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=91593347 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
+[node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
 script = ExtResource("1_v6fml")
-walking_speed = 50.0
-sprinting_speed = 70.0
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
 weapon_controller = NodePath("CameraPivot/Recoil/Camera3D/WeaponController")
 
-[node name="UserInterface" type="Control" parent="." unique_id=1655086526]
+[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("2_dqefj")]
+
+[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("3_5gcuk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1309827293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_nnsk1")
+
+[node name="UserInterface" type="Control" parent="." unique_id=1286794332]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,7 +173,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=901885606 node_paths=PackedStringArray("reticle_lines", "player_controller")]
+[node name="Reticle" type="CenterContainer" parent="UserInterface" unique_id=1033205599 node_paths=PackedStringArray("reticle_lines", "player_controller")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,23 +191,23 @@ reticle_speed = 0.1
 reticle_distance = 20.0
 dot_color = Color(18.892157, 18.892157, 18.892157, 1)
 
-[node name="Top" type="Line2D" parent="UserInterface/Reticle" unique_id=416954852]
+[node name="Top" type="Line2D" parent="UserInterface/Reticle" unique_id=453118370]
 points = PackedVector2Array(0, -45, 0, -60)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="UserInterface/Reticle" unique_id=1036255797]
+[node name="Right" type="Line2D" parent="UserInterface/Reticle" unique_id=617194609]
 points = PackedVector2Array(45, 0, 60, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="UserInterface/Reticle" unique_id=1389460499]
+[node name="Bottom" type="Line2D" parent="UserInterface/Reticle" unique_id=585174906]
 points = PackedVector2Array(0, 45, 0, 60)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="UserInterface/Reticle" unique_id=1069107471]
+[node name="Left" type="Line2D" parent="UserInterface/Reticle" unique_id=935915491]
 points = PackedVector2Array(-45, 0, -60, 0)
 width = 2.0
 
-[node name="DebugPanel" type="PanelContainer" parent="UserInterface" unique_id=127229165]
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface" unique_id=355046455]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
 offset_left = 10.0
@@ -207,94 +217,115 @@ offset_bottom = 50.0
 theme = ExtResource("4_ved6o")
 script = ExtResource("5_xcisb")
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel" unique_id=1786103145]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel" unique_id=1088396955]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer" unique_id=1397306519]
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer" unique_id=1163948935]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface" unique_id=1521002885]
+[node name="TopRightMargin" type="MarginContainer" parent="UserInterface" unique_id=633411788]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = -40.0
-offset_top = -50.0
+offset_bottom = 40.0
 grow_horizontal = 0
-grow_vertical = 0
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
-[node name="Ammo" type="VBoxContainer" parent="UserInterface/MarginContainer" unique_id=470400535]
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/TopRightMargin" unique_id=1754318096]
 layout_mode = 2
 script = ExtResource("5_8djf2")
 
-[node name="Magazine" type="Label" parent="UserInterface/MarginContainer/Ammo" unique_id=1146469683]
+[node name="ScoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=370617822]
 layout_mode = 2
 
-[node name="Total" type="Label" parent="UserInterface/MarginContainer/Ammo" unique_id=1101528300]
+[node name="HighscoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=333556964]
 layout_mode = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680666307]
+[node name="DeathUI" type="VBoxContainer" parent="UserInterface" unique_id=1794842698 node_paths=PackedStringArray("reticle")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -20.0
+offset_right = 48.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_5gcuk")
+reticle = NodePath("../Reticle")
+
+[node name="DeadLabel" type="Label" parent="UserInterface/DeathUI" unique_id=1129754076]
+layout_mode = 2
+text = "You're dead!"
+
+[node name="RestartButton" type="Button" parent="UserInterface/DeathUI" unique_id=390672169]
+layout_mode = 2
+text = "Restart"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=998064516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
 
-[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D" unique_id=832962229]
+[node name="Mesh" type="MeshInstance3D" parent="CollisionShape3D" unique_id=2070688466]
 visible = false
 mesh = SubResource("CapsuleMesh_e5uuo")
 skeleton = NodePath("../..")
 
-[node name="CameraPivot" type="Node3D" parent="." unique_id=1168952018]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=749507111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Recoil" type="Node3D" parent="CameraPivot" unique_id=735193597]
+[node name="Recoil" type="Node3D" parent="CameraPivot" unique_id=1476874696]
 script = ExtResource("5_cd157")
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil" unique_id=178149359]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil" unique_id=93946294]
 doppler_tracking = 2
+current = true
 near = 0.001
 
-[node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" unique_id=1194869803 instance=ExtResource("6_cd157")]
+[node name="WeaponController" parent="CameraPivot/Recoil/Camera3D" unique_id=470942422 instance=ExtResource("6_cd157")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028)
 
 [node name="Weapon" parent="CameraPivot/Recoil/Camera3D/WeaponController" index="0"]
 transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.089, -0.172, -0.117)
 
-[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="." unique_id=634052979]
+[node name="CrouchShapeCast3D" type="ShapeCast3D" parent="." unique_id=1131120994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
 shape = SubResource("SphereShape3D_ky53y")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0.20000005, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1238666231]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2132301744]
 libraries/ = SubResource("AnimationLibrary_ved6o")
 script = ExtResource("7_cd157")
 
-[node name="PlayerStateMachine" type="Node" parent="." unique_id=794359064 node_paths=PackedStringArray("current_state")]
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=283588312 node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_socpp")
 current_state = NodePath("IdlePlayerState")
 
-[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=2105195059]
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1842923987]
 script = ExtResource("6_socpp")
 
-[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=811802091]
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1337696415]
 script = ExtResource("7_fxc31")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=911597058]
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=934484336]
 script = ExtResource("8_puxyr")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=726994790]
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1494363088]
 script = ExtResource("9_mmokv")
 
-[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=393472885]
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1742691778]
 script = ExtResource("10_dqp0f")
 
-[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1070751611]
-script = ExtResource("15_lbts4")
-
-[connection signal="ammo_changed" from="CameraPivot/Recoil/Camera3D/WeaponController" to="UserInterface/MarginContainer/Ammo" method="_on_ammo_change"]
+[connection signal="died" from="HealthComponent" to="." method="_on_death"]
+[connection signal="pressed" from="UserInterface/DeathUI/RestartButton" to="UserInterface/DeathUI" method="_on_restart_button_pressed"]
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]
 
 [editable path="CameraPivot/Recoil/Camera3D/WeaponController"]

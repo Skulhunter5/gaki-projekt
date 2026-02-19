@@ -15,13 +15,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Real/Simple Sniper"
-run/main_scene="uid://d104n741w4t5d"
+run/main_scene="uid://bycy2o10ag1rf"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/singletons/global.gd"
+ScoreManager="*uid://0hhfs66f24n7"
 
 [display]
 
