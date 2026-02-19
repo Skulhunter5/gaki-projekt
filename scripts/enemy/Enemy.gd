@@ -62,6 +62,8 @@ func _ready() -> void:
 		player = get_node(player_path)
 	
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
+	
+	$HitboxComponent.damage = damage
 
 
 func _physics_process(delta: float) -> void:
