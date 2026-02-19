@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="3_5gcuk"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
-[ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf2"]
 [ext_resource type="Script" uid="uid://cm3w1i7qndosi" path="res://scenes/Player/ammo_ui.gd" id="5_8djf2"]
+[ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf3"]
 [ext_resource type="Script" uid="uid://cccuub17pvxrw" path="res://scripts/weapons/weapon_recoil.gd" id="5_cd157"]
 [ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="5_socpp"]
 [ext_resource type="Script" uid="uid://cbxvxjalc1vdh" path="res://scripts/player/debug_panel.gd" id="5_xcisb"]
@@ -236,12 +236,36 @@ theme_override_constants/margin_right = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/TopRightMargin" unique_id=1754318096]
 layout_mode = 2
-script = ExtResource("5_8djf2")
+script = ExtResource("5_8djf3")
 
 [node name="ScoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=370617822]
 layout_mode = 2
 
 [node name="HighscoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=333556964]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface" unique_id=1521002885]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Ammo" type="VBoxContainer" parent="UserInterface/MarginContainer" unique_id=470400535]
+layout_mode = 2
+script = ExtResource("5_8djf2")
+
+[node name="Magazine" type="Label" parent="UserInterface/MarginContainer/Ammo" unique_id=1146469683]
+layout_mode = 2
+
+[node name="Total" type="Label" parent="UserInterface/MarginContainer/Ammo" unique_id=1101528300]
 layout_mode = 2
 
 [node name="DeathUI" type="VBoxContainer" parent="UserInterface" unique_id=1794842698 node_paths=PackedStringArray("reticle")]
@@ -324,8 +348,12 @@ script = ExtResource("9_mmokv")
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1742691778]
 script = ExtResource("10_dqp0f")
 
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1070751611]
+script = ExtResource("15_lbts4")
+
 [connection signal="died" from="HealthComponent" to="." method="_on_death"]
 [connection signal="pressed" from="UserInterface/DeathUI/RestartButton" to="UserInterface/DeathUI" method="_on_restart_button_pressed"]
+[connection signal="ammo_changed" from="CameraPivot/Recoil/Camera3D/WeaponController" to="UserInterface/MarginContainer/Ammo" method="_on_ammo_change"]
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]
 
 [editable path="CameraPivot/Recoil/Camera3D/WeaponController"]
