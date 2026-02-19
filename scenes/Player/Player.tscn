@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b0wswgn5cfctu"]
 
 [ext_resource type="Script" uid="uid://bkay5nayy4245" path="res://scripts/player/player.gd" id="1_v6fml"]
+[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="2_dqefj"]
+[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="3_5gcuk"]
 [ext_resource type="Script" uid="uid://c7alemsy1r1xa" path="res://scripts/player/reticle.gd" id="3_bvqhm"]
 [ext_resource type="Theme" uid="uid://b0u3lr0c20t0y" path="res://scenes/GUI/debug.tres" id="4_ved6o"]
 [ext_resource type="Script" uid="uid://dj5vi5shbabfg" path="res://scripts/player/ui/score_ui.gd" id="5_8djf2"]
@@ -11,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dsotwc7txjyou" path="res://scripts/player/statemachine/idle_player_state.gd" id="6_socpp"]
 [ext_resource type="Script" uid="uid://cspp8kume74q4" path="res://scripts/player/animation_player.gd" id="7_cd157"]
 [ext_resource type="Script" uid="uid://dap524tjfhdn0" path="res://scripts/player/statemachine/walking_player_state.gd" id="7_fxc31"]
+[ext_resource type="Script" uid="uid://bxqvwdeotf2jp" path="res://scripts/player/ui/death_ui.gd" id="8_5gcuk"]
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 [ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
 [ext_resource type="Script" uid="uid://d00k7lfscofia" path="res://scripts/player/statemachine/falling_player_state.gd" id="10_dqp0f"]
@@ -151,6 +154,14 @@ deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
 weapon_controller = NodePath("CameraPivot/Recoil/Camera3D/WeaponController")
 
+[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("2_dqefj")]
+
+[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("3_5gcuk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1309827293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_nnsk1")
+
 [node name="UserInterface" type="Control" parent="." unique_id=1286794332]
 layout_mode = 3
 anchors_preset = 15
@@ -231,6 +242,31 @@ layout_mode = 2
 [node name="HighscoreLabel" type="Label" parent="UserInterface/TopRightMargin/VBoxContainer" unique_id=333556964]
 layout_mode = 2
 
+[node name="DeathUI" type="VBoxContainer" parent="UserInterface" unique_id=1794842698 node_paths=PackedStringArray("reticle")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -20.0
+offset_right = 48.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_5gcuk")
+reticle = NodePath("../Reticle")
+
+[node name="DeadLabel" type="Label" parent="UserInterface/DeathUI" unique_id=1129754076]
+layout_mode = 2
+text = "You're dead!"
+
+[node name="RestartButton" type="Button" parent="UserInterface/DeathUI" unique_id=390672169]
+layout_mode = 2
+text = "Restart"
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=998064516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
@@ -286,6 +322,8 @@ script = ExtResource("9_mmokv")
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1742691778]
 script = ExtResource("10_dqp0f")
 
+[connection signal="died" from="HealthComponent" to="." method="_on_death"]
+[connection signal="pressed" from="UserInterface/DeathUI/RestartButton" to="UserInterface/DeathUI" method="_on_restart_button_pressed"]
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]
 
 [editable path="CameraPivot/Recoil/Camera3D/WeaponController"]

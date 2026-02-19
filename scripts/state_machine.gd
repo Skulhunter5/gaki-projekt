@@ -37,4 +37,9 @@ func on_child_transition(new_state_name: StringName) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_instance_of(owner, Player):
+		var player: Player = owner as Player
+		if player.is_dead():
+			return
+	
 	current_state.handle_input(event)

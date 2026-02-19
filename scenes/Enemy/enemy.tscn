@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_vamnb"]
 [ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_o5uld"]
 [ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_grfqg"]
+[ext_resource type="PackedScene" uid="uid://b28m7c1y2ep5q" path="res://scenes/Components/HitboxComponent.tscn" id="5_grfqg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
 
@@ -32,6 +33,11 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
+shape = SubResource("CapsuleShape3D_grfqg")
+
+[node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("5_grfqg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1078890805]
 shape = SubResource("CapsuleShape3D_grfqg")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_death"]

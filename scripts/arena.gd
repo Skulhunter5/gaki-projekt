@@ -32,5 +32,3 @@ func _on_enemy_death() -> void:
 
 func _on_player_death() -> void:
 	ScoreManager.end_round()
-	get_tree().reload_current_scene()
-	pass
