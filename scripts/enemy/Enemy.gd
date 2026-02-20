@@ -186,7 +186,7 @@ func idle_state() -> void:
 	if player_in_sight():# or player_in_hearing_range():
 		enter_new_state(States.FOLLOW)
 
-func follow_state(delta: float) -> void:
+func follow_state(_delta: float) -> void:
 	if not player:
 		enter_new_state(States.RETURN)
 		return
@@ -214,7 +214,7 @@ func patrol_state(delta: float) -> void:
 	if player_in_sight():
 		enter_new_state(States.FOLLOW)
 
-func return_state(delta: float) -> void:
+func return_state(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		enter_new_state(States.PATROL)
 	elif player_in_sight():
