@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://brcurye3knmky"]
+[gd_resource type="Resource" script_class="Weapons" format=3 uid="uid://brcurye3knmky"]
 
 [ext_resource type="Script" uid="uid://de7sh1obtmej3" path="res://scripts/weapons/weapons.gd" id="1_8g58j"]
 [ext_resource type="ArrayMesh" uid="uid://c5ap2wyc2bsmp" path="res://Assets/3DModels/Sniper/SniperRifle.res" id="1_g8muw"]
@@ -16,7 +16,7 @@ fire_rate = 1
 magazine_size = 8
 max_ammo = 100
 reload_time = 1.0
-recoil_amount = Vector3(0.75, 0.1, 0)
+recoil_amount = Vector3(0.5, 0.1, 0)
 recoil_snap_amount = 10.0
 recoil_speed = 3.0
 metadata/_custom_type_script = "uid://de7sh1obtmej3"

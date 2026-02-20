@@ -2,6 +2,7 @@ class_name WeaponController extends Node3D
 
 signal bullet_spawned(bullet : RigidBody3D)
 signal weapon_fired
+signal scope_changed
 signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int)
 
 @export var weapon_type : Weapons # Weapon Resource
@@ -12,6 +13,7 @@ signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int
 @onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
 @onready var bullet_spawn := $BulletSpawn
+@onready var weapon_animation := $AnimationPlayer
 
 var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 
@@ -24,6 +26,8 @@ var reload_time : float
 var recoil_amount : Vector3
 var recoil_snap_amount : float
 var recoil_speed : float
+
+var scoped : bool = false
 
 
 # reads the weapon resource and instantiates all bullets for object pooling
@@ -59,8 +63,29 @@ func attack_primary():
 		ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
 
+func attack_secondary():
+	if scoped:
+		unscope()
+	else:
+		scope()
+	scope_changed.emit()
+		
+
+func unscope():
+	scoped = false
+	weapon_animation.play("weapon_scope",-1,-1.0,true)
+	
+
+func scope():
+	scoped = true
+	weapon_animation.play("weapon_scope",-1,1.0,false)
+
+
 func reload():
 	if current_magazine < max_magazine and reload_timer.is_stopped():
+		if scoped:
+			unscope()
+			scope_changed.emit()
 		
 		var start_basis = weapon_mesh.transform.basis
 		var tween = create_tween()

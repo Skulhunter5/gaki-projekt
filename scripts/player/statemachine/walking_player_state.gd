@@ -2,6 +2,7 @@ class_name WalkingPlayerState extends PlayerMovementState
 
 signal weapon_reloaded
 signal weapon_primary_attacked
+signal weapon_secondary_attacked
 
 func enter() -> void:
 	player.speed = player.walking_speed	
@@ -30,6 +31,9 @@ func handle_input(event: InputEvent):
 		
 	if Input.is_action_pressed("primary_attack"):
 		weapon_primary_attacked.emit()
+	
+	if event.is_action_pressed("secondary_attack"):
+		weapon_secondary_attacked.emit()
 		
 	if event.is_action_pressed("jump"):
 		transition.emit("JumpingPlayerState")	
