@@ -38,6 +38,18 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path="res://Assets/3DModels"
 _subresources={
+"materials": {
+"Glass": {
+"use_external/enabled": true,
+"use_external/fallback_path": "",
+"use_external/path": "uid://dw78usfnae2rv"
+},
+"Viewport": {
+"use_external/enabled": true,
+"use_external/fallback_path": "",
+"use_external/path": "uid://dw78usfnae2rv"
+}
+},
 "meshes": {
 "Cylinder_034": {
 "generate/lightmap_uv": 0,
@@ -45,8 +57,8 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Assets/3DModels/Cylinder_034.res",
-"save_to_file/path": "uid://da5048vo04vmn"
+"save_to_file/fallback_path": "res://Assets/3DModels/Sniper/SniperRifle.res",
+"save_to_file/path": "uid://c5ap2wyc2bsmp"
 }
 }
 }

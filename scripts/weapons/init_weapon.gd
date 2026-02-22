@@ -14,6 +14,8 @@ signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int
 @onready var weapon := $Weapon
 @onready var bullet_spawn := $BulletSpawn
 @onready var weapon_animation := $AnimationPlayer
+@onready var viewport := $Weapon/SubViewport
+@onready var viewportAnker := $Weapon/Marker3D
 
 var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 
@@ -53,6 +55,20 @@ func _ready() -> void:
 	spread = weapon_type.spread
 	
 	ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
+	
+	
+	## viewport code -> remove when refactoring system
+	var viewport_texture = viewport.get_texture()
+	
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = viewport_texture
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	
+	weapon_mesh.set_surface_override_material(5, material)
+
+
+func _process(delta: float) -> void:
+	viewport.get_camera_3d().global_transform = viewportAnker.global_transform
 
 
 func attack_primary():
@@ -121,7 +137,7 @@ func spawn_bullet() -> void:
 	bullet.position = bullet_spawn.global_position
 	bullet.rotation = owner._camera_rotation + owner._player_rotation
 	if !scoped:
-		bullet.rotation_degrees += Vector3(randi_range(-spread.x,spread.x),randi_range(-spread.y,spread.y),0)
+		bullet.rotation_degrees += Vector3(randf_range(-spread.x,spread.x),randf_range(-spread.y,spread.y),0)
 	get_tree().current_scene.add_child(bullet)
 	
 	var forward : Vector3 = -bullet.global_transform.basis.z
