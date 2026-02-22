@@ -26,6 +26,7 @@ var reload_time : float
 var recoil_amount : Vector3
 var recoil_snap_amount : float
 var recoil_speed : float
+var spread : Vector3
 
 var scoped : bool = false
 
@@ -49,6 +50,7 @@ func _ready() -> void:
 	recoil_amount = weapon_type.recoil_amount
 	recoil_snap_amount = weapon_type.recoil_snap_amount
 	recoil_speed = weapon_type.recoil_speed
+	spread = weapon_type.spread
 	
 	ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
@@ -119,7 +121,7 @@ func spawn_bullet() -> void:
 	bullet.position = bullet_spawn.global_position
 	bullet.rotation = owner._camera_rotation + owner._player_rotation
 	if !scoped:
-		bullet.rotation_degrees += Vector3(randi_range(-12,12),randi_range(-12,12),0)
+		bullet.rotation_degrees += Vector3(randi_range(-spread.x,spread.y),randi_range(-spread.y,spread.y),0)
 	get_tree().current_scene.add_child(bullet)
 	
 	var forward : Vector3 = -bullet.global_transform.basis.z
