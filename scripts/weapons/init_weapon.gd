@@ -121,7 +121,7 @@ func spawn_bullet() -> void:
 	bullet.position = bullet_spawn.global_position
 	bullet.rotation = owner._camera_rotation + owner._player_rotation
 	if !scoped:
-		bullet.rotation_degrees += Vector3(randi_range(-spread.x,spread.y),randi_range(-spread.y,spread.y),0)
+		bullet.rotation_degrees += Vector3(randi_range(-spread.x,spread.x),randi_range(-spread.y,spread.y),0)
 	get_tree().current_scene.add_child(bullet)
 	
 	var forward : Vector3 = -bullet.global_transform.basis.z
