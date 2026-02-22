@@ -26,8 +26,8 @@ ScoreManager="*uid://0hhfs66f24n7"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor_plugins]
 
