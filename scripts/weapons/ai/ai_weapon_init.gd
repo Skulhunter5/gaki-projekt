@@ -74,10 +74,13 @@ func spawn_bullet() -> void:
 	var bullet : RigidBody3D = bullet_scene.instantiate()
 	
 	bullet_spawned.emit(bullet)
-	
-	bullet.position = bullet_spawn.global_position
-	#bullet.rotation = owner._camera_rotation + owner._player_rotation
 	get_tree().current_scene.add_child(bullet)
+	#bullet.position = bullet_spawn.global_position
+	bullet.global_position = bullet_spawn.global_position
+	bullet.global_transform.basis = bullet_spawn.global_transform.basis
+	#bullet.rotation = owner._camera_rotation + owner._player_rotation
+	
+	
 	
 	var forward : Vector3 = -bullet.global_transform.basis.z
 	bullet.linear_velocity = forward * attack_range

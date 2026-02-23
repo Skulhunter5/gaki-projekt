@@ -56,10 +56,12 @@ var state: States = States.IDLE
 
 func _ready() -> void:
 	player = get_node(player_path)
+	return_position = global_transform.origin
+	return_position.y = 2
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
 
 func _physics_process(delta: float) -> void:
-
+	
 	update_path(delta)
 	
 	match state:
@@ -69,20 +71,7 @@ func _physics_process(delta: float) -> void:
 		States.RETURN: return_state(delta)
 		States.SEARCH: search_state(delta)
 		States.SHOOT: shoot_state()
-		States.DEAD:
-			pass
-		#States.FOLLOW:
-		#	velocity = Vector3.ZERO
-			
-		#	nav_agent.set_target_position(player.global_position)
-		#	var next_nav_point = nav_agent.get_next_path_position()
-			#look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-		#	if !player_in_sight():
-		#		state = States.IDLE
-		#	velocity = (next_nav_point - global_position).normalized() * speed
-			
-		#	move_and_slide()
-
+		
 	looking()
 	move_and_slide()
 
@@ -163,8 +152,10 @@ func enter_new_state(new_state: States) -> void:
 		States.SEARCH:
 			search_timer = 0.0
 			nav_agent.set_target_position(search_position)
-		States.FOLLOW, States.SEARCH:
-			return_position = global_transform.origin
+		#States.FOLLOW, States.SEARCH:
+			#return_position = global_transform.origin
+		States.RETURN:
+			nav_agent.set_target_position(return_position)
 
 
 
@@ -176,6 +167,8 @@ func enter_new_state(new_state: States) -> void:
 
 func idle_state() -> void:
 	#print("State: IDLE")
+	velocity = Vector3.ZERO
+	nav_agent.set_target_position(global_position)
 	if player_in_sight():# or player_in_hearing_range():
 		enter_new_state(States.FOLLOW)
 
@@ -212,7 +205,13 @@ func patrol_state(delta: float) -> void:
 
 func return_state(delta: float) -> void:
 	#print("State: RETURN")
-	if nav_agent.is_navigation_finished():
+	if waypoints.is_empty():
+		if nav_agent.is_navigation_finished():
+			enter_new_state(States.IDLE)
+		else:
+			go_to(nav_agent.get_next_path_position())
+		return
+	if nav_agent.is_navigation_finished() and not waypoints.is_empty():
 		enter_new_state(States.PATROL)
 	elif player_in_sight():
 		enter_new_state(States.FOLLOW)
@@ -238,7 +237,12 @@ func search_state(delta: float) -> void:
 func shoot_state() -> void:
 	#print("State: SHOOT")
 	velocity = Vector3.ZERO
-	weapon_controller.attack_primary()
+	#nav_agent.set_target_position(global_position)
+	if weapon_controller.current_magazine <= 0:
+			weapon_controller.reload()
+			return
+	if weapon_controller.reload_timer.is_stopped():
+		weapon_controller.attack_primary()
 	if global_transform.origin.distance_to(player.global_transform.origin) > engagement_distance:
 		enter_new_state(States.FOLLOW)
 	elif not player_in_sight():
