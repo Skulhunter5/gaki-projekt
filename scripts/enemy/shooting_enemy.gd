@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal died()
+
 var player = null
 var health = 100
 var fov = 100
@@ -259,5 +261,5 @@ func shoot_state() -> void:
 		enter_new_state(States.SEARCH)
 
 func _on_death() -> void:
-	# TODO: add score
+	died.emit()
 	queue_free()
