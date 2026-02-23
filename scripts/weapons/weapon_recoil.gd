@@ -31,4 +31,4 @@ func add_recoil() -> void:
 		randf_range(-weapon.recoil_amount.z, weapon.recoil_amount.z))
 	target_position += Vector3(randf_range(0, 0),
 		randf_range(0, 0),
-		randf_range(weapon.recoil_amount.x / 10.0, weapon.recoil_amount.x * 2 / 10.0))
+		clampf(randf_range(weapon.recoil_amount.x / 10.0, weapon.recoil_amount.x * 2 / 10.0),0,0.005))
