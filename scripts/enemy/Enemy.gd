@@ -221,7 +221,7 @@ func patrol_state(delta: float) -> void:
 	if player_in_sight():
 		enter_new_state(States.FOLLOW)
 
-<<<<<<< feature/arena
+
 func return_state(delta: float) -> void:
 	if waypoints.is_empty():
 		if nav_agent.is_navigation_finished():
@@ -230,10 +230,6 @@ func return_state(delta: float) -> void:
 			go_to(nav_agent.get_next_path_position())
 		return
 	if nav_agent.is_navigation_finished() and not waypoints.is_empty():
-=======
-func return_state(_delta: float) -> void:
-	if nav_agent.is_navigation_finished():
->>>>>>> dev
 		enter_new_state(States.PATROL)
 	elif player_in_sight():
 		enter_new_state(States.FOLLOW)
