@@ -17,3 +17,4 @@ class_name Weapons extends Resource
 @export var recoil_amount : Vector3
 @export var recoil_snap_amount : float
 @export var recoil_speed : float
+@export var spread : Vector3

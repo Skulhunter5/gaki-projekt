@@ -33,8 +33,11 @@ func is_dead() -> bool:
 
 @onready var death_ui: DeathUI = $UserInterface/DeathUI
 
+@onready var reticle:=  $UserInterface/Reticle
+
 func _ready():
 	weapon_controller.bullet_spawned.connect(add_collision_exception)
+	weapon_controller.scope_changed.connect(toggle_reticle)
 	
 	died.connect(death_ui._on_player_death)
 	
@@ -43,6 +46,9 @@ func _ready():
 			child.weapon_reloaded.connect(weapon_controller.reload)
 		if child.has_signal("weapon_primary_attacked"):
 			child.weapon_primary_attacked.connect(weapon_controller.attack_primary)
+		if child.has_signal("weapon_secondary_attacked"):
+			child.weapon_secondary_attacked.connect(weapon_controller.attack_secondary)
+			
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -142,3 +148,7 @@ func _on_death() -> void:
 	#velocity = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	died.emit()
+	
+func toggle_reticle():
+	reticle.visible = !reticle.visible
+	

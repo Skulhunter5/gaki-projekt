@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d13xgrmva4v07"
-path.s3tc="res://.godot/imported/bullet_hole.png-bac981cfb3452b4a158e39dcfa415296.s3tc.ctex"
+uid="uid://dw78usfnae2rv"
+path.s3tc="res://.godot/imported/sniper_scope.png-e2335431f4ae715e6e611d8bee2f9d29.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/bullet_hole.png"
-dest_files=["res://.godot/imported/bullet_hole.png-bac981cfb3452b4a158e39dcfa415296.s3tc.ctex"]
+source_file="res://Assets/textures/sniper_scope.png"
+dest_files=["res://.godot/imported/sniper_scope.png-e2335431f4ae715e6e611d8bee2f9d29.s3tc.ctex"]
 
 [params]
 

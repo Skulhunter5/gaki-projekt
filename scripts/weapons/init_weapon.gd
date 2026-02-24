@@ -2,6 +2,7 @@ class_name WeaponController extends Node3D
 
 signal bullet_spawned(bullet : RigidBody3D)
 signal weapon_fired
+signal scope_changed
 signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int)
 
 @export var weapon_type : Weapons # Weapon Resource
@@ -12,6 +13,9 @@ signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int
 @onready var reload_timer := $Weapon/ReloadTimer
 @onready var weapon := $Weapon
 @onready var bullet_spawn := $BulletSpawn
+@onready var weapon_animation := $AnimationPlayer
+@onready var viewport := $Weapon/SubViewport
+@onready var viewportAnker := $Weapon/Marker3D
 
 var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
 
@@ -24,6 +28,9 @@ var reload_time : float
 var recoil_amount : Vector3
 var recoil_snap_amount : float
 var recoil_speed : float
+var spread : Vector3
+
+var scoped : bool = false
 
 
 # reads the weapon resource and instantiates all bullets for object pooling
@@ -45,8 +52,23 @@ func _ready() -> void:
 	recoil_amount = weapon_type.recoil_amount
 	recoil_snap_amount = weapon_type.recoil_snap_amount
 	recoil_speed = weapon_type.recoil_speed
+	spread = weapon_type.spread
 	
 	ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
+	
+	
+	## viewport code -> remove when refactoring system
+	var viewport_texture = viewport.get_texture()
+	
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = viewport_texture
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	
+	weapon_mesh.set_surface_override_material(5, material)
+
+
+func _process(delta: float) -> void:
+	viewport.get_camera_3d().global_transform = viewportAnker.global_transform
 
 
 func attack_primary():
@@ -59,8 +81,29 @@ func attack_primary():
 		ammo_changed.emit(current_magazine, max_magazine, current_total_ammo, max_ammo)
 
 
+func attack_secondary():
+	if scoped:
+		unscope()
+	else:
+		scope()
+	scope_changed.emit()
+		
+
+func unscope():
+	scoped = false
+	weapon_animation.play("weapon_scope",-1,-1.0,true)
+	
+
+func scope():
+	scoped = true
+	weapon_animation.play("weapon_scope",-1,1.0,false)
+
+
 func reload():
 	if current_magazine < max_magazine and reload_timer.is_stopped():
+		if scoped:
+			unscope()
+			scope_changed.emit()
 		
 		var start_basis = weapon_mesh.transform.basis
 		var tween = create_tween()
@@ -93,6 +136,8 @@ func spawn_bullet() -> void:
 	
 	bullet.position = bullet_spawn.global_position
 	bullet.rotation = owner._camera_rotation + owner._player_rotation
+	if !scoped:
+		bullet.rotation_degrees += Vector3(randf_range(-spread.x,spread.x),randf_range(-spread.y,spread.y),0)
 	get_tree().current_scene.add_child(bullet)
 	
 	var forward : Vector3 = -bullet.global_transform.basis.z

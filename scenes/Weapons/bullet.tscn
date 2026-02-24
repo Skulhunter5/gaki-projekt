@@ -10,8 +10,8 @@ radius = 0.01
 height = 0.04
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_flt7j"]
-radius = 0.01
-height = 0.04
+radius = 0.04
+height = 0.16
 radial_segments = 16
 rings = 4
 
