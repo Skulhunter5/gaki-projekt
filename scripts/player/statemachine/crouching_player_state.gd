@@ -52,11 +52,14 @@ func handle_input(event: InputEvent):
 		transition.emit("IdlePlayerState")		
 
 
+func exit() -> void:
+	animation_played.emit("crouch", -1.0,-_crouch_transition_speed * 1.5, true)
+
+
 func uncrouch():
 	if not _want_uncrouch:
 		return
 	if not crouch_shapecast.is_colliding():
-		animation_played.emit("crouch", -1.0,-_crouch_transition_speed * 1.5, true)
 		transition.emit("IdlePlayerState")
 	elif crouch_shapecast.is_colliding():
 		await get_tree().create_timer(0.1).timeout
