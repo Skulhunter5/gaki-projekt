@@ -61,6 +61,20 @@ func attack_primary():
 
 func reload():
 	if current_magazine < max_magazine and reload_timer.is_stopped():
+		
+		var start_basis = weapon_mesh.transform.basis
+		var tween = create_tween()
+
+		#kein ahnung mehr, möge gott euch beistehen
+		tween.tween_method(
+			func(value):
+				var rot = Basis(Vector3.UP, value)
+				weapon_mesh.transform.basis = start_basis * rot,
+			0.0,
+			TAU,
+			reload_time
+		).set_trans(Tween.TRANS_LINEAR)
+		
 		current_total_ammo += current_magazine
 		current_magazine = 0
 		reload_timer.start(reload_time)

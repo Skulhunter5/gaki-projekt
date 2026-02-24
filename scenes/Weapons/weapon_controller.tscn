@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://crjtomg8sfnjx"]
+[gd_scene format=3 uid="uid://crjtomg8sfnjx"]
 
 [ext_resource type="Script" uid="uid://doquyj7x5pbny" path="res://scripts/weapons/init_weapon.gd" id="1_mevwd"]
 [ext_resource type="Resource" uid="uid://brcurye3knmky" path="res://scripts/weapons/sniper.tres" id="2_4otyr"]
 [ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/weapon.tscn" id="2_ifa6y"]
 
-[node name="WeaponController" type="Node3D"]
+[node name="WeaponController" type="Node3D" unique_id=462670392]
 script = ExtResource("1_mevwd")
 weapon_type = ExtResource("2_4otyr")
 
-[node name="Weapon" parent="." instance=ExtResource("2_ifa6y")]
+[node name="Weapon" parent="." unique_id=901502824 instance=ExtResource("2_ifa6y")]
 transform = Transform3D(1.999998, 0, -0.0028701054, 0, 2, 0, 0.0028701054, 0, 1.999998, 0.079181515, -0.10208917, -0.06650828)
 
-[node name="BulletSpawn" type="Node3D" parent="."]
+[node name="BulletSpawn" type="Node3D" parent="." unique_id=1482908167]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1808623)

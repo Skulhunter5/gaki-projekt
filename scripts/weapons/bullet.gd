@@ -24,5 +24,5 @@ func spawn_impact(pos: Vector3, normal: Vector3):
 	impact.quaternion = Quaternion(Vector3.UP,normal)
 
 
-func _on_bullet_hit(body: Node3D) -> void:
+func _on_bullet_hit(_body: Node3D) -> void:
 	queue_free()
