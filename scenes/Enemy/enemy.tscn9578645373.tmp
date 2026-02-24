@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_o5uld"]
 [ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_grfqg"]
 [ext_resource type="PackedScene" uid="uid://b28m7c1y2ep5q" path="res://scenes/Components/HitboxComponent.tscn" id="5_grfqg"]
-[ext_resource type="Script" uid="uid://cwmfx4is7hgrp" path="res://scenes/Enemy/enemy_state_machine.gd" id="6_lkp36"]
+[ext_resource type="Script" uid="uid://dkpxc41t7ccpm" path="res://scripts/state_machine.gd" id="6_wfr8x"]
 [ext_resource type="Script" uid="uid://b18hf4n38d8e0" path="res://scripts/enemy/state_machine/idle_enemy_state.gd" id="7_ebm38"]
 [ext_resource type="Script" uid="uid://lv4juyjx1xsv" path="res://scripts/enemy/state_machine/patrol_enemy_state.gd" id="8_ebm38"]
 [ext_resource type="Script" uid="uid://bryd8sfew6wly" path="res://scripts/enemy/state_machine/follow_enemy_state.gd" id="9_q0kbr"]
@@ -50,8 +50,8 @@ shape = SubResource("CapsuleShape3D_grfqg")
 shape = SubResource("CapsuleShape3D_grfqg")
 
 [node name="EnemyStateMachine" type="Node" parent="." unique_id=794692136 node_paths=PackedStringArray("current_state")]
-script = ExtResource("6_lkp36")
-current_state = NodePath("PatrolEnemyState")
+script = ExtResource("6_wfr8x")
+current_state = NodePath("IdleEnemyState")
 metadata/_custom_type_script = "uid://dkpxc41t7ccpm"
 
 [node name="IdleEnemyState" type="Node" parent="EnemyStateMachine" unique_id=999822211]
