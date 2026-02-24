@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://g73bswhe0q2x"]
+
+[ext_resource type="Script" uid="uid://dt4h3vye0hbst" path="res://scripts/weapons/rework/sniper.gd" id="1_ktijt"]
+[ext_resource type="Resource" uid="uid://brcurye3knmky" path="res://scripts/weapons/rework/sniper.tres" id="2_hwob3"]
+[ext_resource type="PackedScene" uid="uid://1uawe2anp5b3" path="res://Assets/3DModels/Sniper/SniperRifle.gltf" id="3_hwob3"]
+[ext_resource type="Script" uid="uid://bawpfciii8aq" path="res://scripts/weapons/muzzle_flash.gd" id="4_s5ljb"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ddgaf"]
+angle_min = -74.99999
+angle_max = 75.000015
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.13
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_miel4"]
+colors = PackedColorArray(1, 0.7591667, 0.14999998, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2bbc5"]
+gradient = SubResource("Gradient_miel4")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnnl1"]
+transparency = 1
+blend_mode = 1
+albedo_texture = SubResource("GradientTexture2D_2bbc5")
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("GradientTexture2D_2bbc5")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_4djn5"]
+material = SubResource("StandardMaterial3D_hnnl1")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Animation" id="Animation_4otyr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BulletSpawn:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.07348996, -0.072762355, -0.75526077)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.07292807, -0.12301302, -0.059822783)]
+}
+
+[sub_resource type="Animation" id="Animation_ifa6y"]
+resource_name = "new_animation"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BulletSpawn:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.07348996, -0.072762355, -0.75526077), Vector3(0, 0, -0.755)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.07292807, -0.12301302, -0.059822783), Vector3(0, -0.08367819, -0.010914385)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s5ljb"]
+_data = {
+&"RESET": SubResource("Animation_4otyr"),
+&"weapon_scope": SubResource("Animation_ifa6y")
+}
+
+[node name="Sniper" type="Node3D" unique_id=1951274095]
+script = ExtResource("1_ktijt")
+weapon_type = ExtResource("2_hwob3")
+metadata/_custom_type_script = "uid://dt4h3vye0hbst"
+
+[node name="Mesh" parent="." unique_id=1543266197 instance=ExtResource("3_hwob3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07292807, -0.12301302, -0.059822783)
+
+[node name="MuzzleFlash" type="Node3D" parent="Mesh" unique_id=1846469450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041621298, -0.5628836)
+script = ExtResource("4_s5ljb")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Mesh/MuzzleFlash" unique_id=623985390]
+visible = false
+light_color = Color(1, 0.7833333, 0.5, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh/MuzzleFlash" unique_id=35049194]
+emitting = false
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ddgaf")
+draw_pass_1 = SubResource("QuadMesh_4djn5")
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=145625326]
+one_shot = true
+
+[node name="FireRateTimer" type="Timer" parent="." unique_id=1442149021]
+one_shot = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=421200210]
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1534662197]
+cull_mask = 1048573
+current = true
+fov = 20.0
+
+[node name="BulletSpawn" type="Marker3D" parent="." unique_id=967300438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07348996, -0.072762355, -0.75526077)
+
+[node name="ViewportScopeAnker" type="Marker3D" parent="." unique_id=1721909453]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1979509258]
+libraries/ = SubResource("AnimationLibrary_s5ljb")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=476391471]
+near = 0.001

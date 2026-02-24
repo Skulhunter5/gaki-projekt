@@ -11,8 +11,10 @@ signal died()
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(90)
 @export var animationplayer : AnimationPlayer
-@export var weapon_controller : WeaponController
 @export_range(1,100) var mouse_sensitivity : float = 5
+@export var weapon_controller : NewWeaponController
+
+@onready var health_component: HealthComponent = $HealthComponent
 
 # camera variables
 var _mouse_input : bool = false
@@ -24,7 +26,7 @@ var _camera_rotation : Vector3
 
 var speed : float
 
-@onready var health_component: HealthComponent = $HealthComponent
+
 func is_dead() -> bool:
 	return health_component.has_died
 
@@ -36,19 +38,21 @@ func is_dead() -> bool:
 @onready var reticle:=  $UserInterface/Reticle
 
 func _ready():
-	weapon_controller.bullet_spawned.connect(add_collision_exception)
-	weapon_controller.scope_changed.connect(toggle_reticle)
+	if weapon_controller.get_child_count() > 0:
+		var weapon =weapon_controller.get_child(0) as WeaponBase
+		weapon.bullet_spawned.connect(add_collision_exception)
+		weapon.secondary_attacked.connect(toggle_reticle)
+		weapon.ammo_changed.connect($UserInterface/MarginContainer/Ammo._on_ammo_change)
+		
+		for child in $PlayerStateMachine.get_children():
+			if child.has_signal("weapon_reloaded"):
+				child.weapon_reloaded.connect(weapon.reload)
+			if child.has_signal("weapon_primary_attacked"):
+				child.weapon_primary_attacked.connect(weapon.attack_primary)
+			if child.has_signal("weapon_secondary_attacked"):
+				child.weapon_secondary_attacked.connect(weapon.attack_secondary)
 	
 	died.connect(death_ui._on_player_death)
-	
-	for child in $PlayerStateMachine.get_children():
-		if child.has_signal("weapon_reloaded"):
-			child.weapon_reloaded.connect(weapon_controller.reload)
-		if child.has_signal("weapon_primary_attacked"):
-			child.weapon_primary_attacked.connect(weapon_controller.attack_primary)
-		if child.has_signal("weapon_secondary_attacked"):
-			child.weapon_secondary_attacked.connect(weapon_controller.attack_secondary)
-			
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -144,11 +148,13 @@ func update_gravity(delta):
 func add_collision_exception(body : RigidBody3D):
 	body.add_collision_exception_with(self)
 
+
 func _on_death() -> void:
 	#velocity = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	died.emit()
-	
+
+
 func toggle_reticle():
 	reticle.visible = !reticle.visible
 	

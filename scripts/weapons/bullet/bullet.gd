@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if ray_cast.is_colliding():
+		
 		var contact_pos = ray_cast.get_collision_point()
 		var contact_normal = ray_cast.get_collision_normal()
 		spawn_impact(contact_pos,contact_normal)
