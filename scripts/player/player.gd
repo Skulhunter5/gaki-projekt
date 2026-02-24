@@ -42,6 +42,7 @@ func _ready():
 		var weapon =weapon_controller.get_child(0) as WeaponBase
 		weapon.bullet_spawned.connect(add_collision_exception)
 		weapon.secondary_attacked.connect(toggle_reticle)
+		weapon.ammo_changed.connect($UserInterface/MarginContainer/Ammo._on_ammo_change)
 		
 		for child in $PlayerStateMachine.get_children():
 			if child.has_signal("weapon_reloaded"):

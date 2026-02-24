@@ -3,7 +3,8 @@ class_name NewWeaponController extends Node3D
 @export var weapon : WeaponBase
 
 func _ready() -> void:
-	weapon = self.get_child(0)
+	if self.get_child_count() > 0:
+		weapon = self.get_child(0)
 
 
 func attack_primary():

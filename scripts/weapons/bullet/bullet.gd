@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if ray_cast.is_colliding():
+		
 		var contact_pos = ray_cast.get_collision_point()
 		var contact_normal = ray_cast.get_collision_normal()
 		spawn_impact(contact_pos,contact_normal)
@@ -24,6 +25,5 @@ func spawn_impact(pos: Vector3, normal: Vector3):
 	impact.quaternion = Quaternion(Vector3.UP,normal)
 
 
-func _on_bullet_hit(body: Node3D) -> void:
-	print_debug(body)
+func _on_bullet_hit(_body: Node3D) -> void:
 	queue_free()

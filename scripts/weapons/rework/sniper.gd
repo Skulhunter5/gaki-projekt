@@ -1,5 +1,6 @@
 class_name Sniper extends WeaponBase
 
+
 @export var weapon_type : Weapons # Weapon Resource
 
 @onready var _viewport_scope := $SubViewport
@@ -40,6 +41,9 @@ func _ready() -> void:
 	recoil_speed = weapon_type.recoil_speed
 	_spread = weapon_type.spread
 	_fire_rate = weapon_type.fire_rate
+	
+	await get_tree().process_frame
+	ammo_changed.emit(_current_magazine, _max_magazine, _current_total_ammo, _max_ammo)
 
 	var viewport_texture = _viewport_scope.get_texture()
 	
@@ -118,6 +122,7 @@ func _spawn_bullet() -> void:
 
 
 func _unscope():
+	print_debug("unscoping")
 	_scoped = false
 	_animation_player.play("weapon_scope",-1,-1.0,true)
 	
