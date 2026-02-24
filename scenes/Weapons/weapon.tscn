@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dug2hcmsv88i4"]
+[gd_scene format=3 uid="uid://dug2hcmsv88i4"]
 
-[ext_resource type="ArrayMesh" uid="uid://c5ap2wyc2bsmp" path="res://Assets/3DModels/Sniper/SniperRifle.res" id="1_cndss"]
+[ext_resource type="ArrayMesh" uid="uid://c5ap2wyc2bsmp" path="res://Assets/3DModels/Sniper/SniperRifle.res" id="1_8foj5"]
 [ext_resource type="Script" uid="uid://bawpfciii8aq" path="res://scripts/weapons/muzzle_flash.gd" id="2_8foj5"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8foj5"]
@@ -36,30 +36,42 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_hnnl1")
 size = Vector2(0.1, 0.1)
 
-[node name="Weapon" type="Node3D"]
+[node name="Weapon" type="Node3D" unique_id=44041946]
 
-[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+[node name="WeaponMesh" type="MeshInstance3D" parent="." unique_id=1790015398]
 transform = Transform3D(7.54979e-07, -10, -4.371139e-07, 0, -4.371139e-07, 10, -10, -7.54979e-07, -3.300118e-14, 0, 0, 0)
-mesh = ExtResource("1_cndss")
+layers = 2
+mesh = ExtResource("1_8foj5")
 
-[node name="FireRateTimer" type="Timer" parent="."]
+[node name="FireRateTimer" type="Timer" parent="." unique_id=1202179075]
 one_shot = true
 
-[node name="ReloadTimer" type="Timer" parent="."]
+[node name="ReloadTimer" type="Timer" parent="." unique_id=474071431]
 one_shot = true
 
-[node name="MuzzleFlash" type="Node3D" parent="."]
+[node name="MuzzleFlash" type="Node3D" parent="." unique_id=1114123763]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041621298, -0.5628836)
 script = ExtResource("2_8foj5")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="MuzzleFlash"]
+[node name="OmniLight3D" type="OmniLight3D" parent="MuzzleFlash" unique_id=351578065]
 visible = false
 light_color = Color(1, 0.7833333, 0.5, 1)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash" unique_id=1268897240]
 emitting = false
 lifetime = 0.05
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_8foj5")
 draw_pass_1 = SubResource("QuadMesh_i1qe6")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2050231255]
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=235829666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00185173, 0.08645669, 0.034190908)
+cull_mask = 1048573
+current = true
+fov = 20.0
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1626747011]

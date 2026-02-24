@@ -2,6 +2,7 @@ class_name SprintingPlayerState extends PlayerMovementState
 
 signal weapon_reloaded
 signal weapon_primary_attacked
+signal weapon_secondary_attacked
 
 func enter() -> void:
 	player.speed = player.sprinting_speed
@@ -15,6 +16,9 @@ func physics_update(delta : float) -> void:
 		transition.emit("FallingPlayerState")
 	
 	if Input.is_action_pressed("primary_attack"):
+		transition.emit("WalkingPlayerState")
+		
+	if Input.is_action_pressed("secondary_attack"):
 		transition.emit("WalkingPlayerState")
 		
 	player.update_movement()
@@ -35,6 +39,9 @@ func handle_input(event: InputEvent):
 	
 	if Input.is_action_pressed("primary_attack"):
 		weapon_primary_attacked.emit()
+		
+	if event.is_action_pressed("secondary_attack"):
+		weapon_secondary_attacked.emit()
 		
 	if event.is_action_pressed("jump"):
 		transition.emit("JumpingPlayerState")	
