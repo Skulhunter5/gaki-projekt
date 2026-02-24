@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bycy2o10ag1rf"]
 
 [ext_resource type="Script" uid="uid://cdjdw1awhxbe3" path="res://scripts/main_menu.gd" id="1_yqorp"]
+[ext_resource type="PackedScene" uid="uid://bipg5y2cp1jit" path="res://scenes/Level_0_Arena.tscn" id="2_0ykhv"]
 
 [node name="MainMenu" type="Control" unique_id=730964606]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqorp")
+arena = ExtResource("2_0ykhv")
 
 [node name="Button" type="Button" parent="." unique_id=1601163580]
 layout_mode = 1
