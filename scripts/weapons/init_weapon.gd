@@ -67,7 +67,7 @@ func _ready() -> void:
 	weapon_mesh.set_surface_override_material(5, material)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	viewport.get_camera_3d().global_transform = viewportAnker.global_transform
 
 

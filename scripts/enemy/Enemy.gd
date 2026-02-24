@@ -222,7 +222,7 @@ func patrol_state(delta: float) -> void:
 		enter_new_state(States.FOLLOW)
 
 
-func return_state(delta: float) -> void:
+func return_state(_delta: float) -> void:
 	if waypoints.is_empty():
 		if nav_agent.is_navigation_finished():
 			enter_new_state(States.IDLE)
