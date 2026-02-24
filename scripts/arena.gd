@@ -8,14 +8,12 @@ var player = null
 @export var player_spawn: Marker3D
 @export var enemy_spawns: Array[Marker3D]
 
-@export var wave_multiplier: int = 2
-@export var wave_size: int = 1
+var wave_size: int = 1
 
 #@export var number_of_spawns: int = 2
 
 var no_enemys: int = 0
 var current_enemys: int = 0
-var current_spawn: int
 
 func _ready() -> void:
 	spawn_player()
@@ -31,10 +29,26 @@ func spawn_player():
 
 func spawn_enemies():
 	var offset: Vector3
+	var spawns = 0
 	for enemy_spawn in enemy_spawns:
 		for i in wave_size:
 			var enemy := enemy_scene.instantiate() as Enemy
 			enemy.player = player
+			
+			if(spawns == 0):
+				enemy.waypoints.append($Waypoints/WP1_1)
+				enemy.waypoints.append($Waypoints/WP1_2)
+				enemy.waypoints.append($Waypoints/WP1_3)
+			if(spawns == 1):
+				enemy.waypoints.append($Waypoints/WP2_1)
+				enemy.waypoints.append($Waypoints/WP2_2)
+			if(spawns == 2):
+				enemy.waypoints.append($Waypoints/WP3_1)
+				enemy.waypoints.append($Waypoints/WP3_2)
+			if(spawns == 3):
+				enemy.waypoints.append($Waypoints/WP4_1)
+				enemy.waypoints.append($Waypoints/WP4_2)
+				
 			offset = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
 			add_child(enemy)
 			current_enemys += 1
@@ -43,10 +57,8 @@ func spawn_enemies():
 			enemy.died.connect(_on_enemy_death)
 
 func new_wave():
-	# Wave x2: 2, 4, 8, 16
 	if current_enemys == no_enemys:
-		#current_spawn = randi_range(1, number_of_spawns)
-		wave_size *= 2
+		wave_size += 1
 		spawn_enemies()
 
 func _on_enemy_death() -> void:

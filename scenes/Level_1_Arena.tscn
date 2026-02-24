@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://orf18t720sfq"]
+
+[ext_resource type="PackedScene" uid="uid://dqei2kjpudsgn" path="res://scenes/WE_test.tscn" id="1_6wnam"]
+[ext_resource type="PackedScene" uid="uid://b0wswgn5cfctu" path="res://scenes/Player/Player.tscn" id="1_ccqbl"]
+[ext_resource type="Material" uid="uid://cn1gsy15bkaff" path="res://Assets/materials/grid.tres" id="2_6wnam"]
+
+[node name="Arena" type="Node3D" unique_id=1142007865]
+
+[node name="WeTest" parent="." unique_id=1962943743 instance=ExtResource("1_6wnam")]
+
+[node name="Player" parent="." unique_id=1533344777 instance=ExtResource("1_ccqbl")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1873215272]
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1261595985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+layers = 231
+size = Vector3(100, 1, 100)
+material = ExtResource("2_6wnam")

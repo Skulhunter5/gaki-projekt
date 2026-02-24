@@ -60,7 +60,8 @@ var state: States = States.IDLE
 func _ready() -> void:
 	if !player_path.is_empty():
 		player = get_node(player_path)
-	
+	return_position = global_transform.origin
+	return_position.y = 2
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
 	
 	$HitboxComponent.damage = damage
@@ -173,6 +174,9 @@ func enter_new_state(new_state: States) -> void:
 			nav_agent.set_target_position(search_position)
 		States.FOLLOW, States.SEARCH:
 			return_position = global_transform.origin
+		States.RETURN:
+			nav_agent.set_target_position(return_position)
+
 
 
 
@@ -183,6 +187,8 @@ func enter_new_state(new_state: States) -> void:
 
 
 func idle_state() -> void:
+	velocity = Vector3.ZERO
+	nav_agent.set_target_position(global_position)
 	if player_in_sight():# or player_in_hearing_range():
 		enter_new_state(States.FOLLOW)
 
@@ -197,6 +203,7 @@ func follow_state(_delta: float) -> void:
 		enter_new_state(States.SHOOT)
 	elif not player_in_sight():
 		search_position = player.global_transform.origin
+		search_position.y = 2
 		enter_new_state(States.SEARCH)
 
 func patrol_state(delta: float) -> void:
@@ -214,8 +221,19 @@ func patrol_state(delta: float) -> void:
 	if player_in_sight():
 		enter_new_state(States.FOLLOW)
 
+<<<<<<< feature/arena
+func return_state(delta: float) -> void:
+	if waypoints.is_empty():
+		if nav_agent.is_navigation_finished():
+			enter_new_state(States.IDLE)
+		else:
+			go_to(nav_agent.get_next_path_position())
+		return
+	if nav_agent.is_navigation_finished() and not waypoints.is_empty():
+=======
 func return_state(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
+>>>>>>> dev
 		enter_new_state(States.PATROL)
 	elif player_in_sight():
 		enter_new_state(States.FOLLOW)
