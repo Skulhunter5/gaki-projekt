@@ -10,7 +10,7 @@ var target_position : Vector3
 var weapon : WeaponBase
 
 func _ready() -> void:
-	if weapon_controller.get_child(0):
+	if weapon_controller.get_child_count() > 0:
 		weapon = weapon_controller.get_child(0) as WeaponBase
 		weapon.primary_attacked.connect(add_recoil)
 

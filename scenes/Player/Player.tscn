@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://dfygispl8ko7w" path="res://scripts/player/hud/health_ui.gd" id="10_miygw"]
 [ext_resource type="Script" uid="uid://boutcu87ewj6i" path="res://scripts/weapons/rework/weapon_controller.gd" id="11_2aixn"]
 [ext_resource type="Script" uid="uid://tna5nead42oq" path="res://scripts/player/weapon_view.gd" id="11_miygw"]
-[ext_resource type="PackedScene" uid="uid://g73bswhe0q2x" path="res://scenes/Weapons/rework/Sniper.tscn" id="12_2aixn"]
 [ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
@@ -383,8 +382,6 @@ main_camera = NodePath("../../../Camera3D")
 [node name="NewWeaponController" type="Node3D" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D" unique_id=1800459479]
 script = ExtResource("11_2aixn")
 metadata/_custom_type_script = "uid://boutcu87ewj6i"
-
-[node name="Sniper" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController" unique_id=1951274095 instance=ExtResource("12_2aixn")]
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="." unique_id=1131120994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
