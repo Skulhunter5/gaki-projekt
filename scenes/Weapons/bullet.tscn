@@ -43,7 +43,6 @@ target_position = Vector3(0, -0.1, 0)
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("2_831qe")]
 collision_layer = 0
 collision_mask = 0
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1814109755]

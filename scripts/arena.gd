@@ -61,7 +61,6 @@ func spawn_enemies():
 		spawns += 1
 		
 func spawn_shooting_enemies():
-	var offset: Vector3
 	var spawns = 0
 	for shooting_enemy_spawn in shooting_enemy_spawns:
 		

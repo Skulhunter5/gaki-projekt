@@ -35,7 +35,7 @@ var state: States = States.IDLE
 @export var weapon_controller : AI_WeaponController
 
 @export var speed = 2.0
-@export var damage = 200
+@export var damage = 10
 # Distance where enemy can hear the player
 @export var hearing_range = 4
 # Distance where enemy can shoot at player
@@ -183,7 +183,7 @@ func idle_state() -> void:
 	if player_in_sight():# or player_in_hearing_range():
 		enter_new_state(States.FOLLOW)
 
-func follow_state(delta: float) -> void:
+func follow_state(_delta: float) -> void:
 	#print("State: FOLLOW")
 	if not player:
 		enter_new_state(States.RETURN)
@@ -214,7 +214,7 @@ func patrol_state(delta: float) -> void:
 	if player_in_sight():
 		enter_new_state(States.FOLLOW)
 
-func return_state(delta: float) -> void:
+func return_state(_delta: float) -> void:
 	#print("State: RETURN")
 	if waypoints.is_empty():
 		if nav_agent.is_navigation_finished():

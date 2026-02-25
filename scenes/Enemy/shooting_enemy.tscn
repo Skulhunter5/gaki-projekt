@@ -231,7 +231,6 @@ script = ExtResource("1_np8gw")
 weapon_controller = NodePath("Pivot/Recoil/WeaponController")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
-debug_enabled = true
 debug_path_custom_color = Color(0.5921569, 1, 0.15294118, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
