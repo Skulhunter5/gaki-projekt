@@ -49,12 +49,13 @@ func spawn_enemies():
 				enemy.waypoints.append($Waypoints/WP4_1)
 				enemy.waypoints.append($Waypoints/WP4_2)
 				
-			offset = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+			offset = Vector3(randf_range(-2.0, 2.0), 0, randf_range(-2.0, 2.0))
 			add_child(enemy)
 			current_enemys += 1
 			enemy.global_position = enemy_spawn.global_position + offset
 			
 			enemy.died.connect(_on_enemy_death)
+		spawns += 1
 
 func new_wave():
 	if current_enemys == no_enemys:

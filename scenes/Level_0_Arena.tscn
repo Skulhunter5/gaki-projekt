@@ -184,7 +184,7 @@ script = ExtResource("1_3mqtu")
 player_scene = ExtResource("2_mdwrb")
 enemy_scene = ExtResource("3_mdwrb")
 player_spawn = NodePath("PlayerSpawn")
-enemy_spawns = [NodePath("EnemySpawns/EnemySpawn1"), NodePath("EnemySpawns/EnemySpawn4"), NodePath("EnemySpawns/EnemySpawn2"), NodePath("EnemySpawns/EnemySpawn3")]
+enemy_spawns = [NodePath("EnemySpawns/EnemySpawn1"), NodePath("EnemySpawns/EnemySpawn2"), NodePath("EnemySpawns/EnemySpawn3"), NodePath("EnemySpawns/EnemySpawn4")]
 
 [node name="WeTest" parent="." unique_id=274306013 instance=ExtResource("2_uwnd3")]
 
@@ -193,16 +193,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="EnemySpawns" type="Node3D" parent="." unique_id=1629940823]
 
-[node name="EnemySpawn1" type="Marker3D" parent="EnemySpawns" unique_id=1289261426]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3, -20)
-
-[node name="EnemySpawn4" type="Marker3D" parent="EnemySpawns" unique_id=341940937]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, -20)
-
-[node name="EnemySpawn2" type="Marker3D" parent="EnemySpawns" unique_id=1507958339]
+[node name="EnemySpawn1" type="Marker3D" parent="EnemySpawns" unique_id=1507958339]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, 21)
 
-[node name="EnemySpawn3" type="Marker3D" parent="EnemySpawns" unique_id=1352274893]
+[node name="EnemySpawn2" type="Marker3D" parent="EnemySpawns" unique_id=341940937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, -20)
+
+[node name="EnemySpawn3" type="Marker3D" parent="EnemySpawns" unique_id=1289261426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3, -20)
+
+[node name="EnemySpawn4" type="Marker3D" parent="EnemySpawns" unique_id=1352274893]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3, 21)
 
 [node name="Waypoints" type="Node3D" parent="." unique_id=2141739072]
