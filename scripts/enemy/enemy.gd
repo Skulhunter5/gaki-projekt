@@ -4,7 +4,7 @@ extends CharacterBody3D
 signal died()
 
 var player = null
-var fov = 100
+var fov = 140
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var patrol_index := 0
@@ -20,7 +20,7 @@ var return_position: Vector3
 
 @export var player_path : NodePath
 
-@export var speed = 2.0
+@export var speed = 5.0
 @export var damage = 5
 # Distance where enemy can hear the player
 @export var hearing_range = 4
@@ -73,7 +73,7 @@ func looking() -> void:
  
 	var to_player = (player.global_transform.origin - global_transform.origin).normalized()
 	var forward = -global_transform.basis.z
-	var angle_deg = rad_to_deg(acos(clamp(forward.dot(to_player), -1.0, 1.0)))
+	var angle_deg = rad_to_deg(forward.angle_to(to_player))
 	if angle_deg > fov * 0.5:
 		return
  

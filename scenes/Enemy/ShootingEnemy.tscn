@@ -146,7 +146,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_el8ku"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_sdu88"]
 resource_local_to_scene = true
 resource_name = "Cylinder_034"
 _surfaces = [{
@@ -275,7 +275,7 @@ script = ExtResource("7_awh8b")
 
 [node name="WeaponMesh" parent="Pivot/Recoil/WeaponController/Weapon" parent_id_path=PackedInt32Array(846615135, 901502824) index="0" unique_id=1790015398]
 layers = 1
-mesh = SubResource("ArrayMesh_el8ku")
+mesh = SubResource("ArrayMesh_sdu88")
 
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("9_kuxtj")]
 collision_layer = 4
