@@ -73,6 +73,8 @@ func reload():
 func spawn_bullet() -> void:
 	var bullet : RigidBody3D = bullet_scene.instantiate()
 	
+	bullet.find_child("HitboxComponent").damage = weapon_type.damage
+	
 	bullet_spawned.emit(bullet)
 	get_tree().current_scene.add_child(bullet)
 	#bullet.position = bullet_spawn.global_position

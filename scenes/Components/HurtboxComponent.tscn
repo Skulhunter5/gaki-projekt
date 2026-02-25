@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://cph68ti7naiqc" path="res://scripts/components/hurtbox_component.gd" id="1_4ctu7"]
 
 [node name="HurtboxComponent" type="Area3D" unique_id=1047106024]
+monitorable = false
 script = ExtResource("1_4ctu7")

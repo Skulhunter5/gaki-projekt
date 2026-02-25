@@ -20,9 +20,22 @@
 [ext_resource type="Script" uid="uid://boutcu87ewj6i" path="res://scripts/weapons/rework/weapon_controller.gd" id="11_2aixn"]
 [ext_resource type="Script" uid="uid://tna5nead42oq" path="res://scripts/player/weapon_view.gd" id="11_miygw"]
 [ext_resource type="PackedScene" uid="uid://g73bswhe0q2x" path="res://scenes/Weapons/rework/sniper.tscn" id="12_2aixn"]
+[ext_resource type="Script" uid="uid://dfygispl8ko7w" path="res://scripts/player/ui/health_ui.gd" id="10_miygw"]
 [ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2aixn"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ky53y"]
 albedo_color = Color(0.25631884, 0.6265618, 0.27918217, 1)
@@ -152,6 +165,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
+collision_layer = 512
+collision_mask = 513
 script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
@@ -159,8 +174,11 @@ animationplayer = NodePath("AnimationPlayer")
 weapon_controller = NodePath("CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController")
 
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("2_dqefj")]
+MAX_HEALTH = 20
 
 [node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("3_5gcuk")]
+collision_layer = 256
+collision_mask = 12
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1309827293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -296,6 +314,33 @@ text = "You're dead!"
 layout_mode = 2
 text = "Restart"
 
+[node name="TopCenterMargin" type="MarginContainer" parent="UserInterface" unique_id=993606837]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 10
+
+[node name="HealthUI" type="VBoxContainer" parent="UserInterface/TopCenterMargin" unique_id=763853525 node_paths=PackedStringArray("health_component")]
+layout_mode = 2
+alignment = 1
+script = ExtResource("10_miygw")
+empty_color = Color(1, 0, 0, 1)
+full_color = Color(0, 1, 0, 1)
+health_component = NodePath("../../../HealthComponent")
+health_bar_color = SubResource("StyleBoxFlat_2aixn")
+
+[node name="HealthBar" type="ProgressBar" parent="UserInterface/TopCenterMargin/HealthUI" unique_id=2106141652]
+custom_minimum_size = Vector2(450, 25)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_2aixn")
+value = 100.0
+show_percentage = false
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=998064516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nnsk1")
@@ -374,5 +419,6 @@ script = ExtResource("10_dqp0f")
 script = ExtResource("15_lbts4")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_death"]
+[connection signal="died" from="HealthComponent" to="UserInterface/DeathUI" method="_on_player_death"]
 [connection signal="pressed" from="UserInterface/DeathUI/RestartButton" to="UserInterface/DeathUI" method="_on_restart_button_pressed"]
 [connection signal="animation_played" from="PlayerStateMachine/CrouchingPlayerState" to="AnimationPlayer" method="on_animation_played"]

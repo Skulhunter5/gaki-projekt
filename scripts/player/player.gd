@@ -34,6 +34,7 @@ func is_dead() -> bool:
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
 @onready var death_ui: DeathUI = $UserInterface/DeathUI
+@onready var health_ui: HealthUI = $UserInterface/TopCenterMargin/HealthUI
 
 @onready var reticle:=  $UserInterface/Reticle
 
@@ -51,8 +52,6 @@ func _ready():
 				child.weapon_primary_attacked.connect(weapon.attack_primary)
 			if child.has_signal("weapon_secondary_attacked"):
 				child.weapon_secondary_attacked.connect(weapon.attack_secondary)
-	
-	died.connect(death_ui._on_player_death)
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 

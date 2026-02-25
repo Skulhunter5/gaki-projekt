@@ -22,7 +22,7 @@ var return_position: Vector3
 @export var player_path : NodePath
 
 @export var speed = 2.0
-@export var damage = 200
+@export var damage = 5
 # Distance where enemy can hear the player
 @export var hearing_range = 4
 # Distance where enemy can shoot at player
