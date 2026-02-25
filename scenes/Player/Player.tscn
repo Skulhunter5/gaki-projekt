@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://boutcu87ewj6i" path="res://scripts/weapons/rework/weapon_controller.gd" id="11_2aixn"]
 [ext_resource type="Script" uid="uid://tna5nead42oq" path="res://scripts/player/weapon_view.gd" id="11_miygw"]
 [ext_resource type="PackedScene" uid="uid://g73bswhe0q2x" path="res://scenes/Weapons/rework/Sniper.tscn" id="12_2aixn"]
-[ext_resource type="PackedScene" uid="uid://cip5ub7giik1y" path="res://scenes/Weapons/rework/SubmachineGun.tscn" id="15_5tklm"]
 [ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
@@ -384,8 +383,6 @@ main_camera = NodePath("../../../Camera3D")
 [node name="NewWeaponController" type="Node3D" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D" unique_id=1800459479]
 script = ExtResource("11_2aixn")
 metadata/_custom_type_script = "uid://boutcu87ewj6i"
-
-[node name="SubmachineGun" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController" unique_id=826037739 instance=ExtResource("15_5tklm")]
 
 [node name="Sniper" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController" unique_id=1951274095 instance=ExtResource("12_2aixn")]
 
