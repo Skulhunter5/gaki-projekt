@@ -2,9 +2,9 @@ class_name Player extends CharacterBody3D
 
 signal died()
 
-@export var walking_speed : float = 5.0
-@export var sprinting_speed : float = 7.0
-@export var crouching_speed : float = 2.0
+@export var walking_speed : float = 8.0
+@export var sprinting_speed : float = 12.0
+@export var crouching_speed : float = 4.0
 @export var jump_height : float = 5.0
 @export var acceleration : float = 0.1
 @export var deceleration : float = 0.25
