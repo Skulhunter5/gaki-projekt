@@ -1,5 +1,9 @@
 class_name FallingPlayerState extends PlayerMovementState
 
+signal weapon_reloaded
+signal weapon_primary_attacked
+signal weapon_secondary_attacked
+
 func enter() -> void:
 	pass
 
@@ -9,11 +13,12 @@ func exit() -> void:
 
 
 func update(delta : float) -> void:
-	if Input.is_action_pressed("shoot"):
-		weapon.shoot()
 	
 	if player.is_on_floor():
-		transition.emit("IdlePlayerState")
+		if Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards") != Vector2.ZERO:
+			transition.emit("WalkingPlayerState")
+		else:
+			transition.emit("IdlePlayerState")
 		
 	player.update_gravity(delta)
 	player.update_movement()
@@ -22,4 +27,10 @@ func update(delta : float) -> void:
 
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("reload"):
-		weapon.reload()
+		weapon_reloaded.emit()
+		
+	if Input.is_action_pressed("primary_attack"):
+		weapon_primary_attacked.emit()
+		
+	if event.is_action_pressed("secondary_attack"):
+		weapon_secondary_attacked.emit()

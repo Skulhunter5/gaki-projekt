@@ -1,15 +1,20 @@
 class_name Player extends CharacterBody3D
 
+signal died()
+
 @export var walking_speed : float = 5.0
 @export var sprinting_speed : float = 7.0
 @export var crouching_speed : float = 2.0
+@export var jump_height : float = 5.0
 @export var acceleration : float = 0.1
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
 @export var tilt_limit = deg_to_rad(90)
 @export var animationplayer : AnimationPlayer
-@export var weapon_controller : WeaponController
 @export_range(1,100) var mouse_sensitivity : float = 5
+@export var weapon_controller : NewWeaponController
+
+@onready var health_component: HealthComponent = $HealthComponent
 
 # camera variables
 var _mouse_input : bool = false
@@ -21,23 +26,48 @@ var _camera_rotation : Vector3
 
 var speed : float
 
+
+func is_dead() -> bool:
+	return health_component.has_died
+
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
+@onready var death_ui: DeathUI = $UserInterface/DeathUI
+@onready var health_ui: HealthUI = $UserInterface/TopCenterMargin/HealthUI
+
+@onready var reticle:=  $UserInterface/Reticle
+
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if weapon_controller.get_child_count() > 0:
+		var weapon =weapon_controller.get_child(0) as WeaponBase
+		weapon.bullet_spawned.connect(add_collision_exception)
+		weapon.secondary_attacked.connect(toggle_reticle)
+		weapon.ammo_changed.connect($UserInterface/MarginContainer/Ammo._on_ammo_change)
+		
+		for child in $PlayerStateMachine.get_children():
+			if child.has_signal("weapon_reloaded"):
+				child.weapon_reloaded.connect(weapon.reload)
+			if child.has_signal("weapon_primary_attacked"):
+				child.weapon_primary_attacked.connect(weapon.attack_primary)
+			if child.has_signal("weapon_secondary_attacked"):
+				child.weapon_secondary_attacked.connect(weapon.attack_secondary)
 	
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 	# disables shapecast onto self but still allows cast for ceiliing objects
 	_crouch_shapecast.add_exception($".")
-	weapon_controller.shooter = self
 	
 	speed = walking_speed
-	
+
+
 func _process(delta: float) -> void:
+	if is_dead():
+		return
 	_update_camera(delta)
 
+
 func _physics_process(_delta: float) -> void:
-	
 	Global.debug.add_property("MovementSpeed",speed,1)
 	Global.debug.add_property("MouseRotation",_mouse_rotation,2)
 
@@ -45,6 +75,10 @@ func _physics_process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_tree().quit()
+	
+	if is_dead():
+		return
+	
 	if event.is_action_pressed("toggle_mouse_mode"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -52,6 +86,8 @@ func _input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_dead():
+		return
 	# handle looking around
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
@@ -81,6 +117,8 @@ func _update_camera(_delta):
 
 
 func update_movement():
+	if is_dead():
+		return
 	
 	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -96,9 +134,26 @@ func update_movement():
 
 
 func update_velocity():
+	if is_dead():
+		return
 	move_and_slide()
 
 
 func update_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+
+func add_collision_exception(body : RigidBody3D):
+	body.add_collision_exception_with(self)
+
+
+func _on_death() -> void:
+	#velocity = Vector3.ZERO
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	died.emit()
+
+
+func toggle_reticle():
+	reticle.visible = !reticle.visible
+	

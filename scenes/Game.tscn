@@ -1,0 +1,259 @@
+[gd_scene format=3 uid="uid://d104n741w4t5d"]
+
+[ext_resource type="PackedScene" uid="uid://b0wswgn5cfctu" path="res://scenes/Player/Player.tscn" id="1_s0nni"]
+[ext_resource type="PackedScene" uid="uid://dqei2kjpudsgn" path="res://scenes/WE_test.tscn" id="2_aug50"]
+[ext_resource type="Texture2D" uid="uid://ivvpsi314b34" path="res://Assets/textures/grid.jpg" id="3_kiw3p"]
+[ext_resource type="Material" uid="uid://cn1gsy15bkaff" path="res://Assets/materials/grid.tres" id="4_400sg"]
+[ext_resource type="PackedScene" uid="uid://242257bkv414" path="res://scenes/Enemy/enemy.tscn" id="5_g4kob"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_1lgw5"]
+vertices = PackedVector3Array(2.75, 0.4, -4.75, 5.25, 1, -5, 2.75, 0.4, -5, 4.75, 0.20000002, -2, 5.5, 0.20000002, -2, 5.5, 0.20000002, -2.75, 2.75, 0.20000002, -2.75, -9, 0.20000002, 9, -7.5, 0.20000002, 9, -8, 0.20000002, 8.5, 2.25, 0.20000002, -6.25, 0.5, 0.20000002, -6.75, -0.75, 0.20000002, -6.75, 2.25, 0.20000002, -3.25, -1.5, 0.20000002, -7.5, -1.5, 0.20000002, -9, -9, 0.20000002, -9, -8, 0.20000002, 3.75, -7.25, 0.20000002, 3, 4, 0.20000002, -1.25, 4, 0.20000002, 1.25, -0.75, 0.20000002, 3, 9, 0.20000002, -5, 9.5, 0.20000002, -5.5, 9, 0.20000002, -5.75, 7.25, 0.20000002, -6.25, 6.25, 0.20000002, -2.75, 7.5, 0.20000002, -2, 6.5, 0.20000002, -7, 9, 0.20000002, -9, 8.25, 0.20000002, -1.25, 8.25, 0.20000002, 0, 9, 0.20000002, 0, 1.5, 0.20000002, -7.5, 2.75, 0.20000002, -7, 7.25, 0.20000002, -3.75, 1.5, 0.20000002, -9, 8.25, 0.20000002, 1.25, 9, 0.20000002, 9, 0.25, 0.20000002, 3.75, 4.75, 0.20000002, 2.25, 0.25, 0.20000002, 8.25, -0.5, 0.20000002, 9, 7.25, 0.20000002, 2.25, -6, 1.9, 5, -6, 1.9, 7, -2, 1.9, 7, -2, 1.9, 5, 2, 2.3999999, 5, 2, 2.3999999, 7, 6, 2.3999999, 7, 6, 2.3999999, 5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(9, 8, 7), PackedInt32Array(2, 0, 10), PackedInt32Array(10, 0, 13), PackedInt32Array(10, 13, 11), PackedInt32Array(11, 13, 12), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 18), PackedInt32Array(16, 18, 17), PackedInt32Array(6, 3, 19), PackedInt32Array(6, 19, 13), PackedInt32Array(13, 19, 20), PackedInt32Array(9, 7, 17), PackedInt32Array(17, 7, 16), PackedInt32Array(12, 13, 14), PackedInt32Array(14, 13, 20), PackedInt32Array(14, 20, 21), PackedInt32Array(14, 21, 18), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(5, 26, 4), PackedInt32Array(4, 26, 27), PackedInt32Array(25, 28, 24), PackedInt32Array(24, 28, 29), PackedInt32Array(32, 31, 30), PackedInt32Array(34, 10, 33), PackedInt32Array(33, 10, 11), PackedInt32Array(25, 22, 35), PackedInt32Array(35, 22, 30), PackedInt32Array(30, 22, 32), PackedInt32Array(27, 26, 35), PackedInt32Array(33, 36, 34), PackedInt32Array(34, 36, 28), PackedInt32Array(28, 36, 29), PackedInt32Array(30, 27, 35), PackedInt32Array(31, 32, 37), PackedInt32Array(37, 32, 38), PackedInt32Array(40, 39, 20), PackedInt32Array(20, 39, 21), PackedInt32Array(38, 42, 41), PackedInt32Array(40, 43, 39), PackedInt32Array(39, 43, 41), PackedInt32Array(41, 43, 38), PackedInt32Array(43, 37, 38), PackedInt32Array(47, 46, 44), PackedInt32Array(44, 46, 45), PackedInt32Array(51, 50, 48), PackedInt32Array(48, 50, 49)]
+cell_height = 0.1
+agent_radius = 1.0
+
+[sub_resource type="Shader" id="Shader_cwof1"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.1.dev4's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	ALBEDO = (albedo.rgb * albedo_tex.r) + albedo_tex.g + albedo_tex.b;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = (1.0 - albedo_tex.g) * roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1c63"]
+render_priority = 0
+shader = SubResource("Shader_cwof1")
+shader_parameter/albedo = Color(0.66, 0, 0.010999832, 1)
+shader_parameter/texture_albedo = ExtResource("3_kiw3p")
+shader_parameter/point_size = 1.0000000475
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/texture_roughness = ExtResource("3_kiw3p")
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1lgw5"]
+material = SubResource("ShaderMaterial_d1c63")
+size = Vector3(6, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hlk0d"]
+size = Vector3(6, 0.5, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hlk0d"]
+render_priority = 0
+shader = SubResource("Shader_cwof1")
+shader_parameter/albedo = Color(0.68, 0.476, 0, 1)
+shader_parameter/texture_albedo = ExtResource("3_kiw3p")
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.5
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/texture_roughness = ExtResource("3_kiw3p")
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="PrismMesh" id="PrismMesh_d1c63"]
+material = SubResource("ShaderMaterial_hlk0d")
+left_to_right = 0.0
+size = Vector3(4, 1, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1lgw5"]
+margin = 0.0
+points = PackedVector3Array(-2, 0.5, 1, -2, -0.5, -1, -2, 0.5, -1, -2, -0.5, 1, 2, -0.5, 1, 2, -0.5, -1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hlk0d"]
+material = SubResource("ShaderMaterial_hlk0d")
+size = Vector3(2, 4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0uv0p"]
+size = Vector3(2, 4, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kqs1s"]
+material = SubResource("ShaderMaterial_hlk0d")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7g83o"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d1c63"]
+material = ExtResource("4_400sg")
+size = Vector3(100, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1lgw5"]
+size = Vector3(100, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_io8um"]
+material = ExtResource("4_400sg")
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_32lhk"]
+size = Vector3(20, 0.5, 20)
+
+[node name="Game" type="Node3D" unique_id=712046789]
+
+[node name="Player" parent="." unique_id=506086009 instance=ExtResource("1_s0nni")]
+walking_speed = 5.0
+sprinting_speed = 7.0
+mouse_sensitivity = 1.0
+
+[node name="WorldEnvironment" parent="." unique_id=1998079619 instance=ExtResource("2_aug50")]
+
+[node name="Waypoints" type="Node3D" parent="." unique_id=849225389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5219774, 0)
+
+[node name="WP1" type="Marker3D" parent="Waypoints" unique_id=28255624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.624527, -0.12593794, 1.9456329)
+
+[node name="WP2" type="Marker3D" parent="Waypoints" unique_id=172736880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1642065, 0.118538916, -7.481592)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1677275051]
+navigation_mesh = SubResource("NavigationMesh_1lgw5")
+
+[node name="LowPlatform" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1554878439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, 6)
+mesh = SubResource("BoxMesh_1lgw5")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/LowPlatform" unique_id=565875197]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/LowPlatform/StaticBody3D" unique_id=1519776063]
+shape = SubResource("BoxShape3D_hlk0d")
+
+[node name="Label3D" type="Label3D" parent="NavigationRegion3D/LowPlatform" unique_id=1907760967]
+transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, -0.17947388, 1.8830924, 0)
+texture_filter = 1
+text = "Too low"
+font_size = 256
+outline_size = 48
+
+[node name="HighPlatform" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1355694551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 6)
+mesh = SubResource("BoxMesh_1lgw5")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/HighPlatform" unique_id=993812668]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/HighPlatform/StaticBody3D" unique_id=1839932459]
+shape = SubResource("BoxShape3D_hlk0d")
+
+[node name="Label3D" type="Label3D" parent="NavigationRegion3D/HighPlatform" unique_id=2107978777]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2, 0)
+texture_filter = 1
+text = "Crouch"
+font_size = 256
+outline_size = 48
+
+[node name="Ramp" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=508018770]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0.5, -5)
+mesh = SubResource("PrismMesh_d1c63")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Ramp" unique_id=1447039682]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ramp/StaticBody3D" unique_id=2090703774]
+shape = SubResource("ConvexPolygonShape3D_1lgw5")
+debug_color = Color(0.96365756, 0, 0.5002627, 0.41960785)
+
+[node name="Box2" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=429885781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 2, -5.435)
+mesh = SubResource("BoxMesh_hlk0d")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Box2" unique_id=22263759]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Box2/StaticBody3D" unique_id=1755026807]
+shape = SubResource("BoxShape3D_0uv0p")
+
+[node name="Box" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=2113814115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 0)
+mesh = SubResource("BoxMesh_kqs1s")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Box" unique_id=1229782135]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Box/StaticBody3D" unique_id=857138485]
+shape = SubResource("BoxShape3D_7g83o")
+
+[node name="Floor2" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=817031590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -0.25, -5.474)
+mesh = SubResource("BoxMesh_d1c63")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Floor2" unique_id=854367414]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor2/StaticBody3D" unique_id=48776499]
+shape = SubResource("BoxShape3D_1lgw5")
+
+[node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=717268463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_io8um")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Floor" unique_id=826070662]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor/StaticBody3D" unique_id=2116052676]
+shape = SubResource("BoxShape3D_32lhk")
+
+[node name="Enemy" parent="NavigationRegion3D" unique_id=711986744 node_paths=PackedStringArray("waypoints") instance=ExtResource("5_g4kob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0470419, -8.318752)
+waypoints = [NodePath("../../Waypoints/WP2"), NodePath("../../Waypoints/WP1")]

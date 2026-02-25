@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bwb84u0yuwamx"]
+
+[ext_resource type="Material" uid="uid://cn1gsy15bkaff" path="res://Assets/materials/grid.tres" id="1_21pwn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ncgmj"]
+material = ExtResource("1_21pwn")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d755q"]
+size = Vector3(2, 2, 2)
+
+[node name="Node3D" type="Node3D" unique_id=1136931882]
+
+[node name="Box" type="MeshInstance3D" parent="." unique_id=1302907039]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("BoxMesh_ncgmj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box" unique_id=1752849845]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D" unique_id=1200122938]
+shape = SubResource("BoxShape3D_d755q")
