@@ -1,7 +1,7 @@
 class_name Arena
 extends Node3D
 
-var player = null
+var player: Player = null
 @export var player_scene: PackedScene
 @export var enemy_scene: PackedScene
 @export var shooting_enemy_scene: PackedScene

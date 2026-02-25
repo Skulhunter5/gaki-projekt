@@ -11,7 +11,7 @@ func _ready():
 			states[child.name] = child
 			child.transition.connect(on_child_transition)
 		else:
-			push_warning("State machine contrains incompatible child node")
+			push_warning("State machine contains incompatible child node")
 	await owner.ready
 	current_state.enter()
 
