@@ -32,14 +32,13 @@ func is_dead() -> bool:
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
 @onready var death_ui: DeathUI = $UserInterface/DeathUI
+@onready var health_ui: HealthUI = $UserInterface/TopCenterMargin/HealthUI
 
 @onready var reticle:=  $UserInterface/Reticle
 
 func _ready():
 	weapon_controller.bullet_spawned.connect(add_collision_exception)
 	weapon_controller.scope_changed.connect(toggle_reticle)
-	
-	died.connect(death_ui._on_player_death)
 	
 	for child in $PlayerStateMachine.get_children():
 		if child.has_signal("weapon_reloaded"):
