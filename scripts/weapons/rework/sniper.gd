@@ -69,11 +69,12 @@ func attack_primary():
 
 
 func attack_secondary():
-	if _scoped:
-		_unscope()
-	else:
-		_scope()
-	secondary_attacked.emit()
+	if _reload_timer.is_stopped():
+		if _scoped:
+			_unscope()
+		else:
+			_scope()
+		secondary_attacked.emit()
 
 
 func reload():
