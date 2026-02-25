@@ -11,6 +11,7 @@ var health: float = 0
 
 func _ready() -> void:
 	health = MAX_HEALTH
+	health_changed.emit(health, health)
 
 func damage(amount: float) -> bool:
 	if has_died:
