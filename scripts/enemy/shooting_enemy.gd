@@ -59,7 +59,8 @@ var state: States = States.IDLE
 
 
 func _ready() -> void:
-	player = get_node(player_path)
+	if !player_path.is_empty():
+		player = get_node(player_path)
 	return_position = global_transform.origin
 	return_position.y = 2
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
