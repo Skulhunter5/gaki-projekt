@@ -6,7 +6,7 @@ signal weapon_secondary_attacked
 
 func enter() -> void:
 	player.speed = player.sprinting_speed
-
+	
 
 func physics_update(delta : float) -> void:
 	if player.velocity == Vector3.ZERO:
@@ -18,11 +18,9 @@ func physics_update(delta : float) -> void:
 	if Input.is_action_pressed("primary_attack"):
 		weapon_primary_attacked.emit()
 		
-	if Input.is_action_pressed("primary_attack"):
-		transition.emit("WalkingPlayerState")
+	if Input.is_action_pressed("crouch") or Input.is_action_pressed("crouch_toggle"):
+		transition.emit("SlidingPlayerState")
 		
-	if Input.is_action_pressed("secondary_attack"):
-		transition.emit("WalkingPlayerState")
 		
 	player.update_movement()
 	player.update_gravity(delta)
@@ -30,8 +28,6 @@ func physics_update(delta : float) -> void:
 
 
 func handle_input(event: InputEvent):
-	if event.is_action_pressed("crouch") or event.is_action_pressed("crouch_toggle"):
-		transition.emit("CrouchingPlayerState")
 		
 	if event.is_action_released("sprint") or event.is_action_released("walk_forwards"): 
 		transition.emit("WalkingPlayerState")
@@ -39,9 +35,7 @@ func handle_input(event: InputEvent):
 	if event.is_action_pressed("reload"):
 		weapon_reloaded.emit()
 		transition.emit("WalkingPlayerState")
-	
 
-		
 	if event.is_action_pressed("secondary_attack"):
 		weapon_secondary_attacked.emit()
 		

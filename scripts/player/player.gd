@@ -54,6 +54,7 @@ func _ready():
 				child.weapon_primary_attacked.connect(weapon.attack_primary)
 			if child.has_signal("weapon_secondary_attacked"):
 				child.weapon_secondary_attacked.connect(weapon.attack_secondary)
+				
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -158,4 +159,3 @@ func _on_death() -> void:
 
 func toggle_reticle():
 	reticle.visible = !reticle.visible
-	
