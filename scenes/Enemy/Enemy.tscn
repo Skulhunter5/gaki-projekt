@@ -16,6 +16,13 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7o54g"]
+albedo_color = Color(0.4167534, 2.7554854e-06, 1.6605109e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kfomc"]
+material = SubResource("StandardMaterial3D_7o54g")
+size = Vector3(0.5, 0.2, 0.2)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ixhtt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
@@ -29,9 +36,13 @@ script = ExtResource("1_7o54g")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
+[node name="MeshBody" type="MeshInstance3D" parent="." unique_id=293258058]
 mesh = SubResource("CapsuleMesh_o5uld")
 surface_material_override/0 = ExtResource("2_kfomc")
+
+[node name="MeshVisor" type="MeshInstance3D" parent="." unique_id=160353001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
+mesh = SubResource("BoxMesh_kfomc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
 shape = SubResource("CapsuleShape3D_ixhtt")
