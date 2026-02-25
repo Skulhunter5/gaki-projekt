@@ -11,5 +11,5 @@ func on_hit(hitbox: HitboxComponent):
 		return
 	
 	hitbox.hit.emit(self)
-	
+	print(hitbox.damage)
 	health_component.damage(hitbox.damage)

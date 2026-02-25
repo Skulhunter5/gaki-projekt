@@ -13,6 +13,9 @@ func physics_update(delta : float):
 		
 	if player.velocity.y < -3.0 and not player.is_on_floor():
 		transition.emit("FallingPlayerState")
+	
+	if Input.is_action_pressed("primary_attack"):
+		weapon_primary_attacked.emit()
 		
 	player.update_movement()
 	player.update_gravity(delta)
@@ -29,8 +32,6 @@ func handle_input(event: InputEvent):
 	if event.is_action_pressed("reload"):
 		weapon_reloaded.emit()
 		
-	if Input.is_action_pressed("primary_attack"):
-		weapon_primary_attacked.emit()
 	
 	if event.is_action_pressed("secondary_attack"):
 		weapon_secondary_attacked.emit()

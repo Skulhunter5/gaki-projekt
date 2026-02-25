@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://242257bkv414"]
+[gd_scene format=3 uid="uid://8qqi7uu5uvdb"]
 
 [ext_resource type="Script" uid="uid://bp7lplgt3klwq" path="res://scripts/enemy/enemy.gd" id="1_7o54g"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_kfomc"]
@@ -52,6 +52,7 @@ target_position = Vector3(0, 0, -15)
 collision_mask = 513
 
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_0hw2c")]
+MAX_HEALTH = 100
 
 [node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_4a20e")]
 collision_layer = 256

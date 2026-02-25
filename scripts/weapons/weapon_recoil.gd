@@ -16,14 +16,16 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	target_rotation = lerp(target_rotation, Vector3.ZERO, weapon.recoil_speed * delta)
-	current_rotation = lerp(current_rotation, target_rotation, weapon.recoil_snap_amount * delta)
-	basis = Quaternion.from_euler(current_rotation)
-	
-	target_position = lerp(target_position, Vector3.ZERO, weapon.recoil_speed * delta)
-	current_position = lerp(current_position, target_position, weapon.recoil_snap_amount * delta)
-	weapon.mesh.position = current_position
-
+	if weapon: 
+		target_rotation = lerp(target_rotation, Vector3.ZERO, weapon.recoil_speed * delta)
+		current_rotation = lerp(current_rotation, target_rotation, weapon.recoil_snap_amount * delta)
+		basis = Quaternion.from_euler(current_rotation)
+		
+		target_position = lerp(target_position, Vector3.ZERO, weapon.recoil_speed * delta)
+		current_position = lerp(current_position, target_position, weapon.recoil_snap_amount * delta)
+		weapon.mesh.position = current_position
+		
+		weapon.current_rotation = current_rotation
 
 func add_recoil() -> void:
 	target_rotation += Vector3(weapon.recoil_amount.x,

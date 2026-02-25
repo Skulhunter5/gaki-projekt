@@ -1,6 +1,6 @@
 class_name NewWeaponController extends Node3D
 
-@export var weapon : WeaponBase
+var weapon : WeaponBase = null
 
 func _ready() -> void:
 	if self.get_child_count() > 0:

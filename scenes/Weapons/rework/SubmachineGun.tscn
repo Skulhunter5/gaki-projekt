@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://cip5ub7giik1y"]
+
+[ext_resource type="Script" uid="uid://cj5u26d0lsi7n" path="res://scripts/weapons/rework/submachine_gun.gd" id="1_ollta"]
+[ext_resource type="Resource" uid="uid://dhnm8i0ge3nco" path="res://scripts/weapons/rework/SubmachineGun.tres" id="2_ollta"]
+[ext_resource type="PackedScene" uid="uid://ca1bp84ycmmvx" path="res://Assets/3DModels/SubmachineGun/SubmachineGun.gltf" id="3_ollta"]
+[ext_resource type="Script" uid="uid://bawpfciii8aq" path="res://scripts/weapons/muzzle_flash.gd" id="4_dfhgw"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ddgaf"]
+angle_min = -74.99999
+angle_max = 75.000015
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.13
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_miel4"]
+colors = PackedColorArray(1, 0.7591667, 0.14999998, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2bbc5"]
+gradient = SubResource("Gradient_miel4")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnnl1"]
+transparency = 1
+blend_mode = 1
+albedo_texture = SubResource("GradientTexture2D_2bbc5")
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("GradientTexture2D_2bbc5")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_4djn5"]
+material = SubResource("StandardMaterial3D_hnnl1")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Animation" id="Animation_ollta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.114005625, -0.16640195, -0.143177)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BulletSpawn:gizmo_extents")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.25]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BulletSpawn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.573)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3uv4s"]
+resource_name = "weapon_scope"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.114005625, -0.16640195, -0.143177), Vector3(0, -0.123, -0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BulletSpawn:gizmo_extents")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.25]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BulletSpawn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.573)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 0.175)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kjqdp"]
+_data = {
+&"RESET": SubResource("Animation_ollta"),
+&"weapon_scope": SubResource("Animation_3uv4s")
+}
+
+[node name="SubmachineGun" type="Node3D" unique_id=1951274095]
+script = ExtResource("1_ollta")
+weapon_type = ExtResource("2_ollta")
+metadata/_custom_type_script = "uid://dt4h3vye0hbst"
+
+[node name="Mesh" parent="." unique_id=102717033 instance=ExtResource("3_ollta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114005625, -0.16640195, -0.143177)
+
+[node name="MuzzleFlash" type="Node3D" parent="Mesh" unique_id=1846469450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07292807, -0.08139172, -0.6227064)
+script = ExtResource("4_dfhgw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Mesh/MuzzleFlash" unique_id=623985390]
+visible = false
+light_color = Color(1, 0.7833333, 0.5, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh/MuzzleFlash" unique_id=35049194]
+emitting = false
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ddgaf")
+draw_pass_1 = SubResource("QuadMesh_4djn5")
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=145625326]
+one_shot = true
+
+[node name="FireRateTimer" type="Timer" parent="." unique_id=1442149021]
+one_shot = true
+
+[node name="BulletSpawn" type="Marker3D" parent="." unique_id=967300438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.573)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=476391471]
+near = 0.001
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1523594640]
+libraries/ = SubResource("AnimationLibrary_kjqdp")

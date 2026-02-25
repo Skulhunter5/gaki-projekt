@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapons" format=3 uid="uid://dhnm8i0ge3nco"]
+
+[ext_resource type="Script" uid="uid://de7sh1obtmej3" path="res://scripts/weapons/weapons.gd" id="1_8fub4"]
+
+[resource]
+script = ExtResource("1_8fub4")
+name = &"SubmachineGun"
+damage = 10.0
+bullet_range = 50
+fire_rate = 10
+magazine_size = 30
+max_ammo = 900
+reload_time = 0.5
+recoil_amount = Vector3(0.5, 0.25, 0)
+recoil_snap_amount = 3.0
+recoil_speed = 5.0
+spread = Vector3(12.5, 12.5, 0)
+metadata/_custom_type_script = "uid://de7sh1obtmej3"

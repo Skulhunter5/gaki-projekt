@@ -9,6 +9,8 @@ signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int
 @warning_ignore("unused_signal")
 signal bullet_spawned(bullet : RigidBody3D)
 
+var current_rotation : Vector3
+
 func _initialize() -> void:
 	pass
 

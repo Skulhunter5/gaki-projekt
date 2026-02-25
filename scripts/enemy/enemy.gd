@@ -4,7 +4,6 @@ extends CharacterBody3D
 signal died()
 
 var player = null
-var health = 100
 var fov = 100
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")

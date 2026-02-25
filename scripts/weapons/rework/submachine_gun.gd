@@ -1,11 +1,9 @@
-class_name Sniper extends WeaponBase
+class_name SubmachineGun extends WeaponBase
 
 
 @export var weapon_type : Weapons # Weapon Resource
 
-@onready var _viewport_scope := $SubViewport
-@onready var _viewport_scope_anker := $ViewportScopeAnker
-@onready var mesh := $Mesh/SniperRifle
+@onready var mesh := $Mesh/SubmachineGun
 @onready var _fire_rate_timer := $FireRateTimer
 @onready var _reload_timer := $ReloadTimer
 @onready var _muzzle_flash := $Mesh/MuzzleFlash
@@ -44,18 +42,6 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	ammo_changed.emit(_current_magazine, _max_magazine, _current_total_ammo, _max_ammo)
-
-	var viewport_texture = _viewport_scope.get_texture()
-	
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = viewport_texture
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	
-	mesh.set_surface_override_material(4, material)
-
-
-func _process(_delta: float) -> void:
-	_viewport_scope.get_camera_3d().global_transform = _viewport_scope_anker.global_transform
 
 
 func attack_primary():
