@@ -1,18 +1,9 @@
-[gd_scene format=4 uid="uid://dl8ntfovnl2mx"]
+[gd_scene format=4 uid="uid://crjtomg8sfnjx"]
 
-[ext_resource type="Script" uid="uid://n7eyp5swswey" path="res://scripts/enemy/shooting_enemy.gd" id="1_np8gw"]
-[ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_vsoyc"]
-[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_fqcl0"]
-[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_mgpbx"]
-[ext_resource type="Script" uid="uid://wy36m1jl5pdu" path="res://scripts/weapons/ai/ai_weapon_recoil.gd" id="5_mgpbx"]
-[ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/weapon_controller.tscn" id="5_vsoyc"]
-[ext_resource type="Script" uid="uid://cmoy1so6rq4ee" path="res://scripts/weapons/ai/ai_weapon_init.gd" id="6_fqcl0"]
-[ext_resource type="Texture2D" uid="uid://dw78usfnae2rv" path="res://Assets/textures/sniper_scope.png" id="8_1rfi3"]
-[ext_resource type="PackedScene" uid="uid://b28m7c1y2ep5q" path="res://scenes/Components/HitboxComponent.tscn" id="9_lay3p"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
+[ext_resource type="Script" uid="uid://doquyj7x5pbny" path="res://scripts/weapons/init_weapon.gd" id="1_mevwd"]
+[ext_resource type="Resource" uid="uid://brcurye3knmky" path="res://scripts/weapons/rework/sniper.tres" id="2_4otyr"]
+[ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/Weapon.tscn" id="2_ifa6y"]
+[ext_resource type="Texture2D" uid="uid://dw78usfnae2rv" path="res://Assets/textures/sniper_scope.png" id="4_4otyr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4xlc"]
 resource_name = "Green"
@@ -22,7 +13,7 @@ emission_enabled = true
 emission = Color(0.33740944, 0.36665267, 0.31751972, 1)
 emission_energy_multiplier = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xluc8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4otyr"]
 resource_local_to_scene = true
 resource_name = "Black"
 cull_mode = 2
@@ -45,7 +36,7 @@ resource_name = "Glass"
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.03403328, 0.06741434, 0.12647313, 1)
-albedo_texture = ExtResource("8_1rfi3")
+albedo_texture = ExtResource("4_4otyr")
 emission_enabled = true
 emission = Color(0.03403328, 0.06741434, 0.12647313, 1)
 emission_energy_multiplier = 0.0
@@ -62,7 +53,7 @@ emission_energy_multiplier = 0.0
 resource_local_to_scene = false
 viewport_path = NodePath("Weapon/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0igm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xluc8"]
 resource_local_to_scene = true
 resource_name = "Viewport"
 albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
@@ -139,7 +130,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_lay3p"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_i0igm"]
 resource_local_to_scene = true
 resource_name = "Cylinder_034"
 _surfaces = [{
@@ -162,7 +153,7 @@ _surfaces = [{
 "index_count": 1680,
 "index_data": PackedByteArray("zgDPANAA0ADRAM4A1ADTANIA0gDVANQA2ADZANoA2gDdANgA3wDeAOAA4ADhAN8A4gDjAOQA5ADlAOIA5gDnAOgA6ADpAOYA6gDrAOwA7ADtAOoA7gDvAPAA8ADxAO4A8gDzAPQA9AD1APIA9gD3APgA+AD5APYA+gD7APwA/AD9APoA/gD/AAABAAEBAf4AAgEDAQQBBAEFAQIBBgEHAQgBCAEJAQYBCgELAQwBDAENAQoBDgEPARABEAERAQ4BEgETARQBFAEVARIBFgEXARgBGAEZARYBGgEbARwBHAEdARoBHgEfASABIAEhAR4BIgEjASQBJAElASIBJgEnASgBKAEpASYBKgErASwBLAEtASoBLgEvATABMAExAS4BMgEzATQBNAE1ATIBNgE3ATgBOAE5ATYBOgE7ATwBPAE9AToBAAABAAIAAgABAAMAAgAEAAAAAwAFAAIAAAAEAAYABQADAAcABgAIAAAABwAJAAUACgAIAAYACwAJAAcABgAMAAoABwANAAsACgAMAA4ADgALAA0ADgAPAAoADQAPAA4AEADEAT4BPgESABAAxAEQABMAGAASAD4BEwDFAcQBxQETABcAxAHFARUAFQARAMQBPgHEAREAGQAVAMUBEQAUAD4BPgEUABYAFwDGAcUBxQHGARkAPwHGARcAGQDGAT8BFwAdAD8BPwEbABkAPwEdAB8AHgAbAD8BHwDHAT8BPwHHAR4AyAHHAR8AHgDHAcgBHwAaAMgByAEcAB4AyQHIARoAHADIAckBGgAYAMkBPgHJARgAyQEWABwAFgDJAT4BygFBAUABQAHLAcoBQgHMAc0BzQHOAUIBzwHQAUkBSQFIAc8BQwHRAdIB0gHTAUMB1AHVAUQBRAHWAdQB1wFFAdgB2AHZAdcB2gHbAdwB3AFGAdoB3QHeAd8B3wFHAd0B4AEiACAAIADhAeAB4gE5ADoAOgDjAeIBNwA1AOQB5AHlATcAMgAwAOYB5gHnATIALQAuAOgB6AHpAS0A6gEoACkAKQDrAeoB7AE+ADwAPADtAewBJAAlAO4B7gHvASQASgFLAUwBTAFNAUoBQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwAUABRAFIAUgBTAFAAVABVAFYAVgBXAFQAWABZAFoAWgBbAFgAXABdAF4AXgBfAFwATgFPAVABUAFRAU4BUgFTAVQBVAFXAVIBWAFbAVoBWgFZAVgBXAFdAV4BXgFhAVwBVQFWAfAB8AHxAVUB8gHzAfQB9AH1AfIBXwH2AfcB9wFgAV8B+AFjAWIBYgH5AfgBZgFnAWgBaAFpAWYBagFrAWwBbAFtAWoBbgFvAXABcAFxAW4BcgFzAXQBdAF1AXIBdgF3AXgBeAF5AXYBegF7AXwBfAF9AXoBfgF/AYABgAGBAX4B+gEmACcAJwD7AfoB/AEhACMAIwD9AfwB/gE7ADgAOAD/Af4BNgA0AAACAAIBAjYAMwAxAAICAgIDAjMALwAsAAQCBAIFAi8AKgArAAYCBgIHAioACAI9AD8APwAJAggCYABhAGIAYgBjAGAAZABlAGYAZgBnAGQAaABpAGoAagBrAGgAbABtAG4AbgBvAGwAcABxAHIAcgBzAHAAdAB1AHYAdgB3AHQAeAB5AHoAegB7AHgAfAB9AH4AfgB/AHwAggGDAYQBhAGFAYIBhgGHAYgBiAGJAYYBigGLAYwBjAGNAYoBjgGPAZABkAGRAY4BkgGTAZQBlAGVAZIBlgGXAZgBmAGZAZYBmgGbAZwBnAGdAZoBngGfAaABoAGhAZ4BogGjAaQBpAGlAaIBpgGnAagBqAGpAaYBqgGrAawBrAGtAaoBrgGvAbABsAGxAa4BsgGzAbQBtAG1AbIBtgG3AbgBuAG5AbYBugG7AbwBvAG9AboBvgG/AcABwAHBAb4BCgILAgwCDAINAgoCDgLcANsA2wAPAg4C1gAQAhECEQLXANYAEgITAhQCFAIVAhICFgIXAmQBZAFlARYCGAKBAIIAgwCBABgCGAIZAoMAhAAZAhgCggDCARgCGAIaAoQAGgIYAsIBwgGAABoCGwKHAIUAGwIcAocAHAKGAIcAHAIbAogAHAKIAIkAHAKJAIoAiwAdAh4CiwAeAo0AiwCMAB0CiwCOAIwAHwKUAJUAlQCTAB8CmAAgAiECIQKZAJgAIAKYAJcAlwAiAiACIwKWACQCJAIlAiMCJgKbAJwAnACfACYCowAnAigCKAKlAKMAKAInAqQApACmACgCwwEpAqkAqQCnAMMBKgKqAKgAqAArAioCqwCsAK0ArQCuAKsALAKeAJ0AnQAtAiwCrwCwALEAsQCyAK8AswC0ALUAtQC2ALMAjwAuApEAjwCRAJIAjwAvAi4CjwCQAC8CMAK5ALcAtwC4ADACvAC9ADECMQIyArwAuwC8ADICMgIzArsANAI1AjYCNgK6ADQCoACaADcCNwI4AqAAOQK/AMAAwAA6AjkCwQC+ADsCOwI8AsEAwgDDAMQAxADFAMIAPQI+AqEAoQCiAD0CxgDHAMgAyADJAMYAygDLAMwAzADNAMoAPwJAAkECQQJCAj8CQwJEAkUCQwJGAkQCRwJDAkUCRwJFAkgCSQJKAksCSQJMAkoCTQJJAksCTQJLAk4CTwJQAlECUQJSAk8CUwJUAlUCVQJWAlMCVwJYAlkCWQJaAlcCWwJcAl0CXQJeAlsCXwJgAmECYQJiAl8CYwJkAmUCYwJmAmQCZwJjAmUCZwJlAmgCaQJqAmsCaQJsAmoCbQJpAmsCbQJrAm4CbwJwAnECcQJyAm8CcwJ0AnUCdQJ2AnMCdwJ4AnkCeQJ6AncCewJ8An0CfQJ+AnsCfwKAAoECgQKCAn8CgwKEAoUCgwKGAoQChwKDAoUChwKFAogCiQKKAosCiQKMAooCjQKJAosCjQKLAo4CjwKQApECkQKSAo8CkwKUApUClQKWApMClwKYApkCmQKaApcCmwKcAp0CnQKeApsCnwKgAqECoQKiAp8CowKkAqUCowKlAqYCowKnAqQCpwKoAqQCqQKqAqsCqQKsAqoCrQKpAqsCrQKrAq4CrwKwArECsQKyAq8CswK0ArUCtQK2ArMCtwK4ArkCuQK6ArcCuwK8Ar0CvQK+ArsCvwLAAsECwQLCAr8CwwLEAsUCwwLFAsYCwwLHAsQCxwLIAsQCyQLKAssCyQLLAswCyQLNAsoCzQLOAsoCzwLQAtEC0QLSAs8C0wLUAtUC1QLWAtMC1wLYAtkC2QLaAtcC2wLcAt0C3QLeAtsC3wLgAuEC4QLiAt8C4wLkAuUC4wLlAuYC4wLnAuQC5wLoAuQC6QLqAusC6QLsAuoC7QLpAusC7QLrAu4C7wLwAvEC8QLyAu8C8wL0AvUC9QL2AvMC9wL4AvkC+QL6AvcC+wL8Av0C/QL+AvsC/wIAAwEDAQMCA/8CAwMEAwUDAwMFAwYDAwMHAwQDBwMIAwQDCQMKAwsDCQMMAwoDDQMJAwsDDQMLAw4DDwMQAxEDEQMSAw8DEwMUAxUDFQMWAxMDFwMYAxkDGQMaAxcDGwMcAx0DHQMeAxsDHwMgAyEDIQMiAx8DIwMkAyUDIwMlAyYDIwMnAyQDJwMoAyQDKQMqAysDKQMsAyoDLQMpAysDLQMrAy4DLwMwAzEDMQMyAy8DMwM0AzUDNQM2AzMDNwM4AzkDOQM6AzcDOwM8Az0DPQM+AzsDPwNAA0EDQQNCAz8DQwNEA0UDQwNFA0YDQwNHA0QDRwNIA0QDSQNKA0sDSQNMA0oDTQNJA0sDTQNLA04DTwNQA1EDUQNSA08DUwNUA1UDVQNWA1MDVwNYA1kDWQNaA1cDWwNcA10DXQNeA1sDXwNgA2EDYQNiA18DYwNkA2UDYwNmA2QDZwNjA2UDZwNlA2gDaQNqA2sDaQNsA2oDbQNpA2sDbQNrA24DbwNwA3EDcQNyA28DcwN0A3UDdQN2A3MDdwN4A3kDeQN6A3cDewN8A30DfQN+A3sDfwOAA4EDgQOCA38DgwOEA4UDgwOGA4QDhwODA4UDhwOFA4gDiQOKA4sDiQOMA4oDjQOJA4sDjQOLA44DjwOQA5EDkQOSA48DkwOUA5UDlQOWA5MDlwOYA5kDmQOaA5cDmwOcA50DnQOeA5sDnwOgA6EDoQOiA58DowOkA6UDowOmA6QDpwOjA6UDpwOlA6gDqQOqA6sDqQOsA6oDrQOpA6sDrQOrA64DrwOwA7EDsQOyA68DswO0A7UDtQO2A7MDtwO4A7kDuQO6A7cDuwO8A70DvQO+A7sDvwPAA8EDwQPCA78DwwPEA8UDwwPFA8YDwwPHA8QDxwPIA8QDyQPKA8sDyQPLA8wDyQPNA8oDzQPOA8oDzwPQA9ED0QPSA88D0wPUA9UD1QPWA9MD1wPYA9kD2QPaA9cD2wPcA90D3QPeA9sD"),
 "lods": [0.0008660482, PackedByteArray("zgDPANAA0ADRAM4A0QDQANIA0gDTANEA1ADTANIA0gDVANQA1gDUANUA1QDXANYA2ADZANoA2wDaANkA2QDcANsA2gDdANgA2ADdAN4A3gDfANgA3wDeAOAA4ADhAN8A4gDjAOQA5ADlAOIA5gDnAOgA6ADpAOYA6gDrAOwA7ADtAOoA7gDvAPAA8ADxAO4A8gDzAPQA9AD1APIA9gD3APgA+AD5APYA+gD7APwA/AD9APoA/gD/AAABAAEBAf4AAgEDAQQBBAEFAQIBBgEHAQgBCAEJAQYBCgELAQwBDAENAQoBDgEPARABEAERAQ4BEgETARQBFAEVARIBFgEXARgBGAEZARYBGgEbARwBHAEdARoBHgEfASABIAEhAR4BIgEjASQBJAElASIBJgEnASgBKAEpASYBKgErASwBLAEtASoBLgEvATABMAExAS4BMgEzATQBNAE1ATIBNgE3ATgBOAE5ATYBOgE7ATwBPAE9AToBAAABAAIAAgABAAMAAgAEAAAAAwAFAAIAAAAEAAYABQADAAcABgAIAAAABwAJAAUACgAIAAYACwAJAAcABgAMAAoABwANAAsACgAMAA4ADgALAA0ADgAPAAoADQAPAA4AEAARAD4BEQAQABMAPgESABAAEwAVABEAEQAUAD4BFQATABcAPgEUABYAGAASAD4BPgEWABgAGgAYABYAHAAaABYAGgAcAB4AFQAXABkAHgAfABoAGQAXAD8BPwEfAB4APwEbABkAHgAbAD8BPwEdAB8AFwAdAD8BQAEhAEEBIwBBASEAIABAAUEBQQEiACAAQgElACYAJQBCASQAJwBCASYAQwEpACoAQwEoACkAKgArAEMBLAAtAEQBLQAuAEQBLABEAS8ARQExADIAMQBFATMAMgAwAEUBRgE1ADYANQBGATcANgA0AEYBOAA5AEcBOgBHATkARwE7ADgASAE+ADwAPABJAUgBPwBIAUkBSQE9AD8ASgFLAUwBTAFNAUoBQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwAUABRAFIAUgBTAFAAVABVAFYAVgBXAFQAWABZAFoAWgBbAFgAXABdAF4AXgBfAFwATgFPAVABUAFRAU4BUgFTAVQBUwFSAVUBVQFWAVMBVAFXAVIBVwFUAVgBWAFZAVcBWgFZAVgBWAFbAVoBXAFdAV4BXwFdAVwBXAFgAV8BXgFhAVwBYgFhAV4BXgFjAWIBYgFjAWQBZAFlAWIBZgFnAWgBaAFpAWYBagFrAWwBbAFtAWoBbgFvAXABcAFxAW4BcgFzAXQBdAF1AXIBdgF3AXgBeAF5AXYBegF7AXwBfAF9AXoBfgF/AYABgAGBAX4BYABhAGIAYgBjAGAAZABlAGYAZgBnAGQAaABpAGoAagBrAGgAbABtAG4AbgBvAGwAcABxAHIAcgBzAHAAdAB1AHYAdgB3AHQAeAB5AHoAegB7AHgAfAB9AH4AfgB/AHwAggGDAYQBhAGFAYIBhgGHAYgBiAGJAYYBigGLAYwBjAGNAYoBjgGPAZABkAGRAY4BkgGTAZQBlAGVAZIBlgGXAZgBmAGZAZYBmgGbAZwBnAGdAZoBngGfAaABoAGhAZ4BogGjAaQBpAGlAaIBpgGnAagBqAGpAaYBqgGrAawBrAGtAaoBrgGvAbABsAGxAa4BsgGzAbQBtAG1AbIBtgG3AbgBuAG5AbYBugG7AbwBvAG9AboBvgG/AcABwAHBAb4BwgGBAIIAgwCBAMIBhACDAMIBwgGAAIQAhQCGAIcAhgCFAIgAhgCIAIkAhgCJAIoAiwCMAI0AiwCOAIwAjwCNAIwAjwCQAI0AjwCMAJEAjwCRAJIAkwCUAJUAlACTAJYAlwCWAJMAkwCYAJcAkwCZAJgAmgCbAJwAnQCcAJsAmwCeAJ0AnACfAJoAmgCfAKAAmgCgAKEAoQCiAJoAowCkAKUApACmAKUAwwGoAKkAwwGqAKgAqQCnAMMBqwCsAK0ArQCuAKsArwCwALEAsQCyAK8AswC0ALUAtQC2ALMAtwC4ALkAugC5ALgAuQC6ALsAuwC8ALkAvAC9ALkAvgC/AMAAwADBAL4AwgDDAMQAxADFAMIAxgDHAMgAyADJAMYAygDLAMwAzADNAMoA"), 0.0041667162, PackedByteArray("AAABAAIAAgABAAMAAgAEAAAAAwAFAAIAAAAEAAYABQADAAcABgAIAAAABwAJAAUACgAIAAYACwAJAAcABgAMAAoABwANAAsACgAMAA4ADgALAA0ADgAPAAoADQAPAA4AEAARABIAEQAQABMAEQAUABIAEwAVABEAEgAUABYAFQATABcAEgAWABgAFQAXABkAGgAYABYAGQAXABsAHAAaABYAFwAdABsAGgAcAB4AGwAdAB8AHgAfABoAGwAfAB4AIAAhACIAIwAiACEAJAAlACYAJwAkACYAKAApACoAKgArACgALAAtAC4ALAAuAC8AMAAxADIAMQAwADMANAA1ADYANQA0ADcAOAA5ADoAOgA7ADgAPAA9AD4APwA+AD0AQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwAUABRAFIAUgBTAFAAVABVAFYAVgBXAFQAWABZAFoAWgBbAFgAXABdAF4AXgBfAFwAYABhAGIAYgBjAGAAZABlAGYAZgBnAGQAaABpAGoAagBrAGgAbABtAG4AbgBvAGwAcABxAHIAcgBzAHAAdAB1AHYAdgB3AHQAeAB5AHoAegB7AHgAfAB9AH4AfgB/AHwAgACBAIIAgwCBAIAAhACDAIAAhQCGAIcAhgCFAIgAhgCIAIkAhgCJAIoAiwCMAI0AiwCOAIwAjwCNAIwAjwCQAI0AjwCMAJEAjwCRAJIAkwCUAJUAlACTAJYAlwCWAJMAkwCYAJcAkwCZAJgAmgCbAJwAnQCcAJsAmwCeAJ0AnACfAJoAmgCfAKAAmgCgAKEAoQCiAJoAowCkAKUApACmAKUApwCoAKkApwCqAKgAqwCsAK0ArQCuAKsArwCwALEAsQCyAK8AswC0ALUAtQC2ALMAtwC4ALkAugC5ALgAuQC6ALsAuwC8ALkAvAC9ALkAvgC/AMAAwADBAL4AwgDDAMQAxADFAMIAxgDHAMgAyADJAMYAygDLAMwAzADNAMoA")],
-"material": SubResource("StandardMaterial3D_xluc8"),
+"material": SubResource("StandardMaterial3D_4otyr"),
 "name": "Black",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -212,7 +203,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 18,
 "index_data": PackedByteArray("AAABAAIAAAADAAEAAAACAAQAAAAEAAUABgAAAAUABgAFAAcA"),
-"material": SubResource("StandardMaterial3D_i0igm"),
+"material": SubResource("StandardMaterial3D_xluc8"),
 "name": "Viewport",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -222,58 +213,110 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_j45pc")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o0klo"]
+[sub_resource type="Animation" id="Animation_4otyr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.079181515, -0.10208917, -0.06650828)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.034906585, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BulletSpawn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.12866324, -0.09123396, -1.1984073)]
+}
 
-[node name="Shooting_Enemy" type="CharacterBody3D" unique_id=1825778259 node_paths=PackedStringArray("weapon_controller")]
-collision_layer = 512
-collision_mask = 513
-script = ExtResource("1_np8gw")
-weapon_controller = NodePath("Pivot/Recoil/WeaponController")
+[sub_resource type="Animation" id="Animation_ifa6y"]
+resource_name = "new_animation"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.089, -0.172, -0.117), Vector3(0, -0.135, -0.155)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.034906585, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BulletSpawn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.12866324, -0.09123396, -1.1984073), Vector3(0, 0, -1.1808623)]
+}
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
-debug_path_custom_color = Color(0.5921569, 1, 0.15294118, 1)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4otyr"]
+_data = {
+&"RESET": SubResource("Animation_4otyr"),
+&"weapon_scope": SubResource("Animation_ifa6y")
+}
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
-mesh = SubResource("CapsuleMesh_o5uld")
-surface_material_override/0 = ExtResource("2_vsoyc")
+[node name="WeaponController" type="Node3D" unique_id=462670392]
+script = ExtResource("1_mevwd")
+weapon_type = ExtResource("2_4otyr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
-shape = SubResource("CapsuleShape3D_grfqg")
+[node name="Weapon" parent="." unique_id=901502824 instance=ExtResource("2_ifa6y")]
+transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.079181515, -0.10208917, -0.06650828)
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1379128080]
-target_position = Vector3(0, 0, -15)
-collision_mask = 513
+[node name="WeaponMesh" parent="Weapon" index="0" unique_id=1790015398]
+mesh = SubResource("ArrayMesh_i0igm")
 
-[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_fqcl0")]
+[node name="Camera3D" parent="Weapon/SubViewport" parent_id_path=PackedInt32Array(901502824, 2050231255) index="0" unique_id=235829666]
+fov = 10.0
 
-[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_mgpbx")]
-collision_layer = 256
-collision_mask = 8
+[node name="BulletSpawn" type="Node3D" parent="." unique_id=1482908167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12866324, -0.09123396, -1.1984073)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
-shape = SubResource("CapsuleShape3D_grfqg")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1566237606]
+libraries/ = SubResource("AnimationLibrary_4otyr")
+autoplay = &"weapon_scope"
 
-[node name="Pivot" type="Node3D" parent="." unique_id=1351800680]
-
-[node name="Recoil" type="Node3D" parent="Pivot" unique_id=633538459]
-script = ExtResource("5_mgpbx")
-
-[node name="WeaponController" parent="Pivot/Recoil" unique_id=846615135 instance=ExtResource("5_vsoyc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40571344, 0.39144802, 0.028)
-script = ExtResource("6_fqcl0")
-
-[node name="WeaponMesh" parent="Pivot/Recoil/WeaponController/Weapon" parent_id_path=PackedInt32Array(846615135, 901502824) index="0" unique_id=1790015398]
-layers = 1
-mesh = SubResource("ArrayMesh_lay3p")
-
-[node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("9_lay3p")]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=2043699850]
-shape = SubResource("CapsuleShape3D_o0klo")
-
-[connection signal="died" from="HealthComponent" to="." method="_on_death"]
-
-[editable path="Pivot/Recoil/WeaponController"]
-[editable path="Pivot/Recoil/WeaponController/Weapon"]
+[editable path="Weapon"]

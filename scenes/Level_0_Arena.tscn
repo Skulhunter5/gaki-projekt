@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://bo15v15cuv6u0" path="res://scripts/arena.gd" id="1_3mqtu"]
 [ext_resource type="PackedScene" uid="uid://b0wswgn5cfctu" path="res://scenes/Player/Player.tscn" id="2_mdwrb"]
 [ext_resource type="PackedScene" uid="uid://dqei2kjpudsgn" path="res://scenes/WE_test.tscn" id="2_uwnd3"]
-[ext_resource type="PackedScene" uid="uid://242257bkv414" path="res://scenes/Enemy/enemy.tscn" id="3_mdwrb"]
+[ext_resource type="PackedScene" uid="uid://242257bkv414" path="res://scenes/Enemy/Enemy.tscn" id="3_mdwrb"]
 [ext_resource type="MeshLibrary" uid="uid://ccbi6367l61ct" path="res://Assets/library_2.tres" id="3_uwnd3"]
 [ext_resource type="Texture2D" uid="uid://ivvpsi314b34" path="res://Assets/textures/grid.jpg" id="4_s5duu"]
-[ext_resource type="PackedScene" uid="uid://dl8ntfovnl2mx" path="res://scenes/Enemy/shooting_enemy.tscn" id="4_thpts"]
+[ext_resource type="PackedScene" uid="uid://dl8ntfovnl2mx" path="res://scenes/Enemy/ShootingEnemy.tscn" id="4_thpts"]
 [ext_resource type="PackedScene" uid="uid://b28m7c1y2ep5q" path="res://scenes/Components/HitboxComponent.tscn" id="8_thpts"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mdwrb"]

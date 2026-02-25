@@ -1,9 +1,18 @@
-[gd_scene format=4 uid="uid://crjtomg8sfnjx"]
+[gd_scene format=4 uid="uid://dl8ntfovnl2mx"]
 
-[ext_resource type="Script" uid="uid://doquyj7x5pbny" path="res://scripts/weapons/init_weapon.gd" id="1_mevwd"]
-[ext_resource type="Resource" uid="uid://brcurye3knmky" path="res://scripts/weapons/sniper.tres" id="2_4otyr"]
-[ext_resource type="PackedScene" uid="uid://dug2hcmsv88i4" path="res://scenes/Weapons/weapon.tscn" id="2_ifa6y"]
-[ext_resource type="Texture2D" uid="uid://dw78usfnae2rv" path="res://Assets/textures/sniper_scope.png" id="4_4otyr"]
+[ext_resource type="Script" uid="uid://n7eyp5swswey" path="res://scripts/enemy/shooting_enemy.gd" id="1_sdu88"]
+[ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://Assets/materials/player.tres" id="2_el8ku"]
+[ext_resource type="PackedScene" uid="uid://dco25nwkwibva" path="res://scenes/Components/HealthComponent.tscn" id="3_i5ugl"]
+[ext_resource type="PackedScene" uid="uid://bi4csjoupxue1" path="res://scenes/Components/HurtboxComponent.tscn" id="4_25rx5"]
+[ext_resource type="Script" uid="uid://wy36m1jl5pdu" path="res://scripts/weapons/ai/ai_weapon_recoil.gd" id="5_3s0xn"]
+[ext_resource type="PackedScene" uid="uid://crjtomg8sfnjx" path="res://scenes/Weapons/WeaponController.tscn" id="6_vn18b"]
+[ext_resource type="Script" uid="uid://cmoy1so6rq4ee" path="res://scripts/weapons/ai/ai_weapon_init.gd" id="7_awh8b"]
+[ext_resource type="Texture2D" uid="uid://dw78usfnae2rv" path="res://Assets/textures/sniper_scope.png" id="8_kwdfh"]
+[ext_resource type="PackedScene" uid="uid://b28m7c1y2ep5q" path="res://scenes/Components/HitboxComponent.tscn" id="9_kuxtj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4xlc"]
 resource_name = "Green"
@@ -36,7 +45,7 @@ resource_name = "Glass"
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.03403328, 0.06741434, 0.12647313, 1)
-albedo_texture = ExtResource("4_4otyr")
+albedo_texture = ExtResource("8_kwdfh")
 emission_enabled = true
 emission = Color(0.03403328, 0.06741434, 0.12647313, 1)
 emission_energy_multiplier = 0.0
@@ -130,7 +139,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_4otyr"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ob733"]
 resource_local_to_scene = true
 resource_name = "Cylinder_034"
 _surfaces = [{
@@ -213,110 +222,58 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_j45pc")
 
-[sub_resource type="Animation" id="Animation_4otyr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Weapon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.079181515, -0.10208917, -0.06650828)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.034906585, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BulletSpawn:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.12866324, -0.09123396, -1.1984073)]
-}
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o0klo"]
 
-[sub_resource type="Animation" id="Animation_ifa6y"]
-resource_name = "new_animation"
-length = 0.25
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Weapon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.089, -0.172, -0.117), Vector3(0, -0.135, -0.155)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.034906585, 0), Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BulletSpawn:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.0009999999, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.12866324, -0.09123396, -1.1984073), Vector3(0, 0, -1.1808623)]
-}
+[node name="Shooting_Enemy" type="CharacterBody3D" unique_id=1825778259 node_paths=PackedStringArray("weapon_controller")]
+collision_layer = 512
+collision_mask = 513
+script = ExtResource("1_sdu88")
+weapon_controller = NodePath("Pivot/Recoil/WeaponController")
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4otyr"]
-_data = {
-&"RESET": SubResource("Animation_4otyr"),
-&"weapon_scope": SubResource("Animation_ifa6y")
-}
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
+debug_path_custom_color = Color(0.5921569, 1, 0.15294118, 1)
 
-[node name="WeaponController" type="Node3D" unique_id=462670392]
-script = ExtResource("1_mevwd")
-weapon_type = ExtResource("2_4otyr")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=293258058]
+mesh = SubResource("CapsuleMesh_o5uld")
+surface_material_override/0 = ExtResource("2_el8ku")
 
-[node name="Weapon" parent="." unique_id=901502824 instance=ExtResource("2_ifa6y")]
-transform = Transform3D(1.9987817, 0, -0.06979899, 0, 2, 0, 0.06979899, 0, 1.9987817, 0.079181515, -0.10208917, -0.06650828)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
+shape = SubResource("CapsuleShape3D_grfqg")
 
-[node name="WeaponMesh" parent="Weapon" index="0" unique_id=1790015398]
-mesh = SubResource("ArrayMesh_4otyr")
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1379128080]
+target_position = Vector3(0, 0, -15)
+collision_mask = 513
 
-[node name="Camera3D" parent="Weapon/SubViewport" parent_id_path=PackedInt32Array(901502824, 2050231255) index="0" unique_id=235829666]
-fov = 10.0
+[node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_i5ugl")]
 
-[node name="BulletSpawn" type="Node3D" parent="." unique_id=1482908167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12866324, -0.09123396, -1.1984073)
+[node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_25rx5")]
+collision_layer = 256
+collision_mask = 8
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1566237606]
-libraries/ = SubResource("AnimationLibrary_4otyr")
-autoplay = &"weapon_scope"
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
+shape = SubResource("CapsuleShape3D_grfqg")
 
-[editable path="Weapon"]
+[node name="Pivot" type="Node3D" parent="." unique_id=1351800680]
+
+[node name="Recoil" type="Node3D" parent="Pivot" unique_id=633538459]
+script = ExtResource("5_3s0xn")
+
+[node name="WeaponController" parent="Pivot/Recoil" unique_id=846615135 instance=ExtResource("6_vn18b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40571344, 0.39144802, 0.028)
+script = ExtResource("7_awh8b")
+
+[node name="WeaponMesh" parent="Pivot/Recoil/WeaponController/Weapon" parent_id_path=PackedInt32Array(846615135, 901502824) index="0" unique_id=1790015398]
+layers = 1
+mesh = SubResource("ArrayMesh_ob733")
+
+[node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("9_kuxtj")]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=2043699850]
+shape = SubResource("CapsuleShape3D_o0klo")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_death"]
+
+[editable path="Pivot/Recoil/WeaponController"]
+[editable path="Pivot/Recoil/WeaponController/Weapon"]

@@ -33,8 +33,10 @@ func is_dead() -> bool:
 @onready var _camera_pivot := $CameraPivot as Node3D
 @onready var _crouch_shapecast := $CrouchShapeCast3D as ShapeCast3D
 
-@onready var death_ui: DeathUI = $UserInterface/DeathUI
-@onready var health_ui: HealthUI = $UserInterface/TopCenterMargin/HealthUI
+@onready var ui: Control = $UserInterface
+@onready var death_ui: DeathUI = $UserInterface.find_child("DeathUI")
+@onready var health_ui: HealthUI = $UserInterface.find_child("HealthUI")
+@onready var ammo_ui: AmmoUI = $UserInterface.find_child("AmmoUI")
 
 @onready var reticle:=  $UserInterface/Reticle
 
@@ -43,7 +45,7 @@ func _ready():
 		var weapon =weapon_controller.get_child(0) as WeaponBase
 		weapon.bullet_spawned.connect(add_collision_exception)
 		weapon.secondary_attacked.connect(toggle_reticle)
-		weapon.ammo_changed.connect($UserInterface/MarginContainer/Ammo._on_ammo_change)
+		weapon.ammo_changed.connect(ammo_ui._on_ammo_change)
 		
 		for child in $PlayerStateMachine.get_children():
 			if child.has_signal("weapon_reloaded"):

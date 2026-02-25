@@ -12,7 +12,7 @@ class_name Sniper extends WeaponBase
 @onready var _bullet_spawn := $BulletSpawn
 @onready var _animation_player := $AnimationPlayer
 
-var _bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
+var _bullet_scene = preload("res://scenes/Weapons/Bullet.tscn")
 
 var _max_ammo : int # max ammo defined by weapon
 var _max_magazine : int # max ammo that fits inside a magazine

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bo15v15cuv6u0" path="res://scripts/arena.gd" id="1_u3rsd"]
 [ext_resource type="PackedScene" uid="uid://b0wswgn5cfctu" path="res://scenes/Player/Player.tscn" id="2_bw14y"]
 [ext_resource type="Material" uid="uid://cn1gsy15bkaff" path="res://Assets/materials/grid.tres" id="2_u3rsd"]
-[ext_resource type="PackedScene" uid="uid://242257bkv414" path="res://scenes/Enemy/enemy.tscn" id="3_ghy8g"]
+[ext_resource type="PackedScene" uid="uid://242257bkv414" path="res://scenes/Enemy/Enemy.tscn" id="3_ghy8g"]
 [ext_resource type="PackedScene" uid="uid://dqei2kjpudsgn" path="res://scenes/WE_test.tscn" id="4_ghy8g"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_rarb2"]

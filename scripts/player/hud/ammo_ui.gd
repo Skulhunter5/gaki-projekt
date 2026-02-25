@@ -1,3 +1,4 @@
+class_name AmmoUI
 extends VBoxContainer
 
 @onready var magazineLabel: Label = $Magazine

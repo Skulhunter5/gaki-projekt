@@ -1,7 +1,7 @@
 class_name Bullet
 extends RigidBody3D
 
-var impact_scene := preload("res://scenes/Weapons/impact_effect.tscn")
+var impact_scene := preload("res://scenes/Weapons/BulletImpact.tscn")
 @onready var ray_cast = $RayCast3D
 @onready var hitbox: HitboxComponent = $HitboxComponent
 

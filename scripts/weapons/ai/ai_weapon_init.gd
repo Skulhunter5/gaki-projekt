@@ -13,7 +13,7 @@ signal ammo_changed(magazine: int, max_magazine: int, total: int, max_total: int
 @onready var weapon := $Weapon
 @onready var bullet_spawn := $BulletSpawn
 
-var bullet_scene = preload("res://scenes/Weapons/bullet.tscn")
+var bullet_scene = preload("res://scenes/Weapons/Bullet.tscn")
 
 var max_ammo : int # max ammo defined by weapon
 var max_magazine : int # max ammo that fits inside a magazine
