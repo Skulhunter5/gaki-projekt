@@ -26,7 +26,12 @@ func update(delta) -> void:
 
 
 func finish():
-	transition.emit("IdlePlayerState")
+	if $"../../CrouchShapeCast3D".is_colliding():
+		$"..".current_state = $"..".states.get("CrouchingPlayerState")
+		$"../..".speed = $"../..".crouching_speed
+	else:
+		player.animationplayer.on_animation_played("crouch", -1.0,-4.0 * 1.5, true)
+		transition.emit("IdlePlayerState")
 
 
 func handle_input(event: InputEvent):
