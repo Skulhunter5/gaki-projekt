@@ -28,13 +28,6 @@ var recoil_speed : float
 
 # reads the weapon resource and instantiates all bullets for object pooling
 func _ready() -> void:
-	
-	#Node based properties
-	weapon_mesh.mesh = weapon_type.mesh
-	weapon.position = weapon_type.position
-	weapon.rotation_degrees = weapon_type.rotation
-	weapon.scale = weapon_type.scale
-	
 	# custom weapon based properties
 	max_ammo = weapon_type.max_ammo
 	max_magazine = weapon_type.magazine_size

@@ -17,10 +17,10 @@
 [ext_resource type="Script" uid="uid://daqrn1qy5wpjj" path="res://scripts/player/statemachine/sprinting_player_state.gd" id="8_puxyr"]
 [ext_resource type="Script" uid="uid://ck5oap5vq3trr" path="res://scripts/player/statemachine/crouching_player_state.gd" id="9_mmokv"]
 [ext_resource type="Script" uid="uid://d00k7lfscofia" path="res://scripts/player/statemachine/falling_player_state.gd" id="10_dqp0f"]
+[ext_resource type="Script" uid="uid://dfygispl8ko7w" path="res://scripts/player/ui/health_ui.gd" id="10_miygw"]
 [ext_resource type="Script" uid="uid://boutcu87ewj6i" path="res://scripts/weapons/rework/weapon_controller.gd" id="11_2aixn"]
 [ext_resource type="Script" uid="uid://tna5nead42oq" path="res://scripts/player/weapon_view.gd" id="11_miygw"]
 [ext_resource type="PackedScene" uid="uid://g73bswhe0q2x" path="res://scenes/Weapons/rework/sniper.tscn" id="12_2aixn"]
-[ext_resource type="Script" uid="uid://dfygispl8ko7w" path="res://scripts/player/ui/health_ui.gd" id="10_miygw"]
 [ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nnsk1"]
@@ -365,6 +365,7 @@ near = 0.001
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CameraPivot/Recoil" unique_id=228397007]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="CameraPivot/Recoil/SubViewportContainer" unique_id=123003434]
 transparent_bg = true

@@ -263,6 +263,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40571344, 0.39144802, 0.028
 script = ExtResource("6_fqcl0")
 
 [node name="WeaponMesh" parent="Pivot/Recoil/WeaponController/Weapon" parent_id_path=PackedInt32Array(846615135, 901502824) index="0" unique_id=1790015398]
+layers = 1
 mesh = SubResource("ArrayMesh_lay3p")
 
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("9_lay3p")]

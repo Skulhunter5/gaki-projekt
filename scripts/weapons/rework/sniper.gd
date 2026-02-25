@@ -122,7 +122,6 @@ func _spawn_bullet() -> void:
 
 
 func _unscope():
-	print_debug("unscoping")
 	_scoped = false
 	_animation_player.play("weapon_scope",-1,-1.0,true)
 	
