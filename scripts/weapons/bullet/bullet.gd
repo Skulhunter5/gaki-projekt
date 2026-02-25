@@ -30,6 +30,7 @@ func _physics_process(_delta: float) -> void:
 	last_position = global_position
 	
 	if ray_cast.is_colliding():
+		
 		var contact_pos = ray_cast.get_collision_point()
 		var contact_normal = ray_cast.get_collision_normal()
 		var collider = ray_cast.get_collider()

@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cwubxh7kluqq8"]
+
+[ext_resource type="Texture2D" uid="uid://dw78usfnae2rv" path="res://Assets/textures/sniper_scope.png" id="1_5oebs"]
+
+[resource]
+resource_name = "Glass"
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.03403328, 0.06741434, 0.12647314, 1)
+albedo_texture = ExtResource("1_5oebs")
+roughness = 0.5
