@@ -155,7 +155,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_5tklm"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2aixn"]
 resource_local_to_scene = true
 resource_name = "Cylinder_034"
 _surfaces = [{
@@ -359,6 +359,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
+collision_layer = 0
 script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
@@ -368,6 +369,8 @@ weapon_controller = NodePath("CameraPivot/Recoil/Camera3D/WeaponController")
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("2_dqefj")]
 
 [node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("3_5gcuk")]
+collision_layer = 256
+collision_mask = 12
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1309827293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -526,7 +529,7 @@ near = 0.001
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028)
 
 [node name="WeaponMesh" parent="CameraPivot/Recoil/Camera3D/WeaponController/Weapon" parent_id_path=PackedInt32Array(470942422, 901502824) index="0" unique_id=1790015398]
-mesh = SubResource("ArrayMesh_5tklm")
+mesh = SubResource("ArrayMesh_2aixn")
 
 [node name="Marker3D" parent="CameraPivot/Recoil/Camera3D/WeaponController/Weapon" parent_id_path=PackedInt32Array(470942422, 901502824) index="5" unique_id=1626747011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051537216, 0)

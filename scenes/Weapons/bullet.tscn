@@ -6,18 +6,21 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4rm7c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4rm7c"]
-radius = 0.01
-height = 0.04
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_flt7j"]
 radius = 0.04
 height = 0.16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_831qe"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_flt7j"]
+material = SubResource("StandardMaterial3D_831qe")
+radius = 0.08
+height = 0.32
 radial_segments = 16
 rings = 4
 
 [node name="Bullet" type="RigidBody3D" unique_id=668250186]
-collision_layer = 8
-collision_mask = 5
+collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_4rm7c")
 continuous_cd = true
 contact_monitor = true
@@ -35,12 +38,16 @@ mesh = SubResource("CapsuleMesh_flt7j")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=266758272]
 transform = Transform3D(1, 0, 0, 0, 5.9604645e-08, -1.0000001, 0, 1.0000001, 5.9604645e-08, 0, 0, 0)
-target_position = Vector3(0, -0.05, 0)
+target_position = Vector3(0, -0.1, 0)
 
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("2_831qe")]
-collision_layer = 8
-collision_mask = 5
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1814109755]
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_4rm7c")
+
+[connection signal="hit" from="HitboxComponent" to="." method="_on_hitbox_hit"]

@@ -10,4 +10,6 @@ func on_hit(hitbox: HitboxComponent):
 	if hitbox == null:
 		return
 	
+	hitbox.hit.emit(self)
+	
 	health_component.damage(hitbox.damage)

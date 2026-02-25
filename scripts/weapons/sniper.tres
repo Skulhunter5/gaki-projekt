@@ -17,7 +17,6 @@ magazine_size = 8
 max_ammo = 100
 reload_time = 1.0
 recoil_amount = Vector3(0.5, 0.1, 0)
-recoil_snap_amount = 10.0
 recoil_speed = 3.0
 spread = Vector3(12.5, 12.5, 0)
 metadata/_custom_type_script = "uid://de7sh1obtmej3"

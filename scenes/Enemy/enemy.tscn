@@ -11,7 +11,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1825778259]
-collision_layer = 4
+collision_layer = 0
 script = ExtResource("1_84vye")
 damage = 5
 
@@ -30,13 +30,15 @@ target_position = Vector3(0, 0, -15)
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_o5uld")]
 
 [node name="HurtboxComponent" parent="." unique_id=1047106024 instance=ExtResource("4_grfqg")]
-collision_layer = 4
+collision_layer = 256
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
 shape = SubResource("CapsuleShape3D_grfqg")
 
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("5_grfqg")]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1078890805]
 shape = SubResource("CapsuleShape3D_grfqg")
