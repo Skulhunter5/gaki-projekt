@@ -95,6 +95,7 @@ func new_wave():
 	if current_enemys == no_enemys:
 		wave_size += 1
 		spawn_enemies()
+		spawn_shooting_enemies()
 
 func _on_enemy_death() -> void:
 	ScoreManager.add_score(10)
