@@ -8,10 +8,15 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o5uld"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ixhtt"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grfqg"]
+radius = 0.6
+height = 2.1
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1825778259]
-collision_layer = 0
+collision_layer = 512
+collision_mask = 513
 script = ExtResource("1_84vye")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1131243133]
@@ -21,10 +26,11 @@ mesh = SubResource("CapsuleMesh_o5uld")
 surface_material_override/0 = ExtResource("2_vamnb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=856910142]
-shape = SubResource("CapsuleShape3D_grfqg")
+shape = SubResource("CapsuleShape3D_ixhtt")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1379128080]
 target_position = Vector3(0, 0, -15)
+collision_mask = 513
 
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("3_o5uld")]
 
@@ -33,7 +39,7 @@ collision_layer = 256
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=817083014]
-shape = SubResource("CapsuleShape3D_grfqg")
+shape = SubResource("CapsuleShape3D_ixhtt")
 
 [node name="HitboxComponent" parent="." unique_id=2018701921 instance=ExtResource("5_grfqg")]
 collision_layer = 4

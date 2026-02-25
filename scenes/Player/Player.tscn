@@ -168,7 +168,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_2aixn"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_miygw"]
 resource_local_to_scene = true
 resource_name = "Cylinder_034"
 _surfaces = [{
@@ -372,7 +372,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1533344777 node_paths=PackedStringArray("animationplayer", "weapon_controller")]
-collision_layer = 0
+collision_layer = 512
+collision_mask = 513
 script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
@@ -570,7 +571,7 @@ near = 0.001
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028)
 
 [node name="WeaponMesh" parent="CameraPivot/Recoil/Camera3D/WeaponController/Weapon" parent_id_path=PackedInt32Array(470942422, 901502824) index="0" unique_id=1790015398]
-mesh = SubResource("ArrayMesh_2aixn")
+mesh = SubResource("ArrayMesh_miygw")
 
 [node name="Marker3D" parent="CameraPivot/Recoil/Camera3D/WeaponController/Weapon" parent_id_path=PackedInt32Array(470942422, 901502824) index="5" unique_id=1626747011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051537216, 0)
