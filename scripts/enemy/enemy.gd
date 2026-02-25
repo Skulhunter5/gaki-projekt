@@ -48,7 +48,7 @@ func _ready() -> void:
 	if !player_path.is_empty():
 		player = get_node(player_path)
 	return_position = global_transform.origin
-	return_position.y = 2
+	return_position.y += 2
 	
 	$HitboxComponent.damage = damage
 

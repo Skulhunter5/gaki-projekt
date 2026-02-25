@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name ShootingEnemy extends CharacterBody3D
 
 signal died()
 
@@ -62,7 +62,7 @@ func _ready() -> void:
 	if !player_path.is_empty():
 		player = get_node(player_path)
 	return_position = global_transform.origin
-	return_position.y = 2
+	return_position.y += 2
 	enter_new_state(States.IDLE if waypoints.is_empty() else States.PATROL)
 
 func _physics_process(delta: float) -> void:
@@ -195,7 +195,7 @@ func follow_state(_delta: float) -> void:
 		enter_new_state(States.SHOOT)
 	elif not player_in_sight():
 		search_position = player.global_transform.origin
-		search_position.y = 2
+		search_position.y += 2
 		enter_new_state(States.SEARCH)
 
 func patrol_state(delta: float) -> void:
@@ -258,7 +258,7 @@ func shoot_state() -> void:
 		enter_new_state(States.FOLLOW)
 	elif not player_in_sight():
 		search_position = player.global_transform.origin
-		search_position.y = 2
+		search_position.y += 2
 		enter_new_state(States.SEARCH)
 
 func _on_death() -> void:

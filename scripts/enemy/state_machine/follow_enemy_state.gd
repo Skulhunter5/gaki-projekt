@@ -19,7 +19,7 @@ func update(_delta : float) -> void:
 		transition.emit("ShootEnemyState")
 	elif not enemy.player_in_sight():
 		enemy.search_position = enemy.player.global_transform.origin
-		enemy.search_position.y = 2
+		enemy.search_position.y += 2
 		transition.emit("SearchEnemyState")
 
 

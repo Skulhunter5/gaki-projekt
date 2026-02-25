@@ -64,7 +64,7 @@ func spawn_shooting_enemies():
 	var spawns = 0
 	for shooting_enemy_spawn in shooting_enemy_spawns:
 		
-		var enemy := shooting_enemy_scene.instantiate() as CharacterBody3D
+		var enemy := shooting_enemy_scene.instantiate() as ShootingEnemy
 		enemy.player = player
 		
 		if(spawns == 0):
