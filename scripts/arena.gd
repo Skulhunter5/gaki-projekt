@@ -4,9 +4,11 @@ extends Node3D
 var player = null
 @export var player_scene: PackedScene
 @export var enemy_scene: PackedScene
+@export var shooting_enemy_scene: PackedScene
 
 @export var player_spawn: Marker3D
 @export var enemy_spawns: Array[Marker3D]
+@export var shooting_enemy_spawns: Array[Marker3D]
 
 var wave_size: int = 1
 
@@ -18,6 +20,7 @@ var current_enemys: int = 0
 func _ready() -> void:
 	spawn_player()
 	spawn_enemies()
+	spawn_shooting_enemies()
 	ScoreManager.start_round()
 
 func spawn_player():
@@ -49,12 +52,45 @@ func spawn_enemies():
 				enemy.waypoints.append($Waypoints/WP4_1)
 				enemy.waypoints.append($Waypoints/WP4_2)
 				
-			offset = Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+			offset = Vector3(randf_range(-2.0, 2.0), 0, randf_range(-2.0, 2.0))
 			add_child(enemy)
 			current_enemys += 1
 			enemy.global_position = enemy_spawn.global_position + offset
 			
 			enemy.died.connect(_on_enemy_death)
+		spawns += 1
+		
+func spawn_shooting_enemies():
+	var offset: Vector3
+	var spawns = 0
+	for shooting_enemy_spawn in shooting_enemy_spawns:
+		
+		var enemy := shooting_enemy_scene.instantiate() as CharacterBody3D
+		enemy.player = player
+		
+		if(spawns == 0):
+			enemy.waypoints.append($SWaypoints/WP1_1)
+			enemy.waypoints.append($SWaypoints/WP1_2)
+			enemy.waypoints.append($SWaypoints/WP1_3)
+		if(spawns == 1):
+			enemy.waypoints.append($SWaypoints/WP2_1)
+			enemy.waypoints.append($SWaypoints/WP2_2)
+		if(spawns == 2):
+			enemy.waypoints.append($SWaypoints/WP3_1)
+			enemy.waypoints.append($SWaypoints/WP3_2)
+		if(spawns == 3):
+			enemy.waypoints.append($SWaypoints/WP4_1)
+			enemy.waypoints.append($SWaypoints/WP4_2)
+			enemy.waypoints.append($SWaypoints/WP4_3)
+			enemy.waypoints.append($SWaypoints/WP4_4)
+			
+		add_child(enemy)
+		current_enemys += 1
+		enemy.global_position = shooting_enemy_spawn.global_position
+		
+		enemy.died.connect(_on_enemy_death)
+		
+		spawns += 1
 
 func new_wave():
 	if current_enemys == no_enemys:
