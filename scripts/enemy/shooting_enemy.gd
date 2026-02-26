@@ -100,7 +100,7 @@ func looking() -> void:
  
 	var to_player = (player.global_transform.origin - global_transform.origin).normalized()
 	var forward = -global_transform.basis.z
-	var angle_deg = rad_to_deg(acos(clamp(forward.dot(to_player), -1.0, 1.0)))
+	var angle_deg = rad_to_deg(forward.angle_to(to_player))
 	if angle_deg > fov * 0.5:
 		return
  
