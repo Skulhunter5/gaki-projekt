@@ -17,6 +17,10 @@ func _ready():
 
 
 func _process(delta):
+	if is_instance_of(owner, Player):
+		var player: Player = owner as Player
+		if player.is_dead():
+			return
 	current_state.update(delta)
 	Global.debug.add_property("Current State",current_state.name,1)
 

@@ -38,23 +38,16 @@ func is_dead() -> bool:
 @onready var health_ui: HealthUI = $UserInterface.find_child("HealthUI")
 @onready var ammo_ui: AmmoUI = $UserInterface.find_child("AmmoUI")
 
-@onready var reticle:=  $UserInterface/Reticle
+@onready var reticle := $UserInterface/Reticle
 
 func _ready():
-	if weapon_controller.get_child_count() > 0:
-		var weapon =weapon_controller.get_child(0) as WeaponBase
-		weapon.bullet_spawned.connect(add_collision_exception)
-		weapon.secondary_attacked.connect(toggle_reticle)
-		weapon.ammo_changed.connect(ammo_ui._on_ammo_change)
-		
-		for child in $PlayerStateMachine.get_children():
-			if child.has_signal("weapon_reloaded"):
-				child.weapon_reloaded.connect(weapon.reload)
-			if child.has_signal("weapon_primary_attacked"):
-				child.weapon_primary_attacked.connect(weapon.attack_primary)
-			if child.has_signal("weapon_secondary_attacked"):
-				child.weapon_secondary_attacked.connect(weapon.attack_secondary)
-				
+	for child in $PlayerStateMachine.get_children():
+		if child.has_signal("weapon_reloaded"):
+			child.weapon_reloaded.connect(weapon_controller.reload)
+		if child.has_signal("weapon_primary_attacked"):
+			child.weapon_primary_attacked.connect(weapon_controller.attack_primary)
+		if child.has_signal("weapon_secondary_attacked"):
+			child.weapon_secondary_attacked.connect(weapon_controller.attack_secondary)
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 

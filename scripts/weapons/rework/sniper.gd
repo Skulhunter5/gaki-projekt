@@ -29,7 +29,6 @@ var _spread : Vector3
 var _scoped : bool = false
 
 func _ready() -> void:
-	
 	_max_ammo = weapon_type.max_ammo
 	_max_magazine = weapon_type.magazine_size
 	_current_magazine = _max_magazine

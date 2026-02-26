@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://dfygispl8ko7w" path="res://scripts/player/hud/health_ui.gd" id="10_miygw"]
 [ext_resource type="Script" uid="uid://boutcu87ewj6i" path="res://scripts/weapons/rework/weapon_controller.gd" id="11_2aixn"]
 [ext_resource type="Script" uid="uid://tna5nead42oq" path="res://scripts/player/weapon_view.gd" id="11_miygw"]
-[ext_resource type="PackedScene" uid="uid://cip5ub7giik1y" path="res://scenes/Weapons/rework/SubmachineGun.tscn" id="15_5tklm"]
 [ext_resource type="Script" uid="uid://bpgqbma8v6hhi" path="res://scripts/player/statemachine/jumping_player_state.gd" id="15_lbts4"]
 [ext_resource type="Script" uid="uid://nnddm1lyf2fn" path="res://scripts/player/statemachine/sliding_player_state.gd" id="23_5tklm"]
 
@@ -275,7 +274,7 @@ script = ExtResource("1_v6fml")
 acceleration = 0.3
 deceleration = 0.5
 animationplayer = NodePath("AnimationPlayer")
-weapon_controller = NodePath("CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController")
+weapon_controller = NodePath("CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/WeaponController")
 
 [node name="HealthComponent" parent="." unique_id=467022257 instance=ExtResource("2_dqefj")]
 MAX_HEALTH = 20
@@ -459,7 +458,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Recoil" type="Node3D" parent="CameraPivot" unique_id=1476874696 node_paths=PackedStringArray("weapon_controller")]
 script = ExtResource("5_cd157")
-weapon_controller = NodePath("SubViewportContainer/SubViewport/Camera3D/NewWeaponController")
+weapon_controller = NodePath("SubViewportContainer/SubViewport/Camera3D/WeaponController")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/Recoil" unique_id=93946294]
 doppler_tracking = 2
@@ -484,11 +483,10 @@ near = 0.001
 script = ExtResource("11_miygw")
 main_camera = NodePath("../../../Camera3D")
 
-[node name="NewWeaponController" type="Node3D" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D" unique_id=1800459479]
+[node name="WeaponController" type="Node3D" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D" unique_id=1800459479 node_paths=PackedStringArray("player")]
 script = ExtResource("11_2aixn")
+player = NodePath("../../../../../..")
 metadata/_custom_type_script = "uid://boutcu87ewj6i"
-
-[node name="SubmachineGun" parent="CameraPivot/Recoil/SubViewportContainer/SubViewport/Camera3D/NewWeaponController" unique_id=1951274095 instance=ExtResource("15_5tklm")]
 
 [node name="CrouchShapeCast3D" type="ShapeCast3D" parent="." unique_id=1131120994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)

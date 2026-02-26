@@ -27,6 +27,11 @@ func spawn_player():
 	player = player_scene.instantiate() as Player
 	add_child(player)
 	player.global_position = player_spawn.global_position
+	
+	if Global.selected_weapon:
+		var weapon_controller: NewWeaponController = player.find_child("WeaponController")
+		var weapon: WeaponBase = Global.selected_weapon.instantiate()
+		weapon_controller.set_weapon(weapon)
 
 	player.died.connect(_on_player_death)
 
